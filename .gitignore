@@ -28,3 +28,18 @@ evidence/error-states/
 capabilities/bench.*
 capabilities/parabank.*
 evidence/sitemaps/http---localhost-809[1-9].json
+
+# One-off scripts from earlier iterations: sweeps, probes, chart generators and
+# the twenty-task harnesses that tools/arms.py replaced. Kept locally; not part
+# of the submission.
+tools/ab_instructions.py
+tools/agent_invokes.py
+tools/chart_orchestrations.py
+tools/check_100.py
+tools/condition_matrix.py
+tools/difficulty_sweep.py
+tools/learn_app.py
+tools/probe_ax.py
+tools/provoke_errors.py
+tools/regrade.py
+tools/run_planned.py
