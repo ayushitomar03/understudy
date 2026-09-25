@@ -1,0 +1,9 @@
+# Replay — the production path — needs only these two.
+playwright==1.62.0
+pydantic==2.13.5
+
+# Discovery and surveying: the only parts that call a model.
+claude-agent-sdk==0.2.152
+
+# Tests
+pytest==9.1.1

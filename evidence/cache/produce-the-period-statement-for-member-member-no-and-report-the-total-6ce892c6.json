@@ -1,0 +1,326 @@
+{
+  "schema_version": "1.0",
+  "id": "ab45",
+  "version": 1,
+  "approval": "draft",
+  "app": {
+    "product": "ParaBank",
+    "product_version": null,
+    "tenant": null,
+    "base_url": "http://localhost:8100"
+  },
+  "goal": "Produce the SEP statement for member 40021 and report the total debits",
+  "description": "Produced the SEP statement for member 40021. The statement shows: Opening Bal. 3,010.55, Total Credits 4,290.55, Total Debits 80.00, Closing Bal. 4,210.55, Items 3.",
+  "planned_from_map": false,
+  "params": [
+    {
+      "name": "member_no",
+      "type": "string",
+      "required": true,
+      "pattern": null,
+      "choices": null,
+      "sensitive": false,
+      "example": "40021",
+      "description": "supplied by the caller per invocation"
+    },
+    {
+      "name": "period",
+      "type": "string",
+      "required": true,
+      "pattern": null,
+      "choices": null,
+      "sensitive": false,
+      "example": "SEP",
+      "description": "supplied by the caller per invocation"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "debits",
+      "type": "string",
+      "locator": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Total Debits",
+          "role": "cell",
+          "index": 1
+        },
+        "why": "Read the Total Debits value from the statement result to return as output",
+        "verified": true
+      },
+      "at_step": 11,
+      "pattern": null,
+      "description": null
+    }
+  ],
+  "steps": [
+    {
+      "index": 1,
+      "intent": "Initial visit to observe the application",
+      "action": "navigate",
+      "target": null,
+      "value": null,
+      "url": "/",
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 2,
+      "intent": "Enter operator id to sign on",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Operator ID",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": null,
+        "from_secret": "uid"
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 3,
+      "intent": "Enter pass code to sign on",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Pass Code",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": null,
+        "from_secret": "pwd"
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 4,
+      "intent": "Submit sign on credentials",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "button",
+          "name": "Sign On",
+          "exact": false,
+          "frame": null
+        },
+        "why": "",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 5,
+      "intent": "Navigate to member lookup to find member 40021",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "link",
+          "name": "Member Inquiry",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Navigate to member lookup to find member 40021",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 6,
+      "intent": "Enter member number to look up",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Member No.",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "Enter member number to look up",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": "member_no",
+        "from_secret": null
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 7,
+      "intent": "Submit member inquiry",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "button",
+          "name": "Inquire",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Submit member inquiry",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 8,
+      "intent": "Go to statement enquiry form",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "link",
+          "name": "Statement Enquiry",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Go to statement enquiry form",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 9,
+      "intent": "Select SEP period for the statement",
+      "action": "select",
+      "target": {
+        "target": {
+          "kind": "css",
+          "selector": "select"
+        },
+        "why": "Select SEP period for the statement",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": "period",
+        "from_secret": null
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 10,
+      "intent": "Produce the statement for member 40021 period SEP",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "button",
+          "name": "Produce Statement",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Produce the statement for member 40021 period SEP",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 11,
+      "intent": "Read the Total Debits value from the statement result to return as output",
+      "action": "read",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Total Debits",
+          "role": "cell",
+          "index": 1
+        },
+        "why": "Read the Total Debits value from the statement result to return as output",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    }
+  ],
+  "success": {
+    "kind": "text_matches",
+    "pattern": "",
+    "present": true
+  },
+  "business_outcomes": [],
+  "recoveries": [
+    {
+      "code": "record_in_use_by_another_terminal",
+      "detect": "RECORD IN USE BY ANOTHER TERMINAL",
+      "action": "wait",
+      "target": null,
+      "retry_from": null,
+      "seconds": 15.0,
+      "why": "The record lock held by terminal 11 is a transient condition with no control to press, so waiting briefly for it to clear and then retrying the inquiry allows the flow to continue to the savings balance screen.",
+      "learned_from": "repair-20260923-144325-c72e"
+    }
+  ],
+  "revisions": [],
+  "success_template": "# frame: navFrame\n- table:\n  - rowgroup:\n    - row \"MERIDIAN\":\n      - cell \"MERIDIAN\"\n    - row \"Main Menu\":\n      - cell \"Main Menu\":\n        - link \"Main Menu\":\n          - /url: /menu\n          - img \"Main Menu\"\n    - row \"Member Inquiry\":\n      - cell \"Member Inquiry\":\n        - link \"Member Inquiry\":\n          - /url: /lookup\n          - img \"Member Inquiry\"\n    - row \"Sign Off\":\n      - cell \"Sign Off\":\n        - link \"Sign Off\":\n          - /url: /content\n          - img \"Sign Off\"\n# frame: workFrame\n- table:\n  - rowgroup:\n    - row \"MERIDIAN CORE 4.2\":\n      - cell \"MERIDIAN CORE 4.2\":\n        - table:\n          - rowgroup:\n            - row \"MERIDIAN CORE 4.2\":\n              - cell \"MERIDIAN CORE 4.2\"\n- table:\n  - rowgroup:\n    - row \"STATEMENT {period} Opening Bal. 3,010.55 Total Credits 4,290.55 Total Debits {out} Closing Bal. 4,210.55 Items 3\":\n      - cell \"STATEMENT {period} Opening Bal. 3,010.55 Total Credits 4,290.55 Total Debits {out} Closing Bal. 4,210.55 Items 3\":\n        - text: STATEMENT {period}\n        - table:\n          - rowgroup:\n            - row \"Opening Bal. 3,010.55 Total Credits 4,290.55 Total Debits {out} Closing Bal. 4,210.55 Items 3\":\n              - cell \"Opening Bal. 3,010.55 Total Credits 4,290.55 Total Debits {out} Closing Bal. 4,210.55 Items 3\":\n                - table:\n                  - rowgroup:\n                    - row \"Opening Bal. 3,010.55 Total Credits 4,290.55 Total Debits {out} Closing Bal. 4,210.55 Items 3\":\n                      - cell \"Opening Bal. 3,010.55 Total Credits 4,290.55 Total Debits {out} Closing Bal. 4,210.55 Items 3\":\n                        - table:\n                          - rowgroup:\n                            - row \"Opening Bal. 3,010.55\":\n                              - cell \"Opening Bal.\"\n                              - cell \"3,010.55\"\n                            - row \"Total Credits 4,290.55\":\n                              - cell \"Total Credits\"\n                              - cell \"4,290.55\"\n                            - row \"Total Debits {out}\":\n                              - cell \"Total Debits\"\n                              - cell \"{out}\"\n                            - row \"Closing Bal. 4,210.55\":\n                              - cell \"Closing Bal.\"\n                              - cell \"4,210.55\"\n                            - row \"Items 3\":\n                              - cell \"Items\"\n                              - cell \"3\"",
+  "provenance": {
+    "discovered_at": "2026-09-24T20:52:23.163592Z",
+    "model": "claude-sonnet-5",
+    "run_id": "discovery-20260924-135132-446b",
+    "evidence_path": "evidence/runs/discovery-20260924-135132-446b",
+    "steps_attempted": 8
+  }
+}

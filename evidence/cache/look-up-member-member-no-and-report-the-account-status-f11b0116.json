@@ -1,0 +1,249 @@
+{
+  "schema_version": "1.0",
+  "id": "ab02",
+  "version": 1,
+  "approval": "draft",
+  "app": {
+    "product": "ParaBank",
+    "product_version": null,
+    "tenant": null,
+    "base_url": "http://localhost:8101"
+  },
+  "goal": "Look up member 40021 and report the account status",
+  "description": "Looked up member 40021 via Member Inquiry and found the MEMBER RECORD page shows Status: ACTIVE (Name R. ACHTERBERG, Branch MAIN).",
+  "planned_from_map": false,
+  "params": [
+    {
+      "name": "member_no",
+      "type": "string",
+      "required": true,
+      "pattern": null,
+      "choices": null,
+      "sensitive": false,
+      "example": "40021",
+      "description": "supplied by the caller per invocation"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "status",
+      "type": "string",
+      "locator": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Status",
+          "role": "cell",
+          "index": 1
+        },
+        "why": "Read the account status for member 40021",
+        "verified": true
+      },
+      "at_step": 8,
+      "pattern": null,
+      "description": null
+    }
+  ],
+  "steps": [
+    {
+      "index": 1,
+      "intent": "Initial visit to observe the application",
+      "action": "navigate",
+      "target": null,
+      "value": null,
+      "url": "/",
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 2,
+      "intent": "Enter operator id to sign on",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Operator ID",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": null,
+        "from_secret": "uid"
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 3,
+      "intent": "Enter pass code to sign on",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Pass Code",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": null,
+        "from_secret": "pwd"
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 4,
+      "intent": "Submit sign on credentials",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "button",
+          "name": "Sign On",
+          "exact": false,
+          "frame": null
+        },
+        "why": "",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 5,
+      "intent": "Navigate to member lookup page",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "link",
+          "name": "Member Inquiry",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Navigate to member lookup page",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 6,
+      "intent": "Enter the member number to look up",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Member No.",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "Enter the member number to look up",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": "member_no",
+        "from_secret": null
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 7,
+      "intent": "Submit member inquiry",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "button",
+          "name": "Inquire",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Submit member inquiry",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 8,
+      "intent": "Read the account status for member 40021",
+      "action": "read",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Status",
+          "role": "cell",
+          "index": 1
+        },
+        "why": "Read the account status for member 40021",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    }
+  ],
+  "success": {
+    "kind": "text_matches",
+    "pattern": "",
+    "present": true
+  },
+  "business_outcomes": [],
+  "recoveries": [
+    {
+      "code": "record_in_use_by_another_terminal",
+      "detect": "RECORD IN USE BY ANOTHER TERMINAL",
+      "action": "wait",
+      "target": null,
+      "retry_from": null,
+      "seconds": 30.0,
+      "why": "The record lock is held by another terminal with no control to press, so waiting longer before the retry sequence resumes gives the lock time to clear instead of repeatedly re-navigating into the same hold screen.",
+      "learned_from": "repair-20260923-150003-bf45"
+    }
+  ],
+  "revisions": [],
+  "success_template": "# frame: navFrame\n- table:\n  - rowgroup:\n    - row \"MERIDIAN\":\n      - cell \"MERIDIAN\"\n    - row \"Main Menu\":\n      - cell \"Main Menu\":\n        - link \"Main Menu\":\n          - /url: /menu\n          - img \"Main Menu\"\n    - row \"Member Inquiry\":\n      - cell \"Member Inquiry\":\n        - link \"Member Inquiry\":\n          - /url: /lookup\n          - img \"Member Inquiry\"\n    - row \"Sign Off\":\n      - cell \"Sign Off\":\n        - link \"Sign Off\":\n          - /url: /content\n          - img \"Sign Off\"\n# frame: workFrame\n- table:\n  - rowgroup:\n    - row \"MERIDIAN CORE 4.2\":\n      - cell \"MERIDIAN CORE 4.2\":\n        - table:\n          - rowgroup:\n            - row \"MERIDIAN CORE 4.2\":\n              - cell \"MERIDIAN CORE 4.2\"\n- table:\n  - rowgroup:\n    - row \"MEMBER RECORD Member No. {member_no} Name R. ACHTERBERG Status {out} Branch MAIN Savings Bal. 4,210.55 Checking Bal. 812.03 Transfer Funds Posted Items Contact Details Standing Orders Statement Enquiry Audit Trail\":\n      - cell \"MEMBER RECORD Member No. {member_no} Name R. ACHTERBERG Status {out} Branch MAIN Savings Bal. 4,210.55 Checking Bal. 812.03 Transfer Funds Posted Items Contact Details Standing Orders Statement Enquiry Audit Trail\":\n        - text: MEMBER RECORD\n        - table:\n          - rowgroup:\n            - row \"Member No. {member_no} Name R. ACHTERBERG Status {out} Branch MAIN Savings Bal. 4,210.55 Checking Bal. 812.03\":\n              - cell \"Member No. {member_no} Name R. ACHTERBERG Status {out} Branch MAIN Savings Bal. 4,210.55 Checking Bal. 812.03\":\n                - table:\n                  - rowgroup:\n                    - row \"Member No. {member_no} Name R. ACHTERBERG Status {out} Branch MAIN Savings Bal. 4,210.55 Checking Bal. 812.03\":\n                      - cell \"Member No. {member_no} Name R. ACHTERBERG Status {out} Branch MAIN Savings Bal. 4,210.55 Checking Bal. 812.03\":\n                        - table:\n                          - rowgroup:\n                            - row \"Member No. {member_no}\":\n                              - cell \"Member No.\"\n                              - cell \"{member_no}\"\n                            - row \"Name R. ACHTERBERG\":\n                              - cell \"Name\"\n                              - cell \"R. ACHTERBERG\"\n                            - row \"Status {out}\":\n                              - cell \"Status\"\n                              - cell \"{out}\"\n                            - row \"Branch MAIN\":\n                              - cell \"Branch\"\n                              - cell \"MAIN\"\n                            - row \"Savings Bal. 4,210.55\":\n                              - cell \"Savings Bal.\"\n                              - cell \"4,210.55\"\n                            - row \"Checking Bal. 812.03\":\n                              - cell \"Checking Bal.\"\n                              - cell \"812.03\"\n        - link \"Transfer Funds\":\n          - /url: /transfer?no={member_no}\n          - img \"Transfer Funds\"\n        - link \"Posted Items\":\n          - /url: /history?no={member_no}\n          - img \"Posted Items\"\n        - link \"Contact Details\":\n          - /url: /contact?no={member_no}\n          - img \"Contact Details\"\n        - link \"Standing Orders\":\n          - /url: /orders?no={member_no}\n          - img \"Standing Orders\"\n        - link \"Statement Enquiry\":\n          - /url: /statement?no={member_no}\n          - img \"Statement Enquiry\"\n        - link \"Audit Trail\":\n          - /url: /audit?no={member_no}\n          - img \"Audit Trail\"",
+  "provenance": {
+    "discovered_at": "2026-09-24T20:38:53.147389Z",
+    "model": "claude-sonnet-5",
+    "run_id": "discovery-20260924-133825-1498",
+    "evidence_path": "evidence/runs/discovery-20260924-133825-1498",
+    "steps_attempted": 4
+  }
+}

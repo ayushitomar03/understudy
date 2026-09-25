@@ -1,0 +1,447 @@
+{
+  "schema_version": "1.0",
+  "id": "ab54",
+  "version": 1,
+  "approval": "draft",
+  "app": {
+    "product": "ParaBank",
+    "product_version": null,
+    "tenant": null,
+    "base_url": "http://localhost:8103"
+  },
+  "goal": "Change the e-mail address for member 40055 to new.member@firstvalley.test and report the address the confirmation screen shows",
+  "description": "Changed the e-mail address for member 40055 to new.member@firstvalley.test via Member Inquiry -> Member Record -> Contact Details -> Save Details. The 'DETAILS AMENDED' confirmation screen after saving only echoes Telephone and Post Code (not E-mail), so I re-opened Contact Details for member 40055 afterward to verify the saved value.",
+  "planned_from_map": false,
+  "params": [
+    {
+      "name": "member_no",
+      "type": "string",
+      "required": true,
+      "pattern": null,
+      "choices": null,
+      "sensitive": false,
+      "example": "40055",
+      "description": "supplied by the caller per invocation"
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "required": true,
+      "pattern": null,
+      "choices": null,
+      "sensitive": false,
+      "example": "new.member@firstvalley.test",
+      "description": "supplied by the caller per invocation"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "saved_email",
+      "type": "string",
+      "locator": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "E-mail",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "Capture the persisted e-mail value for member 40055 as proof of the save, since the DETAILS AMENDED confirmation screen itself did not echo the e-mail field",
+        "verified": true
+      },
+      "at_step": 16,
+      "pattern": null,
+      "description": null
+    }
+  ],
+  "steps": [
+    {
+      "index": 1,
+      "intent": "Initial visit to observe the application",
+      "action": "navigate",
+      "target": null,
+      "value": null,
+      "url": "/",
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 2,
+      "intent": "Enter operator id to sign on",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Operator ID",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": null,
+        "from_secret": "uid"
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 3,
+      "intent": "Enter pass code to sign on",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Pass Code",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": null,
+        "from_secret": "pwd"
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 4,
+      "intent": "Submit sign on credentials",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "button",
+          "name": "Sign On",
+          "exact": false,
+          "frame": null
+        },
+        "why": "",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 5,
+      "intent": "Navigate to member lookup to find member 40055",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "link",
+          "name": "Member Inquiry",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Navigate to member lookup to find member 40055",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 6,
+      "intent": "Enter member number to look up",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Member No.",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "Enter member number to look up",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": "member_no",
+        "from_secret": null
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 7,
+      "intent": "Submit inquiry for member 40055",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "button",
+          "name": "Inquire",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Submit inquiry for member 40055",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 8,
+      "intent": "Go to contact details to change email",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "link",
+          "name": "Contact Details",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Go to contact details to change email",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 9,
+      "intent": "Replace email with the new address for member 40055",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "E-mail",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "Replace email with the new address for member 40055",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": "email",
+        "from_secret": null
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 10,
+      "intent": "Save the updated contact details",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "button",
+          "name": "Save Details",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Save the updated contact details",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "reversible",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 11,
+      "intent": "Attempt to read full confirmation cell text to locate email if embedded within a combined cell",
+      "action": "read",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "cell",
+          "name": "Telephone 0114 496 0055",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Attempt to read full confirmation cell text to locate email if embedded within a combined cell",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 12,
+      "intent": "Return to member inquiry to re-check saved contact details for member 40055",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "link",
+          "name": "Member Inquiry",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Return to member inquiry to re-check saved contact details for member 40055",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 13,
+      "intent": "Re-enter member number to verify saved contact details",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Member No.",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "Re-enter member number to verify saved contact details",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": "member_no",
+        "from_secret": null
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 14,
+      "intent": "Submit inquiry to reach member record for 40055",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "button",
+          "name": "Inquire",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Submit inquiry to reach member record for 40055",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 15,
+      "intent": "Open contact details to verify saved email address",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "link",
+          "name": "Contact Details",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Open contact details to verify saved email address",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 16,
+      "intent": "Capture the persisted e-mail value for member 40055 as proof of the save, since the DETAILS AMENDED confirmation screen itself did not echo the e-mail field",
+      "action": "read",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "E-mail",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "Capture the persisted e-mail value for member 40055 as proof of the save, since the DETAILS AMENDED confirmation screen itself did not echo the e-mail field",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    }
+  ],
+  "success": {
+    "kind": "text_matches",
+    "pattern": "E-mail {email}",
+    "present": true
+  },
+  "business_outcomes": [],
+  "recoveries": [
+    {
+      "code": "scheduled_maintenance",
+      "detect": "Scheduled maintenance",
+      "action": "click",
+      "target": {
+        "kind": "role_name",
+        "role": "link",
+        "name": "Acknowledge",
+        "exact": false,
+        "frame": null
+      },
+      "retry_from": null,
+      "seconds": 2.0,
+      "why": "An interstitial maintenance notice with an Acknowledge link appears after submitting the inquiry, blocking the Member Record page; dismissing it lets the flow proceed to read the Name field.",
+      "learned_from": "repair-20260922-222315-840f"
+    }
+  ],
+  "revisions": [],
+  "success_template": "# frame: navFrame\n- table:\n  - rowgroup:\n    - row \"MERIDIAN\":\n      - cell \"MERIDIAN\"\n    - row \"Main Menu\":\n      - cell \"Main Menu\":\n        - link \"Main Menu\":\n          - /url: /menu\n          - img \"Main Menu\"\n    - row \"Member Inquiry\":\n      - cell \"Member Inquiry\":\n        - link \"Member Inquiry\":\n          - /url: /lookup\n          - img \"Member Inquiry\"\n    - row \"Sign Off\":\n      - cell \"Sign Off\":\n        - link \"Sign Off\":\n          - /url: /content\n          - img \"Sign Off\"\n# frame: workFrame\n- table:\n  - rowgroup:\n    - row \"MERIDIAN CORE 4.2\":\n      - cell \"MERIDIAN CORE 4.2\":\n        - table:\n          - rowgroup:\n            - row \"MERIDIAN CORE 4.2\":\n              - cell \"MERIDIAN CORE 4.2\"\n- table:\n  - rowgroup:\n    - row \"CONTACT DETAILS Member No. {member_no} Telephone 0114 496 0055 E-mail {email} Post Code S1 055 Save Details\":\n      - cell \"CONTACT DETAILS Member No. {member_no} Telephone 0114 496 0055 E-mail {email} Post Code S1 055 Save Details\":\n        - text: CONTACT DETAILS\n        - table:\n          - rowgroup:\n            - row \"Member No. {member_no} Telephone 0114 496 0055 E-mail {email} Post Code S1 055 Save Details\":\n              - cell \"Member No. {member_no} Telephone 0114 496 0055 E-mail {email} Post Code S1 055 Save Details\":\n                - table:\n                  - rowgroup:\n                    - row \"Member No. {member_no} Telephone 0114 496 0055 E-mail {email} Post Code S1 055 Save Details\":\n                      - cell \"Member No. {member_no} Telephone 0114 496 0055 E-mail {email} Post Code S1 055 Save Details\":\n                        - table:\n                          - rowgroup:\n                            - row \"Member No. {member_no}\":\n                              - cell \"Member No.\"\n                              - cell \"{member_no}\"\n                            - row \"Telephone 0114 496 0055\":\n                              - cell \"Telephone\"\n                              - cell \"0114 496 0055\":\n                                - textbox: 0114 496 0055\n                            - row \"E-mail {email}\":\n                              - cell \"E-mail\"\n                              - cell \"{email}\":\n                                - textbox: {email}\n                            - row \"Post Code S1 055\":\n                              - cell \"Post Code\"\n                              - cell \"S1 055\":\n                                - textbox: S1 055\n                            - row \"Save Details\":\n                              - cell\n                              - cell \"Save Details\":\n                                - button \"Save Details\"",
+  "provenance": {
+    "discovered_at": "2026-09-24T21:00:47.579970Z",
+    "model": "claude-sonnet-5",
+    "run_id": "discovery-20260924-135818-7d0c",
+    "evidence_path": "evidence/runs/discovery-20260924-135818-7d0c",
+    "steps_attempted": 16
+  }
+}

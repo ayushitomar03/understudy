@@ -1,0 +1,290 @@
+{
+  "schema_version": "1.0",
+  "id": "ab20",
+  "version": 1,
+  "approval": "draft",
+  "app": {
+    "product": "ParaBank",
+    "product_version": null,
+    "tenant": null,
+    "base_url": "http://localhost:8101"
+  },
+  "goal": "Confirm whether member 40204 has any posted items and report what the screen says",
+  "description": "Looked up member 40204 (K. NAKASHIMA, DORMANT, MAIN branch) and viewed their Posted Items screen. The screen reads 'NO ITEMS POSTED IN PERIOD.' — meaning member 40204 has no posted items in the period.",
+  "planned_from_map": false,
+  "params": [
+    {
+      "name": "member_no",
+      "type": "string",
+      "required": true,
+      "pattern": null,
+      "choices": null,
+      "sensitive": false,
+      "example": "40204",
+      "description": "supplied by the caller per invocation"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "items_message",
+      "type": "string",
+      "locator": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Items",
+          "role": "cell",
+          "index": 1
+        },
+        "why": "",
+        "verified": true
+      },
+      "at_step": 9,
+      "pattern": null,
+      "description": null
+    }
+  ],
+  "steps": [
+    {
+      "index": 1,
+      "intent": "Initial visit to observe the application",
+      "action": "navigate",
+      "target": null,
+      "value": null,
+      "url": "/",
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 2,
+      "intent": "Enter operator id to sign on",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Operator ID",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": null,
+        "from_secret": "uid"
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 3,
+      "intent": "Enter pass code to sign on",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Pass Code",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": null,
+        "from_secret": "pwd"
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 4,
+      "intent": "Submit sign on credentials",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "button",
+          "name": "Sign On",
+          "exact": false,
+          "frame": null
+        },
+        "why": "",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 5,
+      "intent": "Navigate to member lookup page to search for member 40204",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "link",
+          "name": "Member Inquiry",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Navigate to member lookup page to search for member 40204",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 6,
+      "intent": "Enter the member number to search for",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Member No.",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "Enter the member number to search for",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": "member_no",
+        "from_secret": null
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 7,
+      "intent": "Submit inquiry for member 40204",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "button",
+          "name": "Inquire",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Submit inquiry for member 40204",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 8,
+      "intent": "Navigate to posted items for member 40204",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "link",
+          "name": "Posted Items",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Navigate to posted items for member 40204",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 9,
+      "intent": "Capture the posted items message for member 40204",
+      "action": "read",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Items",
+          "role": "cell",
+          "index": 1
+        },
+        "why": "",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    }
+  ],
+  "success": {
+    "kind": "text_matches",
+    "pattern": "POSTED ITEMS Member {member_no} NO ITEMS POSTED IN PERIOD.",
+    "present": true
+  },
+  "business_outcomes": [
+    {
+      "code": "member_no_not_found",
+      "detect": [
+        {
+          "kind": "element_exists",
+          "target": {
+            "kind": "role_name",
+            "role": "cell",
+            "name": "POSTED ITEMS Member {member_no} NO ITEMS POSTED IN PERIOD.",
+            "exact": false,
+            "frame": null
+          },
+          "present": false
+        }
+      ],
+      "meaning": "No record matched the member_no supplied. A result, not an error.",
+      "at_step": 9
+    }
+  ],
+  "recoveries": [
+    {
+      "code": "record_in_use_by_another_terminal",
+      "detect": "RECORD IN USE BY ANOTHER TERMINAL",
+      "action": "wait",
+      "target": null,
+      "retry_from": null,
+      "seconds": 30.0,
+      "why": "The record lock is held by another terminal with no control to press, so waiting longer before the retry sequence resumes gives the lock time to clear instead of repeatedly re-navigating into the same hold screen.",
+      "learned_from": "repair-20260923-150003-bf45"
+    }
+  ],
+  "revisions": [],
+  "success_template": "# frame: navFrame\n- table:\n  - rowgroup:\n    - row \"MERIDIAN\":\n      - cell \"MERIDIAN\"\n    - row \"Main Menu\":\n      - cell \"Main Menu\":\n        - link \"Main Menu\":\n          - /url: /menu\n          - img \"Main Menu\"\n    - row \"Member Inquiry\":\n      - cell \"Member Inquiry\":\n        - link \"Member Inquiry\":\n          - /url: /lookup\n          - img \"Member Inquiry\"\n    - row \"Sign Off\":\n      - cell \"Sign Off\":\n        - link \"Sign Off\":\n          - /url: /content\n          - img \"Sign Off\"\n# frame: workFrame\n- table:\n  - rowgroup:\n    - row \"MERIDIAN CORE 4.2\":\n      - cell \"MERIDIAN CORE 4.2\":\n        - table:\n          - rowgroup:\n            - row \"MERIDIAN CORE 4.2\":\n              - cell \"MERIDIAN CORE 4.2\"\n- table:\n  - rowgroup:\n    - row \"POSTED ITEMS Member {member_no} NO ITEMS POSTED IN PERIOD.\":\n      - cell \"POSTED ITEMS Member {member_no} NO ITEMS POSTED IN PERIOD.\"",
+  "provenance": {
+    "discovered_at": "2026-09-24T20:43:00.578719Z",
+    "model": "claude-sonnet-5",
+    "run_id": "discovery-20260924-134227-b2ca",
+    "evidence_path": "evidence/runs/discovery-20260924-134227-b2ca",
+    "steps_attempted": 7
+  }
+}

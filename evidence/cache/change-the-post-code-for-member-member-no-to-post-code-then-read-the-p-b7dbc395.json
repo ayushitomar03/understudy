@@ -1,0 +1,425 @@
+{
+  "schema_version": "1.0",
+  "id": "ab60",
+  "version": 1,
+  "approval": "draft",
+  "app": {
+    "product": "ParaBank",
+    "product_version": null,
+    "tenant": null,
+    "base_url": "http://localhost:8103"
+  },
+  "goal": "Change the post code for member 40204 to LS28 4HG, then read the post code back off the contact screen",
+  "description": "Updated member 40204's post code to LS28 4HG via the Contact Details screen (Save Details), then reopened the member record and Contact Details screen fresh and read the Post Code field back, confirming it shows LS28 4HG.",
+  "planned_from_map": false,
+  "params": [
+    {
+      "name": "member_no",
+      "type": "string",
+      "required": true,
+      "pattern": null,
+      "choices": null,
+      "sensitive": false,
+      "example": "40204",
+      "description": "supplied by the caller per invocation"
+    },
+    {
+      "name": "post_code",
+      "type": "string",
+      "required": true,
+      "pattern": null,
+      "choices": null,
+      "sensitive": false,
+      "example": "LS28 4HG",
+      "description": "supplied by the caller per invocation"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "post_code_read",
+      "type": "string",
+      "locator": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Post Code",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "Read back the post code value from the contact details screen to confirm the update",
+        "verified": true
+      },
+      "at_step": 15,
+      "pattern": null,
+      "description": null
+    }
+  ],
+  "steps": [
+    {
+      "index": 1,
+      "intent": "Initial visit to observe the application",
+      "action": "navigate",
+      "target": null,
+      "value": null,
+      "url": "/",
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 2,
+      "intent": "Enter operator id to sign on",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Operator ID",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": null,
+        "from_secret": "uid"
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 3,
+      "intent": "Enter pass code to sign on",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Pass Code",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": null,
+        "from_secret": "pwd"
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 4,
+      "intent": "Submit sign on credentials",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "button",
+          "name": "Sign On",
+          "exact": false,
+          "frame": null
+        },
+        "why": "",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 5,
+      "intent": "Navigate to member lookup to find member 40204",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "link",
+          "name": "Member Inquiry",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Navigate to member lookup to find member 40204",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 6,
+      "intent": "Enter member number to look up",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Member No.",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "Enter member number to look up",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": "member_no",
+        "from_secret": null
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 7,
+      "intent": "Submit inquiry for member 40204",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "button",
+          "name": "Inquire",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Submit inquiry for member 40204",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 8,
+      "intent": "Navigate to contact details screen to update post code",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "link",
+          "name": "Contact Details",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Navigate to contact details screen to update post code",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 9,
+      "intent": "Replace post code with new value for member 40204",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Post Code",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "Replace post code with new value for member 40204",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": "post_code",
+        "from_secret": null
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 10,
+      "intent": "Save the updated post code",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "button",
+          "name": "Save Details",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Save the updated post code",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "reversible",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 11,
+      "intent": "Go back to member inquiry to re-open member 40204 and view contact details fresh",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "link",
+          "name": "Member Inquiry",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Go back to member inquiry to re-open member 40204 and view contact details fresh",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 12,
+      "intent": "Re-enter member number to reopen record",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Member No.",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "Re-enter member number to reopen record",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": "member_no",
+        "from_secret": null
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 13,
+      "intent": "Submit inquiry to reopen member 40204 record",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "button",
+          "name": "Inquire",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Submit inquiry to reopen member 40204 record",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 14,
+      "intent": "Open contact details screen fresh to read back the post code",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "link",
+          "name": "Contact Details",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Open contact details screen fresh to read back the post code",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 15,
+      "intent": "Read back the post code value from the contact details screen to confirm the update",
+      "action": "read",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Post Code",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "Read back the post code value from the contact details screen to confirm the update",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    }
+  ],
+  "success": {
+    "kind": "text_matches",
+    "pattern": "Post Code {post_code}",
+    "present": true
+  },
+  "business_outcomes": [],
+  "recoveries": [
+    {
+      "code": "scheduled_maintenance",
+      "detect": "Scheduled maintenance",
+      "action": "click",
+      "target": {
+        "kind": "role_name",
+        "role": "link",
+        "name": "Acknowledge",
+        "exact": false,
+        "frame": null
+      },
+      "retry_from": null,
+      "seconds": 2.0,
+      "why": "An interstitial maintenance notice with an Acknowledge link appears after submitting the inquiry, blocking the Member Record page; dismissing it lets the flow proceed to read the Name field.",
+      "learned_from": "repair-20260922-222315-840f"
+    }
+  ],
+  "revisions": [],
+  "success_template": "# frame: navFrame\n- table:\n  - rowgroup:\n    - row \"MERIDIAN\":\n      - cell \"MERIDIAN\"\n    - row \"Main Menu\":\n      - cell \"Main Menu\":\n        - link \"Main Menu\":\n          - /url: /menu\n          - img \"Main Menu\"\n    - row \"Member Inquiry\":\n      - cell \"Member Inquiry\":\n        - link \"Member Inquiry\":\n          - /url: /lookup\n          - img \"Member Inquiry\"\n    - row \"Sign Off\":\n      - cell \"Sign Off\":\n        - link \"Sign Off\":\n          - /url: /content\n          - img \"Sign Off\"\n# frame: workFrame\n- table:\n  - rowgroup:\n    - row \"MERIDIAN CORE 4.2\":\n      - cell \"MERIDIAN CORE 4.2\":\n        - table:\n          - rowgroup:\n            - row \"MERIDIAN CORE 4.2\":\n              - cell \"MERIDIAN CORE 4.2\"\n- table:\n  - rowgroup:\n    - row \"CONTACT DETAILS Member No. {member_no} Telephone 0114 496 0204 E-mail member{member_no}@firstvalley.test Post Code {post_code} Save Details\":\n      - cell \"CONTACT DETAILS Member No. {member_no} Telephone 0114 496 0204 E-mail member{member_no}@firstvalley.test Post Code {post_code} Save Details\":\n        - text: CONTACT DETAILS\n        - table:\n          - rowgroup:\n            - row \"Member No. {member_no} Telephone 0114 496 0204 E-mail member{member_no}@firstvalley.test Post Code {post_code} Save Details\":\n              - cell \"Member No. {member_no} Telephone 0114 496 0204 E-mail member{member_no}@firstvalley.test Post Code {post_code} Save Details\":\n                - table:\n                  - rowgroup:\n                    - row \"Member No. {member_no} Telephone 0114 496 0204 E-mail member{member_no}@firstvalley.test Post Code {post_code} Save Details\":\n                      - cell \"Member No. {member_no} Telephone 0114 496 0204 E-mail member{member_no}@firstvalley.test Post Code {post_code} Save Details\":\n                        - table:\n                          - rowgroup:\n                            - row \"Member No. {member_no}\":\n                              - cell \"Member No.\"\n                              - cell \"{member_no}\"\n                            - row \"Telephone 0114 496 0204\":\n                              - cell \"Telephone\"\n                              - cell \"0114 496 0204\":\n                                - textbox: 0114 496 0204\n                            - row \"E-mail member{member_no}@firstvalley.test\":\n                              - cell \"E-mail\"\n                              - cell \"member{member_no}@firstvalley.test\":\n                                - textbox: member{member_no}@firstvalley.test\n                            - row \"Post Code {post_code}\":\n                              - cell \"Post Code\"\n                              - cell \"{post_code}\":\n                                - textbox: {post_code}\n                            - row \"Save Details\":\n                              - cell\n                              - cell \"Save Details\":\n                                - button \"Save Details\"",
+  "provenance": {
+    "discovered_at": "2026-09-24T21:05:10.830277Z",
+    "model": "claude-sonnet-5",
+    "run_id": "discovery-20260924-140356-1f76",
+    "evidence_path": "evidence/runs/discovery-20260924-140356-1f76",
+    "steps_attempted": 12
+  }
+}

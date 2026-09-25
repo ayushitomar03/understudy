@@ -1,0 +1,409 @@
+{
+  "schema_version": "1.0",
+  "id": "ab76",
+  "version": 1,
+  "approval": "draft",
+  "app": {
+    "product": "ParaBank",
+    "product_version": null,
+    "tenant": null,
+    "base_url": "http://localhost:8101"
+  },
+  "goal": "Report the telephone number on file for member 40021",
+  "description": "Looked up member 40021 via Member Inquiry, opened Member Record, then Contact Details, and read the Telephone field.",
+  "planned_from_map": false,
+  "params": [
+    {
+      "name": "member_no",
+      "type": "string",
+      "required": true,
+      "pattern": null,
+      "choices": null,
+      "sensitive": false,
+      "example": "40021",
+      "description": "supplied by the caller per invocation"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "phone",
+      "type": "string",
+      "locator": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Telephone",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "Read telephone number textbox value for member 40021",
+        "verified": true
+      },
+      "at_step": 15,
+      "pattern": null,
+      "description": null
+    }
+  ],
+  "steps": [
+    {
+      "index": 1,
+      "intent": "Initial visit to observe the application",
+      "action": "navigate",
+      "target": null,
+      "value": null,
+      "url": "/",
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 2,
+      "intent": "Enter operator id to sign on",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Operator ID",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": null,
+        "from_secret": "uid"
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 3,
+      "intent": "Enter pass code to sign on",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Pass Code",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": null,
+        "from_secret": "pwd"
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 4,
+      "intent": "Submit sign on credentials",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "button",
+          "name": "Sign On",
+          "exact": false,
+          "frame": null
+        },
+        "why": "",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 5,
+      "intent": "Navigate to member lookup to find member 40021",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "link",
+          "name": "Member Inquiry",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Navigate to member lookup to find member 40021",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 6,
+      "intent": "Enter member number to inquire",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Member No.",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "Enter member number to inquire",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": "member_no",
+        "from_secret": null
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 7,
+      "intent": "Submit member inquiry for 40021",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "button",
+          "name": "Inquire",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Submit member inquiry for 40021",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 8,
+      "intent": "Reload member inquiry form since textbox wasn't present",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "link",
+          "name": "Member Inquiry",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Reload member inquiry form since textbox wasn't present",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 9,
+      "intent": "Enter member number to inquire (retry with explicit index after page reload)",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Member No.",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "Enter member number to inquire (retry with explicit index after page reload)",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": "member_no",
+        "from_secret": null
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 10,
+      "intent": "Submit member inquiry for 40021",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "button",
+          "name": "Inquire",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Submit member inquiry for 40021",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 11,
+      "intent": "Reload member inquiry form to retry after record-in-use message",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "link",
+          "name": "Member Inquiry",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Reload member inquiry form to retry after record-in-use message",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 12,
+      "intent": "Enter member number to inquire (index 0)",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Member No.",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "Enter member number to inquire (index 0)",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": "member_no",
+        "from_secret": null
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 13,
+      "intent": "Submit member inquiry for 40021, third attempt",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "button",
+          "name": "Inquire",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Submit member inquiry for 40021, third attempt",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 14,
+      "intent": "Navigate to contact details to find phone number",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "link",
+          "name": "Contact Details",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Navigate to contact details to find phone number",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 15,
+      "intent": "Read telephone number textbox value for member 40021",
+      "action": "read",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Telephone",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "Read telephone number textbox value for member 40021",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    }
+  ],
+  "success": {
+    "kind": "text_matches",
+    "pattern": "",
+    "present": true
+  },
+  "business_outcomes": [],
+  "recoveries": [
+    {
+      "code": "record_in_use_by_another_terminal",
+      "detect": "RECORD IN USE BY ANOTHER TERMINAL",
+      "action": "wait",
+      "target": null,
+      "retry_from": null,
+      "seconds": 30.0,
+      "why": "The record lock is held by another terminal with no control to press, so waiting longer before the retry sequence resumes gives the lock time to clear instead of repeatedly re-navigating into the same hold screen.",
+      "learned_from": "repair-20260923-150003-bf45"
+    }
+  ],
+  "revisions": [],
+  "success_template": "# frame: navFrame\n- table:\n  - rowgroup:\n    - row \"MERIDIAN\":\n      - cell \"MERIDIAN\"\n    - row \"Main Menu\":\n      - cell \"Main Menu\":\n        - link \"Main Menu\":\n          - /url: /menu\n          - img \"Main Menu\"\n    - row \"Member Inquiry\":\n      - cell \"Member Inquiry\":\n        - link \"Member Inquiry\":\n          - /url: /lookup\n          - img \"Member Inquiry\"\n    - row \"Sign Off\":\n      - cell \"Sign Off\":\n        - link \"Sign Off\":\n          - /url: /content\n          - img \"Sign Off\"\n# frame: workFrame\n- table:\n  - rowgroup:\n    - row \"MERIDIAN CORE 4.2\":\n      - cell \"MERIDIAN CORE 4.2\":\n        - table:\n          - rowgroup:\n            - row \"MERIDIAN CORE 4.2\":\n              - cell \"MERIDIAN CORE 4.2\"\n- table:\n  - rowgroup:\n    - row \"CONTACT DETAILS Member No. {member_no} Telephone {out} E-mail member{member_no}@firstvalley.test Post Code S1 021 Save Details\":\n      - cell \"CONTACT DETAILS Member No. {member_no} Telephone {out} E-mail member{member_no}@firstvalley.test Post Code S1 021 Save Details\":\n        - text: CONTACT DETAILS\n        - table:\n          - rowgroup:\n            - row \"Member No. {member_no} Telephone {out} E-mail member{member_no}@firstvalley.test Post Code S1 021 Save Details\":\n              - cell \"Member No. {member_no} Telephone {out} E-mail member{member_no}@firstvalley.test Post Code S1 021 Save Details\":\n                - table:\n                  - rowgroup:\n                    - row \"Member No. {member_no} Telephone {out} E-mail member{member_no}@firstvalley.test Post Code S1 021 Save Details\":\n                      - cell \"Member No. {member_no} Telephone {out} E-mail member{member_no}@firstvalley.test Post Code S1 021 Save Details\":\n                        - table:\n                          - rowgroup:\n                            - row \"Member No. {member_no}\":\n                              - cell \"Member No.\"\n                              - cell \"{member_no}\"\n                            - row \"Telephone {out}\":\n                              - cell \"Telephone\"\n                              - cell \"{out}\":\n                                - textbox: {out}\n                            - row \"E-mail member{member_no}@firstvalley.test\":\n                              - cell \"E-mail\"\n                              - cell \"member{member_no}@firstvalley.test\":\n                                - textbox: member{member_no}@firstvalley.test\n                            - row \"Post Code S1 021\":\n                              - cell \"Post Code\"\n                              - cell \"S1 021\":\n                                - textbox: S1 021\n                            - row \"Save Details\":\n                              - cell\n                              - cell \"Save Details\":\n                                - button \"Save Details\"",
+  "provenance": {
+    "discovered_at": "2026-09-24T20:42:17.600666Z",
+    "model": "claude-sonnet-5",
+    "run_id": "discovery-20260924-134100-115e",
+    "evidence_path": "evidence/runs/discovery-20260924-134100-115e",
+    "steps_attempted": 17
+  }
+}

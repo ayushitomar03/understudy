@@ -1,0 +1,270 @@
+{
+  "schema_version": "1.0",
+  "id": "ab26",
+  "version": 1,
+  "approval": "draft",
+  "app": {
+    "product": "ParaBank",
+    "product_version": null,
+    "tenant": null,
+    "base_url": "http://localhost:8102"
+  },
+  "goal": "Report the reference of the standing order paid on day 08 for member 40055",
+  "description": "Looked up member 40055, opened Standing Orders, found the order with Day 08: Reference SO-5501 (Payee AQUA UTILITIES, Amount 18.00, Day 08). Returned order_ref = SO-5501.",
+  "planned_from_map": false,
+  "params": [
+    {
+      "name": "member_no",
+      "type": "string",
+      "required": true,
+      "pattern": null,
+      "choices": null,
+      "sensitive": false,
+      "example": "40055",
+      "description": "supplied by the caller per invocation"
+    },
+    {
+      "name": "day",
+      "type": "string",
+      "required": true,
+      "pattern": null,
+      "choices": null,
+      "sensitive": false,
+      "example": "08",
+      "description": "supplied by the caller per invocation"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "order_ref",
+      "type": "string",
+      "locator": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Status",
+          "role": "cell",
+          "index": 1
+        },
+        "why": "Read the reference of the standing order row matching day 08",
+        "verified": true
+      },
+      "at_step": 9,
+      "pattern": null,
+      "description": null
+    }
+  ],
+  "steps": [
+    {
+      "index": 1,
+      "intent": "Initial visit to observe the application",
+      "action": "navigate",
+      "target": null,
+      "value": null,
+      "url": "/",
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 2,
+      "intent": "Enter operator id to sign on",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Operator ID",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": null,
+        "from_secret": "uid"
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 3,
+      "intent": "Enter pass code to sign on",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Pass Code",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": null,
+        "from_secret": "pwd"
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 4,
+      "intent": "Submit sign on credentials",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "button",
+          "name": "Sign On",
+          "exact": false,
+          "frame": null
+        },
+        "why": "",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 5,
+      "intent": "Navigate to member lookup to find member 40055",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "link",
+          "name": "Member Inquiry",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Navigate to member lookup to find member 40055",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 6,
+      "intent": "Enter member number to look up",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Member No.",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "Enter member number to look up",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": "member_no",
+        "from_secret": null
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 7,
+      "intent": "Submit member lookup",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "button",
+          "name": "Inquire",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Submit member lookup",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 8,
+      "intent": "Navigate to standing orders to find the order paid on day 08",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "link",
+          "name": "Standing Orders",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Navigate to standing orders to find the order paid on day 08",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 9,
+      "intent": "Read the reference of the standing order row matching day 08",
+      "action": "read",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Status",
+          "role": "cell",
+          "index": 1
+        },
+        "why": "Read the reference of the standing order row matching day 08",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    }
+  ],
+  "success": {
+    "kind": "text_matches",
+    "pattern": "",
+    "present": true
+  },
+  "business_outcomes": [],
+  "recoveries": [],
+  "revisions": [],
+  "success_template": "# frame: navFrame\n- table:\n  - rowgroup:\n    - row \"MERIDIAN\":\n      - cell \"MERIDIAN\"\n    - row \"Main Menu\":\n      - cell \"Main Menu\":\n        - link \"Main Menu\":\n          - /url: /menu\n          - img \"Main Menu\"\n    - row \"Member Inquiry\":\n      - cell \"Member Inquiry\":\n        - link \"Member Inquiry\":\n          - /url: /lookup\n          - img \"Member Inquiry\"\n    - row \"Sign Off\":\n      - cell \"Sign Off\":\n        - link \"Sign Off\":\n          - /url: /content\n          - img \"Sign Off\"\n# frame: workFrame\n- table:\n  - rowgroup:\n    - row \"MERIDIAN CORE 4.2\":\n      - cell \"MERIDIAN CORE 4.2\":\n        - table:\n          - rowgroup:\n            - row \"MERIDIAN CORE 4.2\":\n              - cell \"MERIDIAN CORE 4.2\"\n- table:\n  - rowgroup:\n    - 'row \"STANDING ORDERS Reference Payee Amount Day Status {out} AQUA UTILITIES 18.00 {day} CANCELLED Active orders: 0 New Order Cancel Ref. Cancel Order\"':\n      - 'cell \"STANDING ORDERS Reference Payee Amount Day Status {out} AQUA UTILITIES 18.00 {day} CANCELLED Active orders: 0 New Order Cancel Ref. Cancel Order\"':\n        - text: STANDING ORDERS\n        - table:\n          - rowgroup:\n            - 'row \"Reference Payee Amount Day Status {out} AQUA UTILITIES 18.00 {day} CANCELLED Active orders: 0\"':\n              - 'cell \"Reference Payee Amount Day Status {out} AQUA UTILITIES 18.00 {day} CANCELLED Active orders: 0\"':\n                - table:\n                  - rowgroup:\n                    - 'row \"Reference Payee Amount Day Status {out} AQUA UTILITIES 18.00 {day} CANCELLED Active orders: 0\"':\n                      - 'cell \"Reference Payee Amount Day Status {out} AQUA UTILITIES 18.00 {day} CANCELLED Active orders: 0\"':\n                        - table:\n                          - rowgroup:\n                            - row \"Reference Payee Amount Day Status\":\n                              - cell \"Reference\"\n                              - cell \"Payee\"\n                              - cell \"Amount\"\n                              - cell \"Day\"\n                              - cell \"Status\"\n                            - row \"{out} AQUA UTILITIES 18.00 {day} CANCELLED\":\n                              - cell \"{out}\"\n                              - cell \"AQUA UTILITIES\"\n                              - cell \"18.00\"\n                              - cell \"{day}\"\n                              - cell \"CANCELLED\"\n                        - text: \"Active orders: 0\"\n        - link \"New Order\":\n          - /url: /neworder?no={member_no}\n          - img \"New Order\"\n        - table:\n          - rowgroup:\n            - row \"Cancel Ref.\":\n              - cell \"Cancel Ref.\"\n              - cell:\n                - textbox\n            - row \"Cancel Order\":\n              - cell\n              - cell \"Cancel Order\":\n                - button \"Cancel Order\"",
+  "provenance": {
+    "discovered_at": "2026-09-24T20:46:27.047157Z",
+    "model": "claude-sonnet-5",
+    "run_id": "discovery-20260924-134547-0731",
+    "evidence_path": "evidence/runs/discovery-20260924-134547-0731",
+    "steps_attempted": 5
+  }
+}

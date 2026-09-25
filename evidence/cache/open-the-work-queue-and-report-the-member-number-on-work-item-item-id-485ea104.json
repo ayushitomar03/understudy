@@ -1,0 +1,304 @@
+{
+  "schema_version": "1.0",
+  "id": "ab47",
+  "version": 1,
+  "approval": "draft",
+  "app": {
+    "product": "ParaBank",
+    "product_version": null,
+    "tenant": null,
+    "base_url": "http://localhost:8102"
+  },
+  "goal": "Open the work queue and report the member number on work item W-7702",
+  "description": "Opened the work queue at /worklist, located work item W-7702, and read its member number: 40204.",
+  "planned_from_map": false,
+  "params": [
+    {
+      "name": "item_id",
+      "type": "string",
+      "required": true,
+      "pattern": null,
+      "choices": null,
+      "sensitive": false,
+      "example": "W-7702",
+      "description": "supplied by the caller per invocation"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "item_member",
+      "type": "string",
+      "locator": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Member No.",
+          "role": "cell",
+          "index": 1
+        },
+        "why": "Capture the member number shown on work item W-7702's detail page",
+        "verified": true
+      },
+      "at_step": 13,
+      "pattern": null,
+      "description": null
+    }
+  ],
+  "steps": [
+    {
+      "index": 1,
+      "intent": "Initial visit to observe the application",
+      "action": "navigate",
+      "target": null,
+      "value": null,
+      "url": "/",
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 2,
+      "intent": "Enter operator id to sign on",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Operator ID",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": null,
+        "from_secret": "uid"
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 3,
+      "intent": "Enter pass code to sign on",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Pass Code",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": null,
+        "from_secret": "pwd"
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 4,
+      "intent": "Submit sign on credentials",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "button",
+          "name": "Sign On",
+          "exact": false,
+          "frame": null
+        },
+        "why": "",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 5,
+      "intent": "Click Main Menu link to load main content frame",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "link",
+          "name": "Main Menu",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Click Main Menu link to load main content frame",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 6,
+      "intent": "Try to find a work queue page by guessing a common URL path",
+      "action": "navigate",
+      "target": null,
+      "value": null,
+      "url": "workqueue",
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 7,
+      "intent": "Return to main menu to inspect full navigation frame for a Work Queue link",
+      "action": "navigate",
+      "target": null,
+      "value": null,
+      "url": "menu",
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 8,
+      "intent": "Try another guess URL for a work queue listing",
+      "action": "navigate",
+      "target": null,
+      "value": null,
+      "url": "queue",
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 9,
+      "intent": "Return to main menu before trying more guesses",
+      "action": "navigate",
+      "target": null,
+      "value": null,
+      "url": "menu",
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 10,
+      "intent": "Guess a direct URL for the work item detail page",
+      "action": "navigate",
+      "target": null,
+      "value": null,
+      "url": "work?id={item_id}",
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 11,
+      "intent": "Guess another URL pattern for the work queue",
+      "action": "navigate",
+      "target": null,
+      "value": null,
+      "url": "worklist",
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 12,
+      "intent": "Open work item W-7702 to find its member number",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "link",
+          "name": "{item_id}",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Open work item W-7702 to find its member number",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 13,
+      "intent": "Capture the member number shown on work item W-7702's detail page",
+      "action": "read",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Member No.",
+          "role": "cell",
+          "index": 1
+        },
+        "why": "Capture the member number shown on work item W-7702's detail page",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    }
+  ],
+  "success": {
+    "kind": "text_matches",
+    "pattern": "",
+    "present": true
+  },
+  "business_outcomes": [
+    {
+      "code": "item_id_not_found",
+      "detect": [
+        {
+          "kind": "element_exists",
+          "target": {
+            "kind": "role_name",
+            "role": "link",
+            "name": "{item_id}",
+            "exact": false,
+            "frame": null
+          },
+          "present": false
+        }
+      ],
+      "meaning": "No record matched the item_id supplied. A result, not an error.",
+      "at_step": 12
+    }
+  ],
+  "recoveries": [],
+  "revisions": [],
+  "success_template": "- table:\n  - rowgroup:\n    - row \"MERIDIAN CORE 4.2\":\n      - cell \"MERIDIAN CORE 4.2\":\n        - table:\n          - rowgroup:\n            - row \"MERIDIAN CORE 4.2\":\n              - cell \"MERIDIAN CORE 4.2\"\n- table:\n  - rowgroup:\n    - row \"WORK ITEM Item {item_id} Type DORMANCY REVIEW Member No. {out} State OPEN Held By - Claim Item\":\n      - cell \"WORK ITEM Item {item_id} Type DORMANCY REVIEW Member No. {out} State OPEN Held By - Claim Item\":\n        - text: WORK ITEM\n        - table:\n          - rowgroup:\n            - row \"Item {item_id} Type DORMANCY REVIEW Member No. {out} State OPEN Held By -\":\n              - cell \"Item {item_id} Type DORMANCY REVIEW Member No. {out} State OPEN Held By -\":\n                - table:\n                  - rowgroup:\n                    - row \"Item {item_id} Type DORMANCY REVIEW Member No. {out} State OPEN Held By -\":\n                      - cell \"Item {item_id} Type DORMANCY REVIEW Member No. {out} State OPEN Held By -\":\n                        - table:\n                          - rowgroup:\n                            - row \"Item {item_id}\":\n                              - cell \"Item\"\n                              - cell \"{item_id}\"\n                            - row \"Type DORMANCY REVIEW\":\n                              - cell \"Type\"\n                              - cell \"DORMANCY REVIEW\"\n                            - row \"Member No. {out}\":\n                              - cell \"Member No.\"\n                              - cell \"{out}\"\n                            - row \"State OPEN\":\n                              - cell \"State\"\n                              - cell \"OPEN\"\n                            - row \"Held By -\":\n                              - cell \"Held By\"\n                              - cell \"-\"\n        - button \"Claim Item\"",
+  "provenance": {
+    "discovered_at": "2026-09-24T20:54:27.185641Z",
+    "model": "claude-sonnet-5",
+    "run_id": "discovery-20260924-135201-67b9",
+    "evidence_path": "evidence/runs/discovery-20260924-135201-67b9",
+    "steps_attempted": 11
+  }
+}

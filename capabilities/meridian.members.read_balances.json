@@ -1,0 +1,308 @@
+{
+  "schema_version": "1.0",
+  "id": "meridian.members.read_balances",
+  "version": 1,
+  "approval": "approved",
+  "app": {
+    "product": "ParaBank",
+    "product_version": null,
+    "tenant": null,
+    "base_url": "http://localhost:8090"
+  },
+  "goal": "Sign on, then look up the given member and read their name, savings balance and checking balance",
+  "description": "Signed on as <redacted>, navigated to Member Inquiry, looked up member 40021, and read their name (R. ACHTERBERG), savings balance (4,210.55), and checking balance (812.03).",
+  "params": [
+    {
+      "name": "member_no",
+      "type": "string",
+      "required": true,
+      "pattern": null,
+      "choices": null,
+      "sensitive": false,
+      "example": "40021",
+      "description": "supplied by the caller per invocation"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "member_name",
+      "type": "string",
+      "locator": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Name",
+          "role": "cell",
+          "index": 1
+        },
+        "why": "Read member name from record",
+        "verified": true
+      },
+      "at_step": 8,
+      "description": null
+    },
+    {
+      "name": "savings_balance",
+      "type": "string",
+      "locator": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Savings Bal.",
+          "role": "cell",
+          "index": 1
+        },
+        "why": "Read savings balance from record",
+        "verified": true
+      },
+      "at_step": 9,
+      "description": null
+    },
+    {
+      "name": "checking_balance",
+      "type": "string",
+      "locator": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Checking Bal.",
+          "role": "cell",
+          "index": 1
+        },
+        "why": "Read checking balance from record",
+        "verified": true
+      },
+      "at_step": 10,
+      "description": null
+    }
+  ],
+  "steps": [
+    {
+      "index": 1,
+      "intent": "Start the task by loading the application",
+      "action": "navigate",
+      "target": null,
+      "value": null,
+      "url": "/",
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 2,
+      "intent": "Enter operator/username credential",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Operator ID",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "Enter operator/username credential",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": null,
+        "from_secret": "uid"
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 3,
+      "intent": "Enter password credential",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Pass Code",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "Enter password credential",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": null,
+        "from_secret": "pwd"
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 4,
+      "intent": "Submit login credentials",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "button",
+          "name": "Sign On",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Submit login credentials",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 5,
+      "intent": "Navigate to member lookup screen",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "link",
+          "name": "Member Inquiry",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Navigate to member lookup screen",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 6,
+      "intent": "Enter the member number to look up",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Member No.",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "Enter the member number to look up",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": "member_no",
+        "from_secret": null
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 7,
+      "intent": "Submit member number lookup",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "button",
+          "name": "Inquire",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Submit member number lookup",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 8,
+      "intent": "Read member name from record",
+      "action": "read",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Name",
+          "role": "cell",
+          "index": 1
+        },
+        "why": "Read member name from record",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 9,
+      "intent": "Read savings balance from record",
+      "action": "read",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Savings Bal.",
+          "role": "cell",
+          "index": 1
+        },
+        "why": "Read savings balance from record",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 10,
+      "intent": "Read checking balance from record",
+      "action": "read",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Checking Bal.",
+          "role": "cell",
+          "index": 1
+        },
+        "why": "Read checking balance from record",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    }
+  ],
+  "success": {
+    "kind": "text_matches",
+    "pattern": "",
+    "present": true
+  },
+  "business_outcomes": [],
+  "success_template": "# frame: navFrame\n- table:\n  - rowgroup:\n    - row \"MERIDIAN\":\n      - cell \"MERIDIAN\"\n    - row \"Main Menu\":\n      - cell \"Main Menu\":\n        - link \"Main Menu\":\n          - /url: /menu\n          - img \"Main Menu\"\n    - row \"Member Inquiry\":\n      - cell \"Member Inquiry\":\n        - link \"Member Inquiry\":\n          - /url: /lookup\n          - img \"Member Inquiry\"\n    - row \"Sign Off\":\n      - cell \"Sign Off\":\n        - link \"Sign Off\":\n          - /url: /content\n          - img \"Sign Off\"\n# frame: workFrame\n- table:\n  - rowgroup:\n    - row \"MERIDIAN CORE 4.2\":\n      - cell \"MERIDIAN CORE 4.2\":\n        - table:\n          - rowgroup:\n            - row \"MERIDIAN CORE 4.2\":\n              - cell \"MERIDIAN CORE 4.2\"\n- table:\n  - rowgroup:\n    - row \"MEMBER RECORD Member No. {member_no} Name {out} Status ACTIVE Branch MAIN Savings Bal. {out} Checking Bal. {out} Transfer Funds\":\n      - cell \"MEMBER RECORD Member No. {member_no} Name {out} Status ACTIVE Branch MAIN Savings Bal. {out} Checking Bal. {out} Transfer Funds\":\n        - text: MEMBER RECORD\n        - table:\n          - rowgroup:\n            - row \"Member No. {member_no} Name {out} Status ACTIVE Branch MAIN Savings Bal. {out} Checking Bal. {out}\":\n              - cell \"Member No. {member_no} Name {out} Status ACTIVE Branch MAIN Savings Bal. {out} Checking Bal. {out}\":\n                - table:\n                  - rowgroup:\n                    - row \"Member No. {member_no} Name {out} Status ACTIVE Branch MAIN Savings Bal. {out} Checking Bal. {out}\":\n                      - cell \"Member No. {member_no} Name {out} Status ACTIVE Branch MAIN Savings Bal. {out} Checking Bal. {out}\":\n                        - table:\n                          - rowgroup:\n                            - row \"Member No. {member_no}\":\n                              - cell \"Member No.\"\n                              - cell \"{member_no}\"\n                            - row \"Name {out}\":\n                              - cell \"Name\"\n                              - cell \"{out}\"\n                            - row \"Status ACTIVE\":\n                              - cell \"Status\"\n                              - cell \"ACTIVE\"\n                            - row \"Branch MAIN\":\n                              - cell \"Branch\"\n                              - cell \"MAIN\"\n                            - row \"Savings Bal. {out}\":\n                              - cell \"Savings Bal.\"\n                              - cell \"{out}\"\n                            - row \"Checking Bal. {out}\":\n                              - cell \"Checking Bal.\"\n                              - cell \"{out}\"\n        - link \"Transfer Funds\":\n          - /url: /transfer?no={member_no}\n          - img \"Transfer Funds\"",
+  "provenance": {
+    "discovered_at": "2026-09-21T18:26:02.787121Z",
+    "model": "claude-sonnet-5",
+    "run_id": "discovery-20260921-112452-eac4",
+    "evidence_path": "evidence/runs/discovery-20260921-112452-eac4",
+    "steps_attempted": 10
+  }
+}

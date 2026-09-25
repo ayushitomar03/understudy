@@ -1,0 +1,260 @@
+{
+  "schema_version": "1.0",
+  "id": "ab07",
+  "version": 1,
+  "approval": "draft",
+  "app": {
+    "product": "ParaBank",
+    "product_version": null,
+    "tenant": null,
+    "base_url": "http://localhost:8102"
+  },
+  "goal": "Report the e-mail address on file for member 40021",
+  "description": "Looked up member 40021 via Member Inquiry, opened their Member Record (R. ACHTERBERG), then Contact Details. The E-mail field on file is member40021@firstvalley.test.",
+  "planned_from_map": false,
+  "params": [
+    {
+      "name": "member_no",
+      "type": "string",
+      "required": true,
+      "pattern": null,
+      "choices": null,
+      "sensitive": false,
+      "example": "40021",
+      "description": "supplied by the caller per invocation"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "email",
+      "type": "string",
+      "locator": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "E-mail",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "Read the email on file for member 40021",
+        "verified": true
+      },
+      "at_step": 9,
+      "pattern": null,
+      "description": null
+    }
+  ],
+  "steps": [
+    {
+      "index": 1,
+      "intent": "Initial visit to observe the application",
+      "action": "navigate",
+      "target": null,
+      "value": null,
+      "url": "/",
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 2,
+      "intent": "Enter operator id to sign on",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Operator ID",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": null,
+        "from_secret": "uid"
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 3,
+      "intent": "Enter pass code to sign on",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Pass Code",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": null,
+        "from_secret": "pwd"
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 4,
+      "intent": "Submit sign on credentials",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "button",
+          "name": "Sign On",
+          "exact": false,
+          "frame": null
+        },
+        "why": "",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 5,
+      "intent": "Navigate to member lookup to search for member 40021",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "link",
+          "name": "Member Inquiry",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Navigate to member lookup to search for member 40021",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 6,
+      "intent": "Enter member number to look up",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Member No.",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "Enter member number to look up",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": "member_no",
+        "from_secret": null
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 7,
+      "intent": "Submit member number lookup for 40021",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "button",
+          "name": "Inquire",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Submit member number lookup for 40021",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 8,
+      "intent": "Open contact details to find the email on file",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "link",
+          "name": "Contact Details",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Open contact details to find the email on file",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 9,
+      "intent": "Read the email on file for member 40021",
+      "action": "read",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "E-mail",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "Read the email on file for member 40021",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    }
+  ],
+  "success": {
+    "kind": "text_matches",
+    "pattern": "E-mail member{member_no}@firstvalley.test",
+    "present": true
+  },
+  "business_outcomes": [],
+  "recoveries": [],
+  "revisions": [],
+  "success_template": "# frame: navFrame\n- table:\n  - rowgroup:\n    - row \"MERIDIAN\":\n      - cell \"MERIDIAN\"\n    - row \"Main Menu\":\n      - cell \"Main Menu\":\n        - link \"Main Menu\":\n          - /url: /menu\n          - img \"Main Menu\"\n    - row \"Member Inquiry\":\n      - cell \"Member Inquiry\":\n        - link \"Member Inquiry\":\n          - /url: /lookup\n          - img \"Member Inquiry\"\n    - row \"Sign Off\":\n      - cell \"Sign Off\":\n        - link \"Sign Off\":\n          - /url: /content\n          - img \"Sign Off\"\n# frame: workFrame\n- table:\n  - rowgroup:\n    - row \"MERIDIAN CORE 4.2\":\n      - cell \"MERIDIAN CORE 4.2\":\n        - table:\n          - rowgroup:\n            - row \"MERIDIAN CORE 4.2\":\n              - cell \"MERIDIAN CORE 4.2\"\n- table:\n  - rowgroup:\n    - row \"CONTACT DETAILS Member No. {member_no} Telephone 0114 496 0021 E-mail member{member_no}@firstvalley.test Post Code S1 021 Save Details\":\n      - cell \"CONTACT DETAILS Member No. {member_no} Telephone 0114 496 0021 E-mail member{member_no}@firstvalley.test Post Code S1 021 Save Details\":\n        - text: CONTACT DETAILS\n        - table:\n          - rowgroup:\n            - row \"Member No. {member_no} Telephone 0114 496 0021 E-mail member{member_no}@firstvalley.test Post Code S1 021 Save Details\":\n              - cell \"Member No. {member_no} Telephone 0114 496 0021 E-mail member{member_no}@firstvalley.test Post Code S1 021 Save Details\":\n                - table:\n                  - rowgroup:\n                    - row \"Member No. {member_no} Telephone 0114 496 0021 E-mail member{member_no}@firstvalley.test Post Code S1 021 Save Details\":\n                      - cell \"Member No. {member_no} Telephone 0114 496 0021 E-mail member{member_no}@firstvalley.test Post Code S1 021 Save Details\":\n                        - table:\n                          - rowgroup:\n                            - row \"Member No. {member_no}\":\n                              - cell \"Member No.\"\n                              - cell \"{member_no}\"\n                            - row \"Telephone 0114 496 0021\":\n                              - cell \"Telephone\"\n                              - cell \"0114 496 0021\":\n                                - textbox: 0114 496 0021\n                            - row \"E-mail member{member_no}@firstvalley.test\":\n                              - cell \"E-mail\"\n                              - cell \"member{member_no}@firstvalley.test\":\n                                - textbox: member{member_no}@firstvalley.test\n                            - row \"Post Code S1 021\":\n                              - cell \"Post Code\"\n                              - cell \"S1 021\":\n                                - textbox: S1 021\n                            - row \"Save Details\":\n                              - cell\n                              - cell \"Save Details\":\n                                - button \"Save Details\"",
+  "provenance": {
+    "discovered_at": "2026-09-24T20:39:48.033086Z",
+    "model": "claude-sonnet-5",
+    "run_id": "discovery-20260924-133901-0fcb",
+    "evidence_path": "evidence/runs/discovery-20260924-133901-0fcb",
+    "steps_attempted": 5
+  }
+}

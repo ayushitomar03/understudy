@@ -1,0 +1,1429 @@
+{
+  "app": "http://localhost:8090",
+  "product": "MERIDIAN CORE 4.2",
+  "built_at": "2026-09-24T02:48:20.680184+00:00",
+  "built_by": "sitemap-20260923-194819-1629",
+  "screens": [
+    {
+      "id": "main_menu",
+      "title": "Main Menu",
+      "identifies_by": "MAIN MENU Select a function from the panel at left.",
+      "url": "/",
+      "controls": [
+        {
+          "name": "Main Menu",
+          "role": "link",
+          "locator": {
+            "target": {
+              "kind": "role_name",
+              "role": "link",
+              "name": "Main Menu",
+              "exact": false,
+              "frame": null
+            },
+            "why": "Nav link to Main Menu, present in nav chrome",
+            "verified": true
+          },
+          "leads_to": "main_menu",
+          "note": "Nav link to Main Menu, present in nav chrome"
+        },
+        {
+          "name": "Member Inquiry",
+          "role": "link",
+          "locator": {
+            "target": {
+              "kind": "role_name",
+              "role": "link",
+              "name": "Member Inquiry",
+              "exact": false,
+              "frame": null
+            },
+            "why": "Nav link to member lookup screen",
+            "verified": true
+          },
+          "leads_to": "member_lookup",
+          "note": "Nav link to member lookup screen"
+        },
+        {
+          "name": "Sign Off",
+          "role": "link",
+          "locator": {
+            "target": {
+              "kind": "role_name",
+              "role": "link",
+              "name": "Sign Off",
+              "exact": false,
+              "frame": null
+            },
+            "why": "Nav link to sign off; returns to the teller sign on screen",
+            "verified": true
+          },
+          "leads_to": "teller_sign_on",
+          "note": "Nav link to sign off; returns to the teller sign on screen"
+        }
+      ],
+      "values": [],
+      "tables": [],
+      "messages": [],
+      "needs_signin": true,
+      "note": "Landing screen after teller sign on. Shows operator signed on status, branch and terminal."
+    },
+    {
+      "id": "teller_sign_on",
+      "title": "Teller Sign On",
+      "identifies_by": "TELLER SIGN ON",
+      "url": "/",
+      "controls": [
+        {
+          "name": "Operator ID",
+          "role": "textbox",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Operator ID",
+              "role": "textbox",
+              "index": 1
+            },
+            "why": "Operator ID input field",
+            "verified": true
+          },
+          "leads_to": null,
+          "note": "Operator ID input field"
+        },
+        {
+          "name": "Pass Code",
+          "role": "textbox",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Pass Code",
+              "role": "textbox",
+              "index": 1
+            },
+            "why": "Pass Code input field",
+            "verified": true
+          },
+          "leads_to": null,
+          "note": "Pass Code input field"
+        },
+        {
+          "name": "Sign On",
+          "role": "button",
+          "locator": {
+            "target": {
+              "kind": "role_name",
+              "role": "button",
+              "name": "Sign On",
+              "exact": false,
+              "frame": null
+            },
+            "why": "Submits credentials, takes user to Main Menu",
+            "verified": true
+          },
+          "leads_to": "main_menu",
+          "note": "Submits credentials, takes user to Main Menu"
+        }
+      ],
+      "values": [
+        {
+          "label": "Operator ID",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Operator ID",
+              "role": "textbox",
+              "index": 1
+            },
+            "why": "",
+            "verified": true
+          },
+          "example": ""
+        },
+        {
+          "label": "Pass Code",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Pass Code",
+              "role": "textbox",
+              "index": 1
+            },
+            "why": "",
+            "verified": true
+          },
+          "example": ""
+        }
+      ],
+      "tables": [],
+      "messages": [],
+      "needs_signin": true,
+      "note": "Sign on screen for teller. Also shown after session expiry with a SESSION EXPIRED message."
+    },
+    {
+      "id": "member_lookup",
+      "title": "Member Inquiry",
+      "identifies_by": "MEMBER INQUIRY",
+      "url": "/",
+      "controls": [
+        {
+          "name": "Member No.",
+          "role": "textbox",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Member No.",
+              "role": "textbox",
+              "index": 1
+            },
+            "why": "Member number input; combined with Inquire, a valid unrestricted member number leads to member_detail.",
+            "verified": true
+          },
+          "leads_to": "member_detail",
+          "note": "Member number input; combined with Inquire, a valid unrestricted member number leads to member_detail."
+        },
+        {
+          "name": "Inquire",
+          "role": "button",
+          "locator": {
+            "target": {
+              "kind": "role_name",
+              "role": "button",
+              "name": "Inquire",
+              "exact": false,
+              "frame": null
+            },
+            "why": "Submits the member number entered above. Leads to not_authorised when the number belongs to a restricted record (e.g. 40113); combined with a valid unrestricted number (see the Member No. field) it le",
+            "verified": true
+          },
+          "leads_to": "not_authorised",
+          "note": "Submits the member number entered above. Leads to not_authorised when the number belongs to a restricted record (e.g. 40113); combined with a valid unrestricted number (see the Member No. field) it leads to member_detail instead; a nonexistent or non-numeric number redisplays this form with a message."
+        }
+      ],
+      "values": [
+        {
+          "label": "Member No.",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Member No.",
+              "role": "textbox",
+              "index": 1
+            },
+            "why": "",
+            "verified": true
+          },
+          "example": ""
+        }
+      ],
+      "tables": [],
+      "messages": [],
+      "needs_signin": true,
+      "note": "Form to look up a member by member number."
+    },
+    {
+      "id": "transfer_form",
+      "title": "Funds Transfer",
+      "identifies_by": "FUNDS TRANSFER",
+      "url": "/",
+      "controls": [
+        {
+          "name": "Amount",
+          "role": "textbox",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Amount",
+              "role": "textbox",
+              "index": 1
+            },
+            "why": "Transfer amount input field",
+            "verified": true
+          },
+          "leads_to": null,
+          "note": "Transfer amount input field"
+        },
+        {
+          "name": "Direction",
+          "role": "combobox",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Direction",
+              "role": "combobox",
+              "index": 1
+            },
+            "why": "Direction select: Savings to Checking or Checking to Savings",
+            "verified": true
+          },
+          "leads_to": null,
+          "note": "Direction select: Savings to Checking or Checking to Savings"
+        },
+        {
+          "name": "Post Transfer",
+          "role": "button",
+          "locator": {
+            "target": {
+              "kind": "role_name",
+              "role": "button",
+              "name": "Post Transfer",
+              "exact": false,
+              "frame": null
+            },
+            "why": "Submits the transfer and moves money; an irreversible commit, refused by this tool so its result screen was not visited",
+            "verified": true
+          },
+          "leads_to": null,
+          "note": "Submits the transfer and moves money; an irreversible commit, refused by this tool so its result screen was not visited"
+        }
+      ],
+      "values": [
+        {
+          "label": "Member No.",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Member No.",
+              "role": "cell",
+              "index": 1
+            },
+            "why": "",
+            "verified": true
+          },
+          "example": "40021"
+        },
+        {
+          "label": "Amount",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Amount",
+              "role": "textbox",
+              "index": 1
+            },
+            "why": "",
+            "verified": true
+          },
+          "example": ""
+        },
+        {
+          "label": "Direction",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Direction",
+              "role": "combobox",
+              "index": 1
+            },
+            "why": "",
+            "verified": true
+          },
+          "example": "S2C"
+        }
+      ],
+      "tables": [],
+      "messages": [],
+      "needs_signin": true,
+      "note": "Form to transfer funds between a member's savings and checking accounts."
+    },
+    {
+      "id": "posted_items",
+      "title": "Posted Items",
+      "identifies_by": "POSTED ITEMS",
+      "url": "/history?no=40021",
+      "controls": [
+        {
+          "name": "Main Menu",
+          "role": "link",
+          "locator": {
+            "target": {
+              "kind": "role_name",
+              "role": "link",
+              "name": "Main Menu",
+              "exact": false,
+              "frame": null
+            },
+            "why": "Nav chrome link back to Main Menu",
+            "verified": true
+          },
+          "leads_to": "main_menu",
+          "note": "Nav chrome link back to Main Menu"
+        },
+        {
+          "name": "Member Inquiry",
+          "role": "link",
+          "locator": {
+            "target": {
+              "kind": "role_name",
+              "role": "link",
+              "name": "Member Inquiry",
+              "exact": false,
+              "frame": null
+            },
+            "why": "Nav chrome link to Member Inquiry",
+            "verified": true
+          },
+          "leads_to": "member_lookup",
+          "note": "Nav chrome link to Member Inquiry"
+        }
+      ],
+      "values": [],
+      "tables": [
+        {
+          "columns": [
+            "Date",
+            "Type",
+            "Amount"
+          ],
+          "rows_when_mapped": 3,
+          "summary": "Items shown"
+        }
+      ],
+      "messages": [],
+      "needs_signin": true,
+      "note": "Read-only list of transactions posted to a member's account. No controls other than nav chrome; the table is a repeating list of rows, not a single labelled value."
+    },
+    {
+      "id": "contact_details",
+      "title": "Contact Details",
+      "identifies_by": "CONTACT DETAILS",
+      "url": "/",
+      "controls": [
+        {
+          "name": "Telephone",
+          "role": "textbox",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Telephone",
+              "role": "textbox",
+              "index": 1
+            },
+            "why": "Telephone input field, holds current phone number",
+            "verified": true
+          },
+          "leads_to": null,
+          "note": "Telephone input field, holds current phone number"
+        },
+        {
+          "name": "E-mail",
+          "role": "textbox",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "E-mail",
+              "role": "textbox",
+              "index": 1
+            },
+            "why": "E-mail input field, holds current e-mail address",
+            "verified": true
+          },
+          "leads_to": null,
+          "note": "E-mail input field, holds current e-mail address"
+        },
+        {
+          "name": "Post Code",
+          "role": "textbox",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Post Code",
+              "role": "textbox",
+              "index": 1
+            },
+            "why": "Post Code input field, holds current post code",
+            "verified": true
+          },
+          "leads_to": null,
+          "note": "Post Code input field, holds current post code"
+        },
+        {
+          "name": "Save Details",
+          "role": "button",
+          "locator": {
+            "target": {
+              "kind": "role_name",
+              "role": "button",
+              "name": "Save Details",
+              "exact": false,
+              "frame": null
+            },
+            "why": "Saves contact detail changes; an irreversible commit, likely refused by this tool",
+            "verified": true
+          },
+          "leads_to": null,
+          "note": "Saves contact detail changes; an irreversible commit, likely refused by this tool"
+        }
+      ],
+      "values": [
+        {
+          "label": "Member No.",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Member No.",
+              "role": "cell",
+              "index": 1
+            },
+            "why": "",
+            "verified": true
+          },
+          "example": "40021"
+        },
+        {
+          "label": "Telephone",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Telephone",
+              "role": "textbox",
+              "index": 1
+            },
+            "why": "",
+            "verified": true
+          },
+          "example": "0114 496 0021"
+        },
+        {
+          "label": "E-mail",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "E-mail",
+              "role": "textbox",
+              "index": 1
+            },
+            "why": "",
+            "verified": true
+          },
+          "example": "member40021@firstvalley.test"
+        },
+        {
+          "label": "Post Code",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Post Code",
+              "role": "textbox",
+              "index": 1
+            },
+            "why": "",
+            "verified": true
+          },
+          "example": "S1 021"
+        }
+      ],
+      "tables": [],
+      "messages": [],
+      "needs_signin": true,
+      "note": "Editable form for a member's telephone, e-mail and post code."
+    },
+    {
+      "id": "standing_orders",
+      "title": "Standing Orders",
+      "identifies_by": "STANDING ORDERS",
+      "url": "/",
+      "controls": [
+        {
+          "name": "New Order",
+          "role": "link",
+          "locator": {
+            "target": {
+              "kind": "role_name",
+              "role": "link",
+              "name": "New Order",
+              "exact": false,
+              "frame": null
+            },
+            "why": "Opens new standing order form for this member",
+            "verified": true
+          },
+          "leads_to": "new_order",
+          "note": "Opens new standing order form for this member"
+        },
+        {
+          "name": "Cancel Ref.",
+          "role": "textbox",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Cancel Ref.",
+              "role": "textbox",
+              "index": 1
+            },
+            "why": "Field to enter a standing order reference to cancel",
+            "verified": true
+          },
+          "leads_to": null,
+          "note": "Field to enter a standing order reference to cancel"
+        },
+        {
+          "name": "Cancel Order",
+          "role": "button",
+          "locator": {
+            "target": {
+              "kind": "role_name",
+              "role": "button",
+              "name": "Cancel Order",
+              "exact": false,
+              "frame": null
+            },
+            "why": "Cancels a standing order; an irreversible commit, refused by this tool so its result was not observed",
+            "verified": true
+          },
+          "leads_to": null,
+          "note": "Cancels a standing order; an irreversible commit, refused by this tool so its result was not observed"
+        }
+      ],
+      "values": [
+        {
+          "label": "Cancel Ref.",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Cancel Ref.",
+              "role": "textbox",
+              "index": 1
+            },
+            "why": "",
+            "verified": true
+          },
+          "example": ""
+        }
+      ],
+      "tables": [
+        {
+          "columns": [
+            "Reference",
+            "Payee",
+            "Amount",
+            "Day",
+            "Status"
+          ],
+          "rows_when_mapped": 2,
+          "summary": "Active orders"
+        }
+      ],
+      "messages": [],
+      "needs_signin": true,
+      "note": "Lists a member's standing orders and lets the teller create a new one or cancel an existing one by reference."
+    },
+    {
+      "id": "new_order",
+      "title": "New Standing Order",
+      "identifies_by": "NEW STANDING ORDER",
+      "url": "/",
+      "controls": [
+        {
+          "name": "Payee",
+          "role": "textbox",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Payee",
+              "role": "textbox",
+              "index": 1
+            },
+            "why": "Payee name input field",
+            "verified": true
+          },
+          "leads_to": null,
+          "note": "Payee name input field"
+        },
+        {
+          "name": "Amount",
+          "role": "textbox",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Amount",
+              "role": "textbox",
+              "index": 1
+            },
+            "why": "Order amount input field",
+            "verified": true
+          },
+          "leads_to": null,
+          "note": "Order amount input field"
+        },
+        {
+          "name": "Day of Month",
+          "role": "combobox",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Day of Month",
+              "role": "combobox",
+              "index": 1
+            },
+            "why": "Day of month select for the standing order",
+            "verified": true
+          },
+          "leads_to": null,
+          "note": "Day of month select for the standing order"
+        },
+        {
+          "name": "Create Order",
+          "role": "button",
+          "locator": {
+            "target": {
+              "kind": "role_name",
+              "role": "button",
+              "name": "Create Order",
+              "exact": false,
+              "frame": null
+            },
+            "why": "Submits the new order; on valid data creates the order and shows a confirmation",
+            "verified": true
+          },
+          "leads_to": "order_created",
+          "note": "Submits the new order; on valid data creates the order and shows a confirmation"
+        }
+      ],
+      "values": [
+        {
+          "label": "Member No.",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Member No.",
+              "role": "cell",
+              "index": 1
+            },
+            "why": "",
+            "verified": true
+          },
+          "example": "40055"
+        },
+        {
+          "label": "Payee",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Payee",
+              "role": "textbox",
+              "index": 1
+            },
+            "why": "",
+            "verified": true
+          },
+          "example": ""
+        },
+        {
+          "label": "Amount",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Amount",
+              "role": "textbox",
+              "index": 1
+            },
+            "why": "",
+            "verified": true
+          },
+          "example": ""
+        },
+        {
+          "label": "Day of Month",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Day of Month",
+              "role": "combobox",
+              "index": 1
+            },
+            "why": "",
+            "verified": true
+          },
+          "example": "01"
+        }
+      ],
+      "tables": [],
+      "messages": [],
+      "needs_signin": true,
+      "note": "Form to create a new standing order for a member."
+    },
+    {
+      "id": "order_created",
+      "title": "Order Created",
+      "identifies_by": "ORDER CREATED",
+      "url": "/",
+      "controls": [
+        {
+          "name": "Main Menu",
+          "role": "link",
+          "locator": {
+            "target": {
+              "kind": "role_name",
+              "role": "link",
+              "name": "Main Menu",
+              "exact": false,
+              "frame": null
+            },
+            "why": "Nav chrome link back to Main Menu",
+            "verified": true
+          },
+          "leads_to": "main_menu",
+          "note": "Nav chrome link back to Main Menu"
+        }
+      ],
+      "values": [],
+      "tables": [],
+      "messages": [],
+      "needs_signin": true,
+      "note": "Confirmation screen shown after a new standing order is successfully created."
+    },
+    {
+      "id": "statement_form",
+      "title": "Statement Enquiry",
+      "identifies_by": "STATEMENT ENQUIRY",
+      "url": "/",
+      "controls": [
+        {
+          "name": "Period",
+          "role": "combobox",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Period",
+              "role": "combobox",
+              "index": 1
+            },
+            "why": "Period select: SEP, AUG or JUL",
+            "verified": true
+          },
+          "leads_to": null,
+          "note": "Period select: SEP, AUG or JUL"
+        },
+        {
+          "name": "Produce Statement",
+          "role": "button",
+          "locator": {
+            "target": {
+              "kind": "role_name",
+              "role": "button",
+              "name": "Produce Statement",
+              "exact": false,
+              "frame": null
+            },
+            "why": "Submits the period; shows the statement or a not-found message on this same form",
+            "verified": true
+          },
+          "leads_to": "statement_result",
+          "note": "Submits the period; shows the statement or a not-found message on this same form"
+        }
+      ],
+      "values": [
+        {
+          "label": "Member No.",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Member No.",
+              "role": "cell",
+              "index": 1
+            },
+            "why": "",
+            "verified": true
+          },
+          "example": "40021"
+        }
+      ],
+      "tables": [],
+      "messages": [],
+      "needs_signin": true,
+      "note": "Form to request a statement for a member for a chosen period."
+    },
+    {
+      "id": "statement_result",
+      "title": "Statement Result",
+      "identifies_by": "Opening Bal.",
+      "url": "/",
+      "controls": [
+        {
+          "name": "Main Menu",
+          "role": "link",
+          "locator": {
+            "target": {
+              "kind": "role_name",
+              "role": "link",
+              "name": "Main Menu",
+              "exact": false,
+              "frame": null
+            },
+            "why": "Nav chrome link back to Main Menu",
+            "verified": true
+          },
+          "leads_to": "main_menu",
+          "note": "Nav chrome link back to Main Menu"
+        }
+      ],
+      "values": [
+        {
+          "label": "Opening Bal.",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Opening Bal.",
+              "role": "cell",
+              "index": 1
+            },
+            "why": "",
+            "verified": true
+          },
+          "example": "3,010.55"
+        },
+        {
+          "label": "Total Credits",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Total Credits",
+              "role": "cell",
+              "index": 1
+            },
+            "why": "",
+            "verified": true
+          },
+          "example": "4,290.55"
+        },
+        {
+          "label": "Total Debits",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Total Debits",
+              "role": "cell",
+              "index": 1
+            },
+            "why": "",
+            "verified": true
+          },
+          "example": "80.00"
+        },
+        {
+          "label": "Closing Bal.",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Closing Bal.",
+              "role": "cell",
+              "index": 1
+            },
+            "why": "",
+            "verified": true
+          },
+          "example": "4,210.55"
+        },
+        {
+          "label": "Items",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Items",
+              "role": "cell",
+              "index": 1
+            },
+            "why": "",
+            "verified": true
+          },
+          "example": "3"
+        }
+      ],
+      "tables": [],
+      "messages": [],
+      "needs_signin": true,
+      "note": "Shows the computed statement (opening/closing balance, credits, debits, item count) for the member and period chosen. Title varies by period (e.g. STATEMENT SEP), so identified by the stable Opening Bal. label instead."
+    },
+    {
+      "id": "audit_trail",
+      "title": "Audit Trail",
+      "identifies_by": "AUDIT TRAIL",
+      "url": "/",
+      "controls": [
+        {
+          "name": "Main Menu",
+          "role": "link",
+          "locator": {
+            "target": {
+              "kind": "role_name",
+              "role": "link",
+              "name": "Main Menu",
+              "exact": false,
+              "frame": null
+            },
+            "why": "Nav chrome link back to Main Menu",
+            "verified": true
+          },
+          "leads_to": "main_menu",
+          "note": "Nav chrome link back to Main Menu"
+        }
+      ],
+      "values": [],
+      "tables": [
+        {
+          "columns": [
+            "When",
+            "Operator",
+            "Action"
+          ],
+          "rows_when_mapped": 4,
+          "summary": "Entries shown"
+        }
+      ],
+      "messages": [],
+      "needs_signin": true,
+      "note": "Read-only list of who touched a member's record and when. No controls other than nav chrome."
+    },
+    {
+      "id": "not_authorised",
+      "title": "Not Authorised",
+      "identifies_by": "NOT AUTHORISED",
+      "url": "/",
+      "controls": [
+        {
+          "name": "Main Menu",
+          "role": "link",
+          "locator": {
+            "target": {
+              "kind": "role_name",
+              "role": "link",
+              "name": "Main Menu",
+              "exact": false,
+              "frame": null
+            },
+            "why": "Nav chrome link back to Main Menu; the only way off this screen besides Member Inquiry",
+            "verified": true
+          },
+          "leads_to": "main_menu",
+          "note": "Nav chrome link back to Main Menu; the only way off this screen besides Member Inquiry"
+        }
+      ],
+      "values": [],
+      "tables": [],
+      "messages": [],
+      "needs_signin": true,
+      "note": "Shown when a teller opens a restricted member record. No control to retry or override; a supervisor must act."
+    },
+    {
+      "id": "member_detail",
+      "title": "Member Record",
+      "identifies_by": "MEMBER RECORD",
+      "url": "/member?no=40021",
+      "controls": [
+        {
+          "name": "Transfer Funds",
+          "role": "link",
+          "locator": {
+            "target": {
+              "kind": "role_name",
+              "role": "link",
+              "name": "Transfer Funds",
+              "exact": false,
+              "frame": null
+            },
+            "why": "Opens funds transfer form for this member",
+            "verified": true
+          },
+          "leads_to": "transfer_form",
+          "note": "Opens funds transfer form for this member"
+        },
+        {
+          "name": "Posted Items",
+          "role": "link",
+          "locator": {
+            "target": {
+              "kind": "role_name",
+              "role": "link",
+              "name": "Posted Items",
+              "exact": false,
+              "frame": null
+            },
+            "why": "Opens posted items (transaction history) for this member",
+            "verified": true
+          },
+          "leads_to": "posted_items",
+          "note": "Opens posted items (transaction history) for this member"
+        },
+        {
+          "name": "Contact Details",
+          "role": "link",
+          "locator": {
+            "target": {
+              "kind": "role_name",
+              "role": "link",
+              "name": "Contact Details",
+              "exact": false,
+              "frame": null
+            },
+            "why": "Opens contact details form for this member",
+            "verified": true
+          },
+          "leads_to": "contact_details",
+          "note": "Opens contact details form for this member"
+        },
+        {
+          "name": "Standing Orders",
+          "role": "link",
+          "locator": {
+            "target": {
+              "kind": "role_name",
+              "role": "link",
+              "name": "Standing Orders",
+              "exact": false,
+              "frame": null
+            },
+            "why": "Opens standing orders list for this member",
+            "verified": true
+          },
+          "leads_to": "standing_orders",
+          "note": "Opens standing orders list for this member"
+        },
+        {
+          "name": "Statement Enquiry",
+          "role": "link",
+          "locator": {
+            "target": {
+              "kind": "role_name",
+              "role": "link",
+              "name": "Statement Enquiry",
+              "exact": false,
+              "frame": null
+            },
+            "why": "Opens statement enquiry form for this member",
+            "verified": true
+          },
+          "leads_to": "statement_form",
+          "note": "Opens statement enquiry form for this member"
+        },
+        {
+          "name": "Audit Trail",
+          "role": "link",
+          "locator": {
+            "target": {
+              "kind": "role_name",
+              "role": "link",
+              "name": "Audit Trail",
+              "exact": false,
+              "frame": null
+            },
+            "why": "Opens audit trail for this member",
+            "verified": true
+          },
+          "leads_to": "audit_trail",
+          "note": "Opens audit trail for this member"
+        }
+      ],
+      "values": [
+        {
+          "label": "Member No.",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Member No.",
+              "role": "cell",
+              "index": 1
+            },
+            "why": "",
+            "verified": true
+          },
+          "example": "40021"
+        },
+        {
+          "label": "Name",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Name",
+              "role": "cell",
+              "index": 1
+            },
+            "why": "",
+            "verified": true
+          },
+          "example": "R. ACHTERBERG"
+        },
+        {
+          "label": "Status",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Status",
+              "role": "cell",
+              "index": 1
+            },
+            "why": "",
+            "verified": true
+          },
+          "example": "ACTIVE"
+        },
+        {
+          "label": "Branch",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Branch",
+              "role": "cell",
+              "index": 1
+            },
+            "why": "",
+            "verified": true
+          },
+          "example": "MAIN"
+        },
+        {
+          "label": "Savings Bal.",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Savings Bal.",
+              "role": "cell",
+              "index": 1
+            },
+            "why": "",
+            "verified": true
+          },
+          "example": "4,210.55"
+        },
+        {
+          "label": "Checking Bal.",
+          "locator": {
+            "target": {
+              "kind": "after_text",
+              "anchor": "Checking Bal.",
+              "role": "cell",
+              "index": 1
+            },
+            "why": "",
+            "verified": true
+          },
+          "example": "812.03"
+        }
+      ],
+      "tables": [],
+      "messages": [],
+      "needs_signin": true,
+      "note": "Shows a single member's details and links to transfer, posted items, contact, standing orders, statement and audit trail screens."
+    }
+  ],
+  "messages": [
+    {
+      "text": "SESSION EXPIRED — sign in again",
+      "means": "session",
+      "clears_by": "reauthenticate",
+      "control": "Sign On",
+      "seconds": 2.0,
+      "seen_on": [
+        "teller_sign_on"
+      ],
+      "why": "Session timed out very quickly after signing on; navigating to another link required signing in again"
+    },
+    {
+      "text": "NO MEMBER ON FILE",
+      "means": "answer",
+      "clears_by": "nothing",
+      "control": null,
+      "seconds": 2.0,
+      "seen_on": [
+        "member_lookup"
+      ],
+      "why": "Queried a member number that does not exist in the system"
+    },
+    {
+      "text": "MEMBER NO. MUST BE NUMERIC",
+      "means": "caller_error",
+      "clears_by": "nothing",
+      "control": null,
+      "seconds": 2.0,
+      "seen_on": [
+        "member_lookup"
+      ],
+      "why": "Entered a non-numeric value in the Member No. field"
+    },
+    {
+      "text": "NO ITEMS POSTED IN PERIOD.",
+      "means": "answer",
+      "clears_by": "nothing",
+      "control": null,
+      "seconds": 2.0,
+      "seen_on": [
+        "posted_items"
+      ],
+      "why": "Viewed posted items for a member with no transaction history"
+    },
+    {
+      "text": "TELEPHONE MUST BE AT LEAST 10 DIGITS",
+      "means": "caller_error",
+      "clears_by": "nothing",
+      "control": null,
+      "seconds": 2.0,
+      "seen_on": [
+        "contact_details"
+      ],
+      "why": "Entered a telephone number with fewer than 10 digits"
+    },
+    {
+      "text": "E-MAIL ADDRESS NOT VALID",
+      "means": "caller_error",
+      "clears_by": "nothing",
+      "control": null,
+      "seconds": 2.0,
+      "seen_on": [
+        "contact_details"
+      ],
+      "why": "Entered an e-mail address without an @ and domain dot"
+    },
+    {
+      "text": "POST CODE NOT RECOGNISED",
+      "means": "caller_error",
+      "clears_by": "nothing",
+      "control": null,
+      "seconds": 2.0,
+      "seen_on": [
+        "contact_details"
+      ],
+      "why": "Entered a post code shorter than 5 characters"
+    },
+    {
+      "text": "PAYEE NAME TOO SHORT",
+      "means": "caller_error",
+      "clears_by": "nothing",
+      "control": null,
+      "seconds": 2.0,
+      "seen_on": [
+        "new_order"
+      ],
+      "why": "Entered a payee name shorter than 3 characters"
+    },
+    {
+      "text": "AMOUNT NOT VALID",
+      "means": "caller_error",
+      "clears_by": "nothing",
+      "control": null,
+      "seconds": 2.0,
+      "seen_on": [
+        "new_order"
+      ],
+      "why": "Entered a non-numeric amount for a new standing order"
+    },
+    {
+      "text": "NO AUDIT ENTRIES MATCH.",
+      "means": "answer",
+      "clears_by": "nothing",
+      "control": null,
+      "seconds": 2.0,
+      "seen_on": [
+        "audit_trail"
+      ],
+      "why": "Viewed audit trail for a member with no recorded activity"
+    },
+    {
+      "text": "NOT AUTHORISED — This record is restricted. Refer to a supervisor.",
+      "means": "permission",
+      "clears_by": "nothing",
+      "control": null,
+      "seconds": 2.0,
+      "seen_on": [
+        "not_authorised"
+      ],
+      "why": "Looked up a member record marked restricted; this teller is not permitted to open it and must not retry"
+    },
+    {
+      "text": "INVALID OPERATOR ID OR PASS CODE",
+      "means": "caller_error",
+      "clears_by": "nothing",
+      "control": null,
+      "seconds": 2.0,
+      "seen_on": [
+        "teller_sign_on"
+      ],
+      "why": "Entered a valid operator id with a wrong pass code"
+    }
+  ],
+  "entry": [
+    {
+      "index": 1,
+      "intent": "Initial visit to observe the application",
+      "action": "navigate",
+      "target": null,
+      "value": null,
+      "url": "/",
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 2,
+      "intent": "Enter operator id to sign on",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Operator ID",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": null,
+        "from_secret": "uid"
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 3,
+      "intent": "Enter pass code to sign on",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Pass Code",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": null,
+        "from_secret": "pwd"
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 4,
+      "intent": "Submit sign on credentials",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "button",
+          "name": "Sign On",
+          "exact": false,
+          "frame": null
+        },
+        "why": "",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    }
+  ],
+  "entry_lands_on": "main_menu"
+}

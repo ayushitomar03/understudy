@@ -1,0 +1,238 @@
+{
+  "schema_version": "1.0",
+  "id": "ab03",
+  "version": 1,
+  "approval": "draft",
+  "app": {
+    "product": "ParaBank",
+    "product_version": null,
+    "tenant": null,
+    "base_url": "http://localhost:8102"
+  },
+  "goal": "Look up member 40055 and report the checking balance",
+  "description": "Looked up member 40055 (M. OYELARAN, ACTIVE, Branch NORTHGATE) and found Checking Bal. = 0.00 (Savings Bal. 128.00).",
+  "planned_from_map": false,
+  "params": [
+    {
+      "name": "member_no",
+      "type": "string",
+      "required": true,
+      "pattern": null,
+      "choices": null,
+      "sensitive": false,
+      "example": "40055",
+      "description": "supplied by the caller per invocation"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "checking",
+      "type": "string",
+      "locator": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Checking Bal.",
+          "role": "cell",
+          "index": 1
+        },
+        "why": "Read checking balance for member 40055",
+        "verified": true
+      },
+      "at_step": 8,
+      "pattern": null,
+      "description": null
+    }
+  ],
+  "steps": [
+    {
+      "index": 1,
+      "intent": "Initial visit to observe the application",
+      "action": "navigate",
+      "target": null,
+      "value": null,
+      "url": "/",
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 2,
+      "intent": "Enter operator id to sign on",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Operator ID",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": null,
+        "from_secret": "uid"
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 3,
+      "intent": "Enter pass code to sign on",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Pass Code",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": null,
+        "from_secret": "pwd"
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 4,
+      "intent": "Submit sign on credentials",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "button",
+          "name": "Sign On",
+          "exact": false,
+          "frame": null
+        },
+        "why": "",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 5,
+      "intent": "Navigate to member inquiry to look up member 40055",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "link",
+          "name": "Member Inquiry",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Navigate to member inquiry to look up member 40055",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 6,
+      "intent": "Enter member number to look up",
+      "action": "type",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Member No.",
+          "role": "textbox",
+          "index": 1
+        },
+        "why": "Enter member number to look up",
+        "verified": true
+      },
+      "value": {
+        "literal": null,
+        "from_param": "member_no",
+        "from_secret": null
+      },
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 7,
+      "intent": "Submit member inquiry",
+      "action": "click",
+      "target": {
+        "target": {
+          "kind": "role_name",
+          "role": "button",
+          "name": "Inquire",
+          "exact": false,
+          "frame": null
+        },
+        "why": "Submit member inquiry",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    },
+    {
+      "index": 8,
+      "intent": "Read checking balance for member 40055",
+      "action": "read",
+      "target": {
+        "target": {
+          "kind": "after_text",
+          "anchor": "Checking Bal.",
+          "role": "cell",
+          "index": 1
+        },
+        "why": "Read checking balance for member 40055",
+        "verified": true
+      },
+      "value": null,
+      "url": null,
+      "risk": "safe",
+      "requires_human": false,
+      "postcondition": null,
+      "timeout_ms": 5000
+    }
+  ],
+  "success": {
+    "kind": "text_matches",
+    "pattern": "",
+    "present": true
+  },
+  "business_outcomes": [],
+  "recoveries": [],
+  "revisions": [],
+  "success_template": "# frame: navFrame\n- table:\n  - rowgroup:\n    - row \"MERIDIAN\":\n      - cell \"MERIDIAN\"\n    - row \"Main Menu\":\n      - cell \"Main Menu\":\n        - link \"Main Menu\":\n          - /url: /menu\n          - img \"Main Menu\"\n    - row \"Member Inquiry\":\n      - cell \"Member Inquiry\":\n        - link \"Member Inquiry\":\n          - /url: /lookup\n          - img \"Member Inquiry\"\n    - row \"Sign Off\":\n      - cell \"Sign Off\":\n        - link \"Sign Off\":\n          - /url: /content\n          - img \"Sign Off\"\n# frame: workFrame\n- table:\n  - rowgroup:\n    - row \"MERIDIAN CORE 4.2\":\n      - cell \"MERIDIAN CORE 4.2\":\n        - table:\n          - rowgroup:\n            - row \"MERIDIAN CORE 4.2\":\n              - cell \"MERIDIAN CORE 4.2\"\n- table:\n  - rowgroup:\n    - row \"MEMBER RECORD Member No. {member_no} Name M. OYELARAN Status ACTIVE Branch NORTHGATE Savings Bal. 128.00 Checking Bal. {out} Transfer Funds Posted Items Contact Details Standing Orders Statement Enquiry Audit Trail\":\n      - cell \"MEMBER RECORD Member No. {member_no} Name M. OYELARAN Status ACTIVE Branch NORTHGATE Savings Bal. 128.00 Checking Bal. {out} Transfer Funds Posted Items Contact Details Standing Orders Statement Enquiry Audit Trail\":\n        - text: MEMBER RECORD\n        - table:\n          - rowgroup:\n            - row \"Member No. {member_no} Name M. OYELARAN Status ACTIVE Branch NORTHGATE Savings Bal. 128.00 Checking Bal. {out}\":\n              - cell \"Member No. {member_no} Name M. OYELARAN Status ACTIVE Branch NORTHGATE Savings Bal. 128.00 Checking Bal. {out}\":\n                - table:\n                  - rowgroup:\n                    - row \"Member No. {member_no} Name M. OYELARAN Status ACTIVE Branch NORTHGATE Savings Bal. 128.00 Checking Bal. {out}\":\n                      - cell \"Member No. {member_no} Name M. OYELARAN Status ACTIVE Branch NORTHGATE Savings Bal. 128.00 Checking Bal. {out}\":\n                        - table:\n                          - rowgroup:\n                            - row \"Member No. {member_no}\":\n                              - cell \"Member No.\"\n                              - cell \"{member_no}\"\n                            - row \"Name M. OYELARAN\":\n                              - cell \"Name\"\n                              - cell \"M. OYELARAN\"\n                            - row \"Status ACTIVE\":\n                              - cell \"Status\"\n                              - cell \"ACTIVE\"\n                            - row \"Branch NORTHGATE\":\n                              - cell \"Branch\"\n                              - cell \"NORTHGATE\"\n                            - row \"Savings Bal. 128.00\":\n                              - cell \"Savings Bal.\"\n                              - cell \"128.00\"\n                            - row \"Checking Bal. {out}\":\n                              - cell \"Checking Bal.\"\n                              - cell \"{out}\"\n        - link \"Transfer Funds\":\n          - /url: /transfer?no={member_no}\n          - img \"Transfer Funds\"\n        - link \"Posted Items\":\n          - /url: /history?no={member_no}\n          - img \"Posted Items\"\n        - link \"Contact Details\":\n          - /url: /contact?no={member_no}\n          - img \"Contact Details\"\n        - link \"Standing Orders\":\n          - /url: /orders?no={member_no}\n          - img \"Standing Orders\"\n        - link \"Statement Enquiry\":\n          - /url: /statement?no={member_no}\n          - img \"Statement Enquiry\"\n        - link \"Audit Trail\":\n          - /url: /audit?no={member_no}\n          - img \"Audit Trail\"",
+  "provenance": {
+    "discovered_at": "2026-09-24T20:39:01.064009Z",
+    "model": "claude-sonnet-5",
+    "run_id": "discovery-20260924-133826-67fc",
+    "evidence_path": "evidence/runs/discovery-20260924-133826-67fc",
+    "steps_attempted": 4
+  }
+}
