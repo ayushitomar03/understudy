@@ -162,7 +162,7 @@ def test_overlay_refuses_a_different_capability():
         overlay.apply(capability())
 
 
-# -- regressions found by running the loop against the real app ------------
+# -- regressions found by running discovery against the real app ----------
 
 
 def test_string_zero_index_does_not_become_index_zero():
@@ -170,7 +170,7 @@ def test_string_zero_index_does_not_become_index_zero():
     is not — "0" is truthy, survives the fallback, and becomes XPath [0], which
     matches nothing. Observed live: two silent misses and the model abandoned
     accessibility targeting for CSS selectors."""
-    from understudy.loop.tools import _index
+    from understudy.discovery.tools import _index
 
     assert _index("0") == 1
     assert _index(0) == 1
@@ -183,7 +183,7 @@ def test_string_zero_index_does_not_become_index_zero():
 def test_redactor_leaves_the_word_password_in_prose():
     """The candidate list the model reads to choose a target contains the word
     'Password'. A pattern matching the bare word redacted whatever followed it,
-    corrupting the information the loop depends on."""
+    corrupting the information the model depends on."""
     r = Redactor()
     text = 'textbox after "Password" matched nothing — button "Log In"'
     assert r.scrub(text) == text
@@ -198,7 +198,7 @@ def test_redactor_still_catches_real_assignments():
 def test_boolean_answers_are_not_parameter_names():
     """`value_is_parameter` read like a flag, so the model answered it like one
     and created parameters called true and false."""
-    from understudy.loop.runner import _param_name
+    from understudy.discovery.runner import _param_name
 
     assert _param_name("true") == ""
     assert _param_name("False") == ""

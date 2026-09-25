@@ -119,10 +119,6 @@ class Budget:
         self.used += 1
         return self.used <= self.limit
 
-    @property
-    def exhausted(self) -> bool:
-        return self.used > self.limit
-
 
 class RunContext:
     """Everything one discovery run owns. The tools are thin wrappers over this."""
@@ -172,7 +168,6 @@ class RunContext:
         self.success_template: str | None = None
         self._output_values: dict[str, str] = {}
         self._last_digest = ""
-        self._last_tree = ""
 
         for name, value in self.param_values.items():
             self.params[name] = Param(name=name, example=value,
@@ -346,7 +341,7 @@ class RunContext:
             done += 1
 
         obs = await self._observe()
-        self._last_digest, self._last_tree, self._last_url = obs.digest, obs.tree, obs.url
+        self._last_digest, self._last_url = obs.digest, obs.url
         await self._capture("prelude")
         self.log.emit("prelude", steps_replayed=done, of=len(capability.steps), url=obs.url)
         return done, obs.url
@@ -368,7 +363,7 @@ class RunContext:
     async def do_observe(self, reason: str) -> dict:
         self.turn += 1
         obs = await self._observe()
-        self._last_digest, self._last_tree, self._last_url = obs.digest, obs.tree, obs.url
+        self._last_digest, self._last_url = obs.digest, obs.url
         shot = await self._capture("observe")
         self.log.emit("observation", turn=self.turn, url=obs.url, digest=obs.digest,
                       stable=obs.stable, screenshot=shot, reason=reason,
@@ -390,7 +385,7 @@ class RunContext:
         before = await self._observe()
         result = await self.surface.call(lambda s: s.navigate(full))
         after = await self._observe()
-        self._last_digest, self._last_tree, self._last_url = after.digest, after.tree, after.url
+        self._last_digest, self._last_url = after.digest, after.url
 
         verdict = "advanced" if after.digest != before.digest else "no_op"
         if not result.ok:
@@ -558,7 +553,7 @@ class RunContext:
         before = await self._observe()
         result = await self.surface.call(lambda s: fn(s, target))
         after = await self._observe()
-        self._last_digest, self._last_tree, self._last_url = after.digest, after.tree, after.url
+        self._last_digest, self._last_url = after.digest, after.url
 
         if not result.ok:
             verdict = "unresolved" if result.resolution and not result.resolution.found else "error"
@@ -569,7 +564,7 @@ class RunContext:
             changed = await self.surface.call(lambda s: s.digest_changed_from(before.digest))
             if changed:
                 after = await self._observe()
-                self._last_digest, self._last_tree, self._last_url = after.digest, after.tree, after.url
+                self._last_digest, self._last_url = after.digest, after.url
                 verdict = "advanced"
             else:
                 verdict = "no_op"
@@ -1030,8 +1025,7 @@ async def discover(*, goal: str, base_url: str, capability_id: str,
                      parameters=parameters, policy=policy)
     ctx._pending_id, ctx._pending_model = capability_id, model
     ctx.output_patterns = output_patterns or {}
-    # A SiteMap lets the runner name screens instead of re-sending them. Anything
-    # else passed as knowledge (the incidental store) has no screens to match on.
+    # A SiteMap lets the runner name screens instead of re-sending them.
     ctx.sitemap = knowledge if getattr(knowledge, "screens", None) else None
     ctx.budget = Budget(max_inferences)
 
@@ -1081,8 +1075,7 @@ async def discover(*, goal: str, base_url: str, capability_id: str,
         f"{param_note}{output_note}{hint}"
     )
 
-    # What the loop already knows about this application, learned from earlier
-    # tasks. The entry prefix is replayed rather than described: telling the
+    # What the map already knows about this application. The entry prefix is replayed rather than described: telling the
     # model how to log in still costs it the turns to do it.
     if knowledge is not None:
         prompt += knowledge.as_prompt()

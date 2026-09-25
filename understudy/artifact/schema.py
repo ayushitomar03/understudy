@@ -354,22 +354,6 @@ class Recovery(BaseModel):
     learned_from: str | None = Field(default=None, description="the run that produced it")
 
 
-class Revision(BaseModel):
-    """Why a version differs from the one before it.
-
-    The artifact is versioned, so every change carries the failure that caused
-    it and the change that was made. A reviewer reading v3 can see what v2 got
-    wrong without re-running anything.
-    """
-
-    version: int
-    cause: str
-    statement: str
-    change: str
-    reliability_before: float | None = None
-    reliability_after: float | None = None
-
-
 class Capability(BaseModel):
     """A reusable, reviewable, parameterised flow."""
 
@@ -400,14 +384,13 @@ class Capability(BaseModel):
     success: Check
     business_outcomes: list[BusinessOutcome] = Field(default_factory=list)
     recoveries: list[Recovery] = Field(default_factory=list)
-    revisions: list[Revision] = Field(default_factory=list)
 
     success_template: str | None = Field(
         default=None,
         description=(
             "the accessibility tree of the final state at discovery, with param and output "
-            "values masked. Replay compares shape against this — it is the only record of "
-            "what 'right' looked like when the goal was genuinely reached."
+            "values masked. Discovery uses it to tell outputs from page furniture; it is "
+            "the only record of what 'right' looked like when the goal was reached."
         ),
     )
 

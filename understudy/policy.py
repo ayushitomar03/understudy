@@ -198,9 +198,3 @@ def for_app(base_url: str, **overrides) -> Policy:
         allowed_paths=paths,
         **overrides,
     )
-
-
-def load_policy(path: str | None = None, **overrides) -> Policy:
-    if path:
-        return Policy.model_validate_json(open(path).read()).model_copy(update=overrides)
-    return Policy(**overrides)

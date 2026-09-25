@@ -16,7 +16,7 @@ from pathlib import Path
 from understudy.policy import Policy, for_app
 from understudy.artifact.schema import Capability, Overlay
 from understudy.evidence import EventLog
-from understudy.loop.runner import discover
+from understudy.discovery.runner import discover
 from understudy.catalog import Catalog, publish
 from understudy.replay import Replayer
 from understudy.surface.web import WebSurface

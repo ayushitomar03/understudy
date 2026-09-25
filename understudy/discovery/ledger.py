@@ -1,4 +1,4 @@
-"""What the loop has already tried, and what came of it.
+"""What discovery has already tried, and what came of it.
 
 The model sees this every turn. Without it, a model handed only the current
 screen will retry the same dead click for three turns running — it has no way to
@@ -109,7 +109,7 @@ class Ledger(BaseModel):
     def already_failed(self, action: str, args: dict) -> Attempt | None:
         """An identical attempt that previously went nowhere.
 
-        The loop refuses these before they cost a turn, and tells the model why
+        The runner refuses these before they cost a turn, and tells the model why
         — a silent no-op would leave it guessing.
         """
         probe = Attempt(turn=0, action=action, args=args).signature
@@ -117,33 +117,6 @@ class Ledger(BaseModel):
             if a.signature == probe and a.verdict in NON_ADVANCING:
                 return a
         return None
-
-    # -- stuck detection ---------------------------------------------------
-
-    def stalled_for(self) -> int:
-        """Consecutive most-recent attempts that changed nothing."""
-        n = 0
-        for a in reversed(self.attempts):
-            if a.verdict in NON_ADVANCING:
-                n += 1
-            else:
-                break
-        return n
-
-    def looping(self, window: int = 6) -> bool:
-        """True when the page keeps returning to states already visited — the
-        agent is walking a cycle of screens rather than making progress."""
-        recent = [a.digest_after for a in self.attempts[-window:] if a.digest_after]
-        if len(recent) < window:
-            return False
-        return len(set(recent)) <= 2
-
-    def is_stuck(self, patience: int = 4) -> tuple[bool, str]:
-        if self.stalled_for() >= patience:
-            return True, f"{self.stalled_for()} consecutive attempts changed nothing"
-        if self.looping():
-            return True, "the page keeps returning to states already seen"
-        return False, ""
 
 
 def _args(args: dict) -> str:

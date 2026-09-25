@@ -17,7 +17,7 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
-from understudy.loop import mapper
+from understudy.discovery import mapper
 from understudy.surface import AfterText, Css, Ordinal, RoleName
 from understudy.surface.web import WebSurface
 

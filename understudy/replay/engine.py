@@ -47,15 +47,10 @@ from ..artifact.schema import (
 )
 from ..evidence import EventLog
 from ..policy import Policy
-from ..loop.tools import describe_change
+from ..discovery.tools import describe_change
 from ..surface.base import Observation, RoleName, Target
 from ..surface.web import WebSurface
 from .result import ReplayResult, StepResult
-
-# How much of the approved success template must still be present for the final
-# state to count as the same state. Not 100%: a legacy app varies in small ways
-# between renders, and the mask cannot anticipate every one of them.
-SHAPE_THRESHOLD = 0.85
 
 # How many times one declared recovery may fire for a single step.
 MAX_RECOVERIES = 4

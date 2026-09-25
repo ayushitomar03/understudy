@@ -1,7 +1,7 @@
 """The hazards Meridian can be switched into, pinned one at a time.
 
 These are not tests of Understudy. They are tests of the instrument, and they
-exist because every claim about what the loop learned rests on the application
+exist because every measured result rests on the application
 having actually done the thing. A hazard that quietly stopped firing turns a
 measured result into a measured nothing, and nothing about the run would say so.
 
@@ -106,8 +106,7 @@ def test_a_held_record_offers_no_control_to_press(hazard):
 
 def test_a_held_record_clears_by_waiting_and_can_be_taken_again(hazard):
     """Both halves matter. It has to clear, or no amount of waiting helps; and it
-    has to be able to recur, or a flow that meets it once never meets it again —
-    which is what made the fault invisible to the repair loop's own sampling."""
+    has to be able to recur, or a flow that meets it once never meets it again."""
     hazard("lock")
     terminal = Terminal()
 
@@ -170,8 +169,8 @@ def test_posted_items_arrives_two_rows_at_a_time(hazard):
 
 def test_the_post_code_field_silently_keeps_five_characters(hazard):
     """The flow typed the right value and the screen reports a different one.
-    That is not the same failure as a broken flow, and a loop that cannot tell
-    them apart repairs a flow that was correct."""
+    That is not the same failure as a broken flow, and a system that cannot tell
+    them apart would "fix" a flow that was correct."""
     hazard("truncate")
     terminal = Terminal()
 
@@ -189,7 +188,7 @@ def test_the_post_code_field_silently_keeps_five_characters(hazard):
 
 def test_a_large_transfer_needs_a_supervisor_and_retrying_cannot_help(hazard):
     """The opposite of an interstitial: no control, no wait, and the same answer
-    every time. The loop's correct move here is to stop and ask."""
+    every time. The right move here is to stop and ask."""
     hazard("stepup")
     terminal = Terminal()
     large = {"memberno": "40021", "amount": "2000.00", "direction": "S2C"}

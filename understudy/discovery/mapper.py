@@ -407,7 +407,7 @@ class MapContext:
         clears = args.get("clears_by", "nothing")
         # The one consistency rule worth enforcing: a screen with nothing to press
         # is not an interruption, whatever it is called. Getting this wrong is how
-        # a loop retries a permission denial.
+        # a permission denial gets retried forever.
         # An answer does not clear. The first run recorded 'NO MEMBER ON FILE' as
         # an answer that clears by clicking Inquire, which would have taught every
         # later task to press a button and retry a question the app had answered.

@@ -82,8 +82,7 @@ CONTACT = {
 # instruments rather than weather — the same reason session expiry is a switch.
 #
 #   lock        RECORD IN USE BY ANOTHER TERMINAL — clears itself after a wait,
-#               so the right response is to wait, not to click something. Every
-#               recovery the loop has ever learned is a click.
+#               so the right response is to wait, not to click something.
 #   confirm     Two-phase commit: the first Post Transfer returns a confirmation
 #               screen carrying the same button, so a flow recorded in one pass
 #               submits once and silently posts nothing.
@@ -351,13 +350,9 @@ class Handler(BaseHTTPRequestHandler):
         what clears it — and the other terminal can take it again afterwards.
 
         The first version held the record once per reset and then left it free
-        forever. That was wrong twice over. A real back office holds a record
-        whenever someone else opens it, not once; and because the repair loop
-        measures reliability without resetting the application between samples,
-        a one-shot hazard fired on its first replay and was invisible for the rest
-        — so repair measured a flow as reliable while the graded measurement,
-        which does reset, scored it 0/10. The loop was deciding keep-or-rollback
-        against a world where the fault did not exist.
+        forever. A real back office holds a record whenever someone else opens
+        it, not once, and a hazard that fires only once is invisible to every
+        replay after the first.
         """
         now = time.monotonic()
         if LOCKS.get(memberno, 0.0) > now:
@@ -995,7 +990,7 @@ The record is held by terminal 11. Retry shortly.</font>""")
         elif HAZARDS["stepup"] and value > STEPUP_LIMIT:
             # No amount of retrying clears this and there is nothing to click.
             # A person has to authorise it, which is the one condition where the
-            # loop's correct move is to stop and ask.
+            # right move is to stop and ask.
             return self._html("""<font face="MS Sans Serif" size="2" color="#800000">
 <b>SUPERVISOR AUTHORISATION REQUIRED</b><br><br>
 Transfers above 1,000.00 require a supervisor at this terminal.</font>""")

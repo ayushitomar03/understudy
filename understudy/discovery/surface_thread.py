@@ -8,7 +8,7 @@ call is marshalled to it.
 
 The tradeoff, stated plainly: one extra thread and a queue hop per action, in
 exchange for the surface staying a single tested implementation. Actions are
-sequential anyway — the loop takes one action per turn — so the hop costs
+sequential anyway — the model takes one action per turn — so the hop costs
 nothing that matters.
 """
 

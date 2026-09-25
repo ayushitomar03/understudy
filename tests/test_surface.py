@@ -219,8 +219,8 @@ def test_digest_still_notices_real_changes():
 
 
 def test_a_failed_target_names_one_that_works(surface):
-    """A failure has to teach. This is the single property the loop's ability
-    to recover from a dead end rests on."""
+    """A failure has to teach. This is what lets the model recover from a dead
+    end during discovery."""
     surface.navigate(f"{BASE}/")
     result = surface.type(RoleName(role="textbox", name="Operator ID"), OPERATOR)
 

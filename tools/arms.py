@@ -65,7 +65,7 @@ from tasks_holdout import TASKS as HELD_OUT             # noqa: E402
 
 from understudy import cache                           # noqa: E402
 from understudy.evidence import EventLog               # noqa: E402
-from understudy.loop import runner as runner_module    # noqa: E402
+from understudy.discovery import runner as runner_module    # noqa: E402
 from understudy.sitemap import load as load_map        # noqa: E402
 from understudy.solve import solve                     # noqa: E402
 

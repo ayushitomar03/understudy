@@ -8,7 +8,7 @@ import argparse
 import asyncio
 import sys
 
-from understudy.loop.mapper import build_map
+from understudy.discovery.mapper import build_map
 from understudy.plan import self_check, single_use_values
 from understudy.sitemap import save, scrub
 

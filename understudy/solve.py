@@ -171,7 +171,7 @@ async def solve(sitemap: SiteMap, goal: str, params: dict[str, str],
                         note=f"nothing the system already knows covers this: {why}"[:200])
 
     # -- the model, holding the map ---------------------------------------
-    from .loop.runner import discover           # imported here to avoid a cycle
+    from .discovery.runner import discover           # imported here to avoid a cycle
 
     capability, model_log = await discover(
         goal=goal, base_url=app, capability_id=capability_id,

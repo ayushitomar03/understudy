@@ -1,10 +1,7 @@
 """The bench the hundred-task benchmark runs on: a task, a grader, and an app each.
 
-Everything here was extracted from the twenty-task harness this project started
-with, which grew arms of its own and a dependency on a repair loop that is no
-longer part of the system. What is left is the part tools/arms.py actually uses,
-and nothing else: what a task is, how an answer is graded against what Meridian
-actually holds, and how to stand up one application instance per worker.
+What a task is, how an answer is graded against what Meridian actually holds,
+and how to stand up one application instance per worker.
 
 The grader is carried over unchanged, deliberately. Every number in REPORT.md was
 produced by it, and rewriting it would quietly make those numbers incomparable.

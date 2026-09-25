@@ -59,7 +59,7 @@ PATTERNS = [
     # word "Password" anywhere and redacted whatever followed it — which ate
     # real words out of the candidate lists the model reads to choose a target
     # ('textbox after "Password" <redacted> nothing'), degrading the very
-    # information the loop depends on.
+    # information the model depends on.
     (re.compile(r"(?i)\b(password|passwd|pwd|secret|token|api[_-]?key)\s*[=:]\s*(\S+)"),
      r"\1=<redacted>"),
 ]
@@ -155,11 +155,3 @@ def read_events(path: Path) -> Iterator[dict]:
             yield json.loads(line)
         except json.JSONDecodeError:
             continue  # torn write at the tail; it will be complete next poll
-
-
-def latest_run(root: Path | None = None) -> Path | None:
-    root = root or RUNS
-    if not root.exists():
-        return None
-    runs = [d for d in root.iterdir() if d.is_dir() and (d / "events.jsonl").exists()]
-    return max(runs, key=lambda d: d.stat().st_mtime, default=None)

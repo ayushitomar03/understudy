@@ -14,8 +14,8 @@ Two design notes that the ParaBank reconnaissance forced (see evidence/probe/):
     a fallback. It is also the one that ports to desktop, where "the field after
     this label" is equally meaningful.
 
-  * A failed resolution returns the candidates it could see. This is the loop's
-    entire learning mechanism: `not found` teaches the model nothing, whereas
+  * A failed resolution returns the candidates it could see. This is how the
+    model learns during discovery: `not found` teaches the model nothing, whereas
     `not found — nearby: textbox after "Username", button "Log In"` turns a dead
     end into a menu. The runner never interprets the page, but it is obliged to
     describe it.

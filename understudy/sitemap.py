@@ -26,11 +26,11 @@ first, and `verified` says which.
 
 **Messages are classified, not just collected.** A legacy application answers
 everything as text on a screen with a 200 status: NO MEMBER ON FILE, NOT
-AUTHORISED, RECORD IN USE, SESSION EXPIRED. The single most consequential thing a
-loop can know is which of those means "the app answered your question", which
+AUTHORISED, RECORD IN USE, SESSION EXPIRED. The single most consequential thing the
+system can know is which of those means "the app answered your question", which
 means "you got it wrong", and which means "come back in a moment" — because the
 correct response to the three is respectively to report it, to stop, and to wait.
-Getting that wrong is how a loop repairs a flow that was already correct. Storing
+Getting that wrong means "fixing" a flow that was already correct. Storing
 it per application rather than re-asking a model per failure makes the answer
 consistent, which a model call measurably is not: on identical screens, `'ABC'`
 was diagnosed as a business outcome and `'40-021'` as an unexpected screen.
@@ -64,8 +64,8 @@ Meaning = Literal[
     "unknown",       # seen, not yet understood. Better recorded than guessed at.
 ]
 
-# How it clears, which is the actionable half. `wait` exists because the loop
-# could not express it and both held-record tasks scored 0/10 as a result.
+# How it clears, which is the actionable half. `wait` exists because without it
+# both held-record tasks scored 0/10.
 Clears = Literal["nothing", "click", "wait", "reauthenticate"]
 
 
