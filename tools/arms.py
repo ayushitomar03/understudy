@@ -59,8 +59,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from ab20 import configure, gate, start_apps          # noqa: E402
-from ab_twenty import grade                            # noqa: E402
+from bench import configure, gate, grade, start_apps    # noqa: E402
 from tasks100 import TASKS, tier                       # noqa: E402
 from tasks_holdout import TASKS as HELD_OUT             # noqa: E402
 

@@ -14,10 +14,10 @@ tiers, and then on 74 more it had never seen.
 | a model every time | 85 / 100 | 3,612 | $33.59 |
 | the model, given the map | 87 / 100 | 3,104 | $29.28 |
 | map + recipes, model as fallback | 84 / 100 | 2,799 | $25.84 |
-| **no model at all** | **51 / 100** | **0** | **$0.00** |
+| **no model at all** | **52 / 100** | **0** | **$0.00** |
 | **no model, on 74 unseen tasks** | **57 / 74** | **0** | **$0.00** |
 
-The 51 free tasks cost $12.06 of model time when a model did them. Surveying the
+Those 52 free tasks cost about $12 of model time when a model did them. Surveying the
 application, which is what makes them free, cost $9.72 once.
 
 **Across all 174 tasks the free path never returned a wrong answer.** That is the
@@ -178,8 +178,8 @@ waiting for the page to settle rather than for a fixed interval. That last one
 mattered: the member record returned 110 or 180 tree lines depending on render
 timing, which silently turned every action into an apparent success.
 
-**The result contract is the brief's three categories, and they are what the map
-classifies every message into:**
+**The result contract is the brief's three categories, and they are what every
+message the survey meets gets classified into:**
 
 | the application says | classified as | replay does |
 |---|---|---|
@@ -194,6 +194,14 @@ Classifying per application rather than per failure is deliberate: asked the sam
 question twice about identical screens, a model called `'ABC'` a business outcome
 and `'40-021'` an unexpected screen. The map decides once, and every capability
 inherits the same answer.
+
+**What this map actually carries, as opposed to what the taxonomy supports.** The
+survey ran against a quiet instance and met eleven messages, of which exactly one
+is actionable — session expiry. It never met the held record, the maintenance
+notice or the step-up prompt, so a planned capability here inherits how to sign
+on again and nothing else. The machinery for the other rows is built and
+exercised by tests; the map has no instance of them to carry. That is the single
+biggest gap in this submission and it is the survey's, not replay's — see §7.
 
 A failure returns what a person needs to debug it: the outcome class, the
 subclass (`control_not_found`, `success_condition_unmet`, `policy_refused`), the
@@ -339,9 +347,11 @@ a compensating action the system does not have.
 - *A self-improving loop* — a judge scoring failures, a proposer diagnosing
   them, a repair cycle rewriting capabilities and measuring whether the change
   helped, an orchestrator running it until a capability replayed perfectly, and
-  a live dashboard. About 1,800 lines, and it worked: one recovery still in use
-  here, the wait on a held record, was learned by that loop rather than by the
-  survey. It is not in this repository. The brief's problem is not "improve the
+  a live dashboard. About 1,800 lines, and it worked — the wait on a held record
+  was learned by that loop when the survey never met one. It is not in this
+  repository, and its absence was measured rather than assumed: the no-model arm
+  scores 52/100 without the knowledge it left behind and 51/100 with it, a
+  difference inside the noise the probabilistic hazards produce anyway. The brief's problem is not "improve the
   flow", it is "do the work reliably and cheaply", and the loop made the system
   harder to reason about without moving that number — so it was cut rather than
   left lying around for a reader to wonder about.

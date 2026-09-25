@@ -29,7 +29,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from ab_twenty import grade                                  # noqa: E402
+from bench import grade                                      # noqa: E402
 from tasks_holdout import TASKS, tier                        # noqa: E402
 
 APP = "http://localhost:8090"

@@ -517,20 +517,15 @@ def _recoveries(sitemap: SiteMap) -> list[Recovery]:
     Only the actionable ones. An answer or a permission denial is not something to
     recover from: a flow that "recovers" from NOT AUTHORISED is retrying a refusal,
     which is how an account gets locked.
+
+    What this returns is therefore only as good as the survey. Surveying this
+    application against a quiet instance produced exactly one actionable message —
+    session expiry — so a planned capability starts knowing how to sign on again
+    and nothing else. The hazards a real back office produces were never met, and
+    that shows up in the results as the T7 tier.
     """
     rules: list[Recovery] = []
-
-    # Recoveries the repair loop has already learned about this application, from
-    # failures it met on other tasks. The map and the loop are two routes to the
-    # same knowledge — the map from surveying, the loop from being wrong — and a
-    # new plan should inherit both. Without this, a planned capability starts
-    # knowing less than a repaired one, which is the wrong way round.
-    from . import knowledge as knowledge_store
-    learned = knowledge_store.load(sitemap.app)
-    for rule in learned.recoveries:
-        rules.append(rule.model_copy(deep=True))
-
-    known = {r.detect.strip().lower() for r in rules}
+    known: set[str] = set()
     for message in sitemap.messages:
         if message.text.strip().lower() in known:
             continue

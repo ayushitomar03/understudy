@@ -40,7 +40,7 @@ That none of this overlaps tools/tasks100.py is asserted at import.
 
 from __future__ import annotations
 
-from ab_twenty import Task
+from bench import Task
 from tasks100 import AUDIT, CONTACT, HISTORY, MEMBERS, ORDERS, STATEMENTS, WORK
 from tasks100 import TASKS as TRAINED
 

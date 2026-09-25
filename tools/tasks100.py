@@ -30,7 +30,7 @@ import importlib.util
 import sys
 from pathlib import Path
 
-from ab_twenty import Task
+from bench import Task
 
 # -- the application's own fixtures ---------------------------------------
 

@@ -19,10 +19,10 @@ had never seen:**
 | | tasks answered | model calls | cost | per task |
 |---|---|---|---|---|
 | a model every time | 85 / 100 | 3,612 | $33.59 | ~2 min |
-| **no model at all** — recipes and map | **51 / 100** | **0** | **$0.00** | 7 sec |
+| **no model at all** — recipes and map | **52 / 100** | **0** | **$0.00** | 7 sec |
 | **no model, on 74 unseen tasks** | **57 / 74** | **0** | **$0.00** | 7 sec |
 
-Those 51 tasks cost $12.06 of model time when a model did them. The map that
+Those 52 tasks cost about $12 of model time when a model did them. The map that
 makes them free cost $9.72, once.
 
 **Across all 174 tasks the free path never gave a wrong answer.** When it cannot

@@ -1,19 +1,6 @@
 [
   {
     "arm": "D",
-    "n": 3,
-    "tier": "H1",
-    "shape": "look-up-member-member-no-and-report-the-branch-holding-the-record-4694500e",
-    "how": "cached",
-    "pass": true,
-    "why": "correct",
-    "inferences": 0,
-    "cost_usd": 0.0,
-    "seconds": 6.0,
-    "free": true
-  },
-  {
-    "arm": "D",
     "n": 1,
     "tier": "H1",
     "shape": "look-up-member-member-no-and-report-the-account-status-ac18d3a0",
@@ -22,7 +9,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 6.2,
+    "seconds": 5.8,
     "free": true
   },
   {
@@ -30,6 +17,19 @@
     "n": 5,
     "tier": "H1",
     "shape": "look-up-member-member-no-and-report-the-checking-balance-7641defd",
+    "how": "cached",
+    "pass": true,
+    "why": "correct",
+    "inferences": 0,
+    "cost_usd": 0.0,
+    "seconds": 5.8,
+    "free": true
+  },
+  {
+    "arm": "D",
+    "n": 3,
+    "tier": "H1",
+    "shape": "look-up-member-member-no-and-report-the-branch-holding-the-record-4694500e",
     "how": "cached",
     "pass": true,
     "why": "correct",
@@ -48,8 +48,21 @@
     "why": "items empty",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 7.6,
+    "seconds": 7.4,
     "free": false
+  },
+  {
+    "arm": "D",
+    "n": 6,
+    "tier": "H1",
+    "shape": "look-up-member-member-no-and-report-the-checking-balance-7641defd",
+    "how": "cached",
+    "pass": true,
+    "why": "correct",
+    "inferences": 0,
+    "cost_usd": 0.0,
+    "seconds": 5.2,
+    "free": true
   },
   {
     "arm": "D",
@@ -61,7 +74,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 5.0,
+    "seconds": 5.3,
     "free": true
   },
   {
@@ -74,20 +87,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 5.3,
-    "free": true
-  },
-  {
-    "arm": "D",
-    "n": 6,
-    "tier": "H1",
-    "shape": "look-up-member-member-no-and-report-the-checking-balance-7641defd",
-    "how": "cached",
-    "pass": true,
-    "why": "correct",
-    "inferences": 0,
-    "cost_usd": 0.0,
-    "seconds": 5.3,
+    "seconds": 5.4,
     "free": true
   },
   {
@@ -100,7 +100,7 @@
     "why": "items empty",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 6.1,
+    "seconds": 6.3,
     "free": false
   },
   {
@@ -113,7 +113,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 5.0,
+    "seconds": 5.3,
     "free": true
   },
   {
@@ -126,7 +126,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 6.5,
+    "seconds": 7.1,
     "free": true
   },
   {
@@ -139,7 +139,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 6.8,
+    "seconds": 7.5,
     "free": true
   },
   {
@@ -152,7 +152,7 @@
     "why": "items empty",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 6.4,
+    "seconds": 6.8,
     "free": false
   },
   {
@@ -165,7 +165,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 5.2,
+    "seconds": 5.3,
     "free": true
   },
   {
@@ -178,7 +178,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 6.9,
+    "seconds": 6.7,
     "free": true
   },
   {
@@ -191,7 +191,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 6.8,
+    "seconds": 6.9,
     "free": true
   },
   {
@@ -217,7 +217,20 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 5.1,
+    "seconds": 5.2,
+    "free": true
+  },
+  {
+    "arm": "D",
+    "n": 22,
+    "tier": "H2",
+    "shape": "look-up-member-member-no-and-report-the-account-status-and-the-branch--00738554",
+    "how": "planned",
+    "pass": true,
+    "why": "correct",
+    "inferences": 0,
+    "cost_usd": 0.0,
+    "seconds": 5.4,
     "free": true
   },
   {
@@ -230,7 +243,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 6.8,
+    "seconds": 6.9,
     "free": true
   },
   {
@@ -248,59 +261,7 @@
   },
   {
     "arm": "D",
-    "n": 22,
-    "tier": "H2",
-    "shape": "look-up-member-member-no-and-report-the-account-status-and-the-branch--00738554",
-    "how": "planned",
-    "pass": true,
-    "why": "correct",
-    "inferences": 0,
-    "cost_usd": 0.0,
-    "seconds": 5.8,
-    "free": true
-  },
-  {
-    "arm": "D",
     "n": 20,
-    "tier": "H2",
-    "shape": "look-up-member-member-no-and-report-the-savings-balance-and-the-checki-d4a7b06e",
-    "how": "planned",
-    "pass": true,
-    "why": "correct",
-    "inferences": 0,
-    "cost_usd": 0.0,
-    "seconds": 5.7,
-    "free": true
-  },
-  {
-    "arm": "D",
-    "n": 21,
-    "tier": "H2",
-    "shape": "look-up-member-member-no-and-report-the-member-s-name-and-the-branch-h-3677a7ec",
-    "how": "planned",
-    "pass": true,
-    "why": "correct",
-    "inferences": 0,
-    "cost_usd": 0.0,
-    "seconds": 6.1,
-    "free": true
-  },
-  {
-    "arm": "D",
-    "n": 25,
-    "tier": "H2",
-    "shape": "look-up-member-member-no-and-report-the-account-status-and-the-branch--00738554",
-    "how": "planned",
-    "pass": true,
-    "why": "correct",
-    "inferences": 0,
-    "cost_usd": 0.0,
-    "seconds": 6.0,
-    "free": true
-  },
-  {
-    "arm": "D",
-    "n": 23,
     "tier": "H2",
     "shape": "look-up-member-member-no-and-report-the-savings-balance-and-the-checki-d4a7b06e",
     "how": "planned",
@@ -313,6 +274,32 @@
   },
   {
     "arm": "D",
+    "n": 25,
+    "tier": "H2",
+    "shape": "look-up-member-member-no-and-report-the-account-status-and-the-branch--00738554",
+    "how": "planned",
+    "pass": true,
+    "why": "correct",
+    "inferences": 0,
+    "cost_usd": 0.0,
+    "seconds": 5.3,
+    "free": true
+  },
+  {
+    "arm": "D",
+    "n": 21,
+    "tier": "H2",
+    "shape": "look-up-member-member-no-and-report-the-member-s-name-and-the-branch-h-3677a7ec",
+    "how": "planned",
+    "pass": true,
+    "why": "correct",
+    "inferences": 0,
+    "cost_usd": 0.0,
+    "seconds": 5.6,
+    "free": true
+  },
+  {
+    "arm": "D",
     "n": 28,
     "tier": "H2",
     "shape": "report-the-telephone-number-and-the-e-mail-address-on-file-for-member--10decfe5",
@@ -321,7 +308,20 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 6.7,
+    "seconds": 6.2,
+    "free": true
+  },
+  {
+    "arm": "D",
+    "n": 23,
+    "tier": "H2",
+    "shape": "look-up-member-member-no-and-report-the-savings-balance-and-the-checki-d4a7b06e",
+    "how": "planned",
+    "pass": true,
+    "why": "correct",
+    "inferences": 0,
+    "cost_usd": 0.0,
+    "seconds": 5.6,
     "free": true
   },
   {
@@ -329,19 +329,6 @@
     "n": 24,
     "tier": "H2",
     "shape": "look-up-member-member-no-and-report-the-member-s-name-and-the-branch-h-3677a7ec",
-    "how": "planned",
-    "pass": true,
-    "why": "correct",
-    "inferences": 0,
-    "cost_usd": 0.0,
-    "seconds": 5.4,
-    "free": true
-  },
-  {
-    "arm": "D",
-    "n": 26,
-    "tier": "H2",
-    "shape": "look-up-member-member-no-and-report-the-savings-balance-and-the-checki-d4a7b06e",
     "how": "planned",
     "pass": true,
     "why": "correct",
@@ -360,7 +347,20 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 6.3,
+    "seconds": 6.4,
+    "free": true
+  },
+  {
+    "arm": "D",
+    "n": 26,
+    "tier": "H2",
+    "shape": "look-up-member-member-no-and-report-the-savings-balance-and-the-checki-d4a7b06e",
+    "how": "planned",
+    "pass": true,
+    "why": "correct",
+    "inferences": 0,
+    "cost_usd": 0.0,
+    "seconds": 5.8,
     "free": true
   },
   {
@@ -373,7 +373,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 6.2,
+    "seconds": 6.4,
     "free": true
   },
   {
@@ -386,7 +386,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 5.7,
+    "seconds": 5.6,
     "free": true
   },
   {
@@ -547,6 +547,32 @@
   },
   {
     "arm": "D",
+    "n": 32,
+    "tier": "H2",
+    "shape": "report-the-e-mail-address-and-the-post-code-on-file-for-member-member--f1ab16f3",
+    "how": "planned",
+    "pass": true,
+    "why": "correct",
+    "inferences": 0,
+    "cost_usd": 0.0,
+    "seconds": 6.1,
+    "free": true
+  },
+  {
+    "arm": "D",
+    "n": 34,
+    "tier": "H2",
+    "shape": "report-the-telephone-number-and-the-e-mail-address-on-file-for-member--10decfe5",
+    "how": "planned",
+    "pass": true,
+    "why": "correct",
+    "inferences": 0,
+    "cost_usd": 0.0,
+    "seconds": 5.8,
+    "free": true
+  },
+  {
+    "arm": "D",
     "n": 30,
     "tier": "H2",
     "shape": "report-the-telephone-number-and-the-post-code-on-file-for-member-membe-b192f35d",
@@ -560,32 +586,6 @@
   },
   {
     "arm": "D",
-    "n": 32,
-    "tier": "H2",
-    "shape": "report-the-e-mail-address-and-the-post-code-on-file-for-member-member--f1ab16f3",
-    "how": "planned",
-    "pass": true,
-    "why": "correct",
-    "inferences": 0,
-    "cost_usd": 0.0,
-    "seconds": 6.3,
-    "free": true
-  },
-  {
-    "arm": "D",
-    "n": 34,
-    "tier": "H2",
-    "shape": "report-the-telephone-number-and-the-e-mail-address-on-file-for-member--10decfe5",
-    "how": "planned",
-    "pass": true,
-    "why": "correct",
-    "inferences": 0,
-    "cost_usd": 0.0,
-    "seconds": 6.3,
-    "free": true
-  },
-  {
-    "arm": "D",
     "n": 49,
     "tier": "H3",
     "shape": "report-the-amount-of-the-first-posted-item-for-member-member-no-6b3c7afc",
@@ -594,14 +594,14 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 5.9,
+    "seconds": 5.8,
     "free": true
   },
   {
     "arm": "D",
-    "n": 33,
+    "n": 35,
     "tier": "H2",
-    "shape": "report-the-telephone-number-and-the-post-code-on-file-for-member-membe-b192f35d",
+    "shape": "report-the-e-mail-address-and-the-post-code-on-file-for-member-member--f1ab16f3",
     "how": "planned",
     "pass": true,
     "why": "correct",
@@ -620,20 +620,20 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 5.5,
+    "seconds": 5.8,
     "free": true
   },
   {
     "arm": "D",
-    "n": 35,
+    "n": 33,
     "tier": "H2",
-    "shape": "report-the-e-mail-address-and-the-post-code-on-file-for-member-member--f1ab16f3",
+    "shape": "report-the-telephone-number-and-the-post-code-on-file-for-member-membe-b192f35d",
     "how": "planned",
     "pass": true,
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 6.4,
+    "seconds": 6.3,
     "free": true
   },
   {
@@ -646,7 +646,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 5.9,
+    "seconds": 5.5,
     "free": true
   },
   {
@@ -672,7 +672,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 5.9,
+    "seconds": 5.7,
     "free": true
   },
   {
@@ -685,7 +685,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 6.4,
+    "seconds": 6.3,
     "free": true
   },
   {
@@ -698,7 +698,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 5.7,
+    "seconds": 5.8,
     "free": true
   },
   {
@@ -737,7 +737,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 5.7,
+    "seconds": 5.5,
     "free": true
   },
   {
@@ -763,7 +763,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 5.8,
+    "seconds": 5.6,
     "free": true
   },
   {
@@ -776,7 +776,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 5.8,
+    "seconds": 5.7,
     "free": true
   },
   {
@@ -789,7 +789,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 5.5,
+    "seconds": 5.8,
     "free": true
   },
   {
@@ -802,7 +802,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 5.9,
+    "seconds": 5.7,
     "free": true
   },
   {
@@ -815,20 +815,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 5.0,
-    "free": true
-  },
-  {
-    "arm": "D",
-    "n": 64,
-    "tier": "H3",
-    "shape": "report-how-many-standing-orders-are-on-file-for-member-member-no-ce75aa17",
-    "how": "planned",
-    "pass": true,
-    "why": "correct",
-    "inferences": 0,
-    "cost_usd": 0.0,
-    "seconds": 5.6,
+    "seconds": 5.1,
     "free": true
   },
   {
@@ -841,14 +828,14 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 5.8,
+    "seconds": 5.7,
     "free": true
   },
   {
     "arm": "D",
-    "n": 65,
+    "n": 64,
     "tier": "H3",
-    "shape": "report-how-many-audit-entries-are-on-file-for-member-member-no-fae82c38",
+    "shape": "report-how-many-standing-orders-are-on-file-for-member-member-no-ce75aa17",
     "how": "planned",
     "pass": true,
     "why": "correct",
@@ -867,8 +854,34 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 5.2,
+    "seconds": 5.3,
     "free": true
+  },
+  {
+    "arm": "D",
+    "n": 65,
+    "tier": "H3",
+    "shape": "report-how-many-audit-entries-are-on-file-for-member-member-no-fae82c38",
+    "how": "planned",
+    "pass": true,
+    "why": "correct",
+    "inferences": 0,
+    "cost_usd": 0.0,
+    "seconds": 6.2,
+    "free": true
+  },
+  {
+    "arm": "D",
+    "n": 66,
+    "tier": "H3",
+    "shape": "report-how-many-posted-items-member-member-no-has-in-total-4b3592a9",
+    "how": "failed",
+    "pass": false,
+    "why": "item_count empty",
+    "inferences": 0,
+    "cost_usd": 0.0,
+    "seconds": 5.8,
+    "free": false
   },
   {
     "arm": "D",
@@ -885,19 +898,6 @@
   },
   {
     "arm": "D",
-    "n": 66,
-    "tier": "H3",
-    "shape": "report-how-many-posted-items-member-member-no-has-in-total-4b3592a9",
-    "how": "failed",
-    "pass": false,
-    "why": "item_count empty",
-    "inferences": 0,
-    "cost_usd": 0.0,
-    "seconds": 6.0,
-    "free": false
-  },
-  {
-    "arm": "D",
     "n": 71,
     "tier": "H3",
     "shape": "look-up-member-member-no-and-report-what-the-screen-says-about-the-rec-2a9da8d0",
@@ -906,7 +906,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 5.1,
+    "seconds": 5.2,
     "free": true
   },
   {
@@ -919,7 +919,7 @@
     "why": "entry_count empty",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 5.6,
+    "seconds": 5.9,
     "free": false
   },
   {
@@ -932,7 +932,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 5.0,
+    "seconds": 5.3,
     "free": true
   },
   {
@@ -958,7 +958,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 5.3,
+    "seconds": 5.4,
     "free": true
   }
 ]

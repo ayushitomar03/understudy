@@ -3601,15 +3601,15 @@
   },
   {
     "arm": "D",
-    "n": 2,
+    "n": 3,
     "tier": "T1",
-    "shape": "look-up-member-member-no-and-report-the-account-status-ac18d3a0",
+    "shape": "look-up-member-member-no-and-report-the-checking-balance-7641defd",
     "how": "cached",
     "pass": true,
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 5.8,
+    "seconds": 6.1,
     "free": true
   },
   {
@@ -3622,20 +3622,20 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 6.2,
+    "seconds": 6.1,
     "free": true
   },
   {
     "arm": "D",
-    "n": 3,
+    "n": 2,
     "tier": "T1",
-    "shape": "look-up-member-member-no-and-report-the-checking-balance-7641defd",
+    "shape": "look-up-member-member-no-and-report-the-account-status-ac18d3a0",
     "how": "cached",
     "pass": true,
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 6.2,
+    "seconds": 6.1,
     "free": true
   },
   {
@@ -3648,7 +3648,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 8.2,
+    "seconds": 8.1,
     "free": true
   },
   {
@@ -3661,7 +3661,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 5.7,
+    "seconds": 6.0,
     "free": true
   },
   {
@@ -3674,7 +3674,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 6.0,
+    "seconds": 6.1,
     "free": true
   },
   {
@@ -3687,20 +3687,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 9.6,
-    "free": true
-  },
-  {
-    "arm": "D",
-    "n": 68,
-    "tier": "T7",
-    "shape": "look-up-member-member-no-and-report-the-savings-balance-c5e4646e",
-    "how": "cached",
-    "pass": true,
-    "why": "correct",
-    "inferences": 0,
-    "cost_usd": 0.0,
-    "seconds": 7.5,
+    "seconds": 9.4,
     "free": true
   },
   {
@@ -3713,7 +3700,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 5.9,
+    "seconds": 5.7,
     "free": true
   },
   {
@@ -3731,6 +3718,19 @@
   },
   {
     "arm": "D",
+    "n": 68,
+    "tier": "T7",
+    "shape": "look-up-member-member-no-and-report-the-savings-balance-c5e4646e",
+    "how": "planned",
+    "pass": true,
+    "why": "correct",
+    "inferences": 0,
+    "cost_usd": 0.0,
+    "seconds": 12.1,
+    "free": true
+  },
+  {
+    "arm": "D",
     "n": 13,
     "tier": "T2",
     "shape": "report-the-e-mail-address-on-file-for-member-member-no-cd23a8ba",
@@ -3739,7 +3739,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 6.0,
+    "seconds": 5.5,
     "free": true
   },
   {
@@ -3830,7 +3830,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 8.9,
+    "seconds": 9.0,
     "free": true
   },
   {
@@ -3838,43 +3838,17 @@
     "n": 69,
     "tier": "T7",
     "shape": "look-up-member-member-no-and-report-the-savings-balance-c5e4646e",
-    "how": "failed",
-    "pass": false,
-    "why": "savings empty",
-    "inferences": 0,
-    "cost_usd": 0.0,
-    "seconds": 12.4,
-    "free": false
-  },
-  {
-    "arm": "D",
-    "n": 14,
-    "tier": "T3",
-    "shape": "report-how-many-items-are-posted-for-member-member-no-b42b81b6",
-    "how": "planned",
-    "pass": true,
-    "why": "correct",
-    "inferences": 0,
-    "cost_usd": 0.0,
-    "seconds": 6.0,
-    "free": true
-  },
-  {
-    "arm": "D",
-    "n": 11,
-    "tier": "T2",
-    "shape": "report-the-telephone-number-on-file-for-member-member-no-01893547",
     "how": "cached",
     "pass": true,
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 9.6,
+    "seconds": 7.2,
     "free": true
   },
   {
     "arm": "D",
-    "n": 17,
+    "n": 14,
     "tier": "T3",
     "shape": "report-how-many-items-are-posted-for-member-member-no-b42b81b6",
     "how": "planned",
@@ -3887,6 +3861,45 @@
   },
   {
     "arm": "D",
+    "n": 11,
+    "tier": "T2",
+    "shape": "report-the-telephone-number-on-file-for-member-member-no-01893547",
+    "how": "cached",
+    "pass": true,
+    "why": "correct",
+    "inferences": 0,
+    "cost_usd": 0.0,
+    "seconds": 8.8,
+    "free": true
+  },
+  {
+    "arm": "D",
+    "n": 70,
+    "tier": "T7",
+    "shape": "look-up-member-member-no-and-report-the-savings-balance-c5e4646e",
+    "how": "cached",
+    "pass": true,
+    "why": "correct",
+    "inferences": 0,
+    "cost_usd": 0.0,
+    "seconds": 7.3,
+    "free": true
+  },
+  {
+    "arm": "D",
+    "n": 17,
+    "tier": "T3",
+    "shape": "report-how-many-items-are-posted-for-member-member-no-b42b81b6",
+    "how": "planned",
+    "pass": true,
+    "why": "correct",
+    "inferences": 0,
+    "cost_usd": 0.0,
+    "seconds": 5.7,
+    "free": true
+  },
+  {
+    "arm": "D",
     "n": 20,
     "tier": "T3",
     "shape": "confirm-whether-member-member-no-has-any-posted-items-and-report-what--bd3ab20e",
@@ -3895,20 +3908,7 @@
     "why": "items_message empty",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 12.0,
-    "free": false
-  },
-  {
-    "arm": "D",
-    "n": 70,
-    "tier": "T7",
-    "shape": "look-up-member-member-no-and-report-the-savings-balance-c5e4646e",
-    "how": "failed",
-    "pass": false,
-    "why": "savings empty",
-    "inferences": 0,
-    "cost_usd": 0.0,
-    "seconds": 12.0,
+    "seconds": 11.5,
     "free": false
   },
   {
@@ -3916,13 +3916,13 @@
     "n": 72,
     "tier": "T7",
     "shape": "report-how-many-items-are-posted-for-member-member-no-b42b81b6",
-    "how": "failed",
-    "pass": false,
-    "why": "item_count empty",
+    "how": "planned",
+    "pass": true,
+    "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 5.4,
-    "free": false
+    "seconds": 5.8,
+    "free": true
   },
   {
     "arm": "D",
@@ -3934,7 +3934,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 5.6,
+    "seconds": 5.9,
     "free": true
   },
   {
@@ -3947,7 +3947,20 @@
     "why": "item_count empty",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 5.2,
+    "seconds": 5.4,
+    "free": false
+  },
+  {
+    "arm": "D",
+    "n": 71,
+    "tier": "T7",
+    "shape": "report-the-telephone-number-on-file-for-member-member-no-01893547",
+    "how": "failed",
+    "pass": false,
+    "why": "phone empty",
+    "inferences": 0,
+    "cost_usd": 0.0,
+    "seconds": 13.6,
     "free": false
   },
   {
@@ -3960,7 +3973,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 6.0,
+    "seconds": 5.9,
     "free": true
   },
   {
@@ -3991,19 +4004,6 @@
   },
   {
     "arm": "D",
-    "n": 71,
-    "tier": "T7",
-    "shape": "report-the-telephone-number-on-file-for-member-member-no-01893547",
-    "how": "failed",
-    "pass": false,
-    "why": "phone empty",
-    "inferences": 0,
-    "cost_usd": 0.0,
-    "seconds": 13.9,
-    "free": false
-  },
-  {
-    "arm": "D",
     "n": 82,
     "tier": "T7",
     "shape": "report-how-many-items-are-posted-for-member-member-no-b42b81b6",
@@ -4012,7 +4012,7 @@
     "why": "item_count empty",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 5.8,
+    "seconds": 5.7,
     "free": false
   },
   {
@@ -4025,20 +4025,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 5.5,
-    "free": true
-  },
-  {
-    "arm": "D",
-    "n": 76,
-    "tier": "T7",
-    "shape": "report-the-telephone-number-on-file-for-member-member-no-01893547",
-    "how": "cached",
-    "pass": true,
-    "why": "correct",
-    "inferences": 0,
-    "cost_usd": 0.0,
-    "seconds": 9.3,
+    "seconds": 5.8,
     "free": true
   },
   {
@@ -4051,7 +4038,7 @@
     "why": "orders_message empty",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 5.8,
+    "seconds": 5.7,
     "free": false
   },
   {
@@ -4147,19 +4134,6 @@
   },
   {
     "arm": "D",
-    "n": 81,
-    "tier": "T7",
-    "shape": "report-the-telephone-number-on-file-for-member-member-no-01893547",
-    "how": "cached",
-    "pass": true,
-    "why": "correct",
-    "inferences": 0,
-    "cost_usd": 0.0,
-    "seconds": 9.0,
-    "free": true
-  },
-  {
-    "arm": "D",
     "n": 31,
     "tier": "T3",
     "shape": "report-how-many-audit-entries-exist-for-member-member-no-c6ddcdc2",
@@ -4168,7 +4142,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 6.1,
+    "seconds": 6.0,
     "free": true
   },
   {
@@ -4194,20 +4168,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 6.7,
-    "free": true
-  },
-  {
-    "arm": "D",
-    "n": 43,
-    "tier": "T4",
-    "shape": "produce-the-period-statement-for-member-member-no-and-report-the-openi-35fb8576",
-    "how": "cached",
-    "pass": true,
-    "why": "correct",
-    "inferences": 0,
-    "cost_usd": 0.0,
-    "seconds": 6.9,
+    "seconds": 7.0,
     "free": true
   },
   {
@@ -4220,7 +4181,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 6.8,
+    "seconds": 7.0,
     "free": true
   },
   {
@@ -4233,20 +4194,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 6.5,
-    "free": true
-  },
-  {
-    "arm": "D",
-    "n": 44,
-    "tier": "T4",
-    "shape": "produce-the-period-statement-for-member-member-no-and-report-the-numbe-3ebff67c",
-    "how": "cached",
-    "pass": true,
-    "why": "correct",
-    "inferences": 0,
-    "cost_usd": 0.0,
-    "seconds": 6.6,
+    "seconds": 7.1,
     "free": true
   },
   {
@@ -4259,7 +4207,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 7.1,
+    "seconds": 6.9,
     "free": true
   },
   {
@@ -4277,15 +4225,67 @@
   },
   {
     "arm": "D",
-    "n": 45,
+    "n": 41,
     "tier": "T4",
-    "shape": "produce-the-period-statement-for-member-member-no-and-report-the-total-b6442ced",
+    "shape": "produce-the-period-statement-for-member-member-no-and-report-the-closi-ba590b3f",
     "how": "cached",
     "pass": true,
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 6.6,
+    "seconds": 6.7,
+    "free": true
+  },
+  {
+    "arm": "D",
+    "n": 76,
+    "tier": "T7",
+    "shape": "report-the-telephone-number-on-file-for-member-member-no-01893547",
+    "how": "cached",
+    "pass": true,
+    "why": "correct",
+    "inferences": 0,
+    "cost_usd": 0.0,
+    "seconds": 47.3,
+    "free": true
+  },
+  {
+    "arm": "D",
+    "n": 42,
+    "tier": "T4",
+    "shape": "produce-the-period-statement-for-member-member-no-and-report-the-total-3764d18b",
+    "how": "cached",
+    "pass": true,
+    "why": "correct",
+    "inferences": 0,
+    "cost_usd": 0.0,
+    "seconds": 6.8,
+    "free": true
+  },
+  {
+    "arm": "D",
+    "n": 43,
+    "tier": "T4",
+    "shape": "produce-the-period-statement-for-member-member-no-and-report-the-openi-35fb8576",
+    "how": "cached",
+    "pass": true,
+    "why": "correct",
+    "inferences": 0,
+    "cost_usd": 0.0,
+    "seconds": 6.8,
+    "free": true
+  },
+  {
+    "arm": "D",
+    "n": 81,
+    "tier": "T7",
+    "shape": "report-the-telephone-number-on-file-for-member-member-no-01893547",
+    "how": "cached",
+    "pass": true,
+    "why": "correct",
+    "inferences": 0,
+    "cost_usd": 0.0,
+    "seconds": 9.0,
     "free": true
   },
   {
@@ -4303,15 +4303,15 @@
   },
   {
     "arm": "D",
-    "n": 41,
+    "n": 44,
     "tier": "T4",
-    "shape": "produce-the-period-statement-for-member-member-no-and-report-the-closi-ba590b3f",
+    "shape": "produce-the-period-statement-for-member-member-no-and-report-the-numbe-3ebff67c",
     "how": "cached",
     "pass": true,
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 6.9,
+    "seconds": 6.4,
     "free": true
   },
   {
@@ -4420,15 +4420,15 @@
   },
   {
     "arm": "D",
-    "n": 42,
+    "n": 45,
     "tier": "T4",
-    "shape": "produce-the-period-statement-for-member-member-no-and-report-the-total-3764d18b",
+    "shape": "produce-the-period-statement-for-member-member-no-and-report-the-total-b6442ced",
     "how": "cached",
     "pass": true,
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 6.9,
+    "seconds": 6.8,
     "free": true
   },
   {
@@ -4506,7 +4506,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 9.6,
+    "seconds": 9.5,
     "free": true
   },
   {
@@ -4623,7 +4623,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 9.7,
+    "seconds": 9.6,
     "free": true
   },
   {
@@ -4636,20 +4636,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 8.8,
-    "free": true
-  },
-  {
-    "arm": "D",
-    "n": 84,
-    "tier": "T7",
-    "shape": "report-the-amount-of-the-second-posted-item-for-member-member-no-0745ed45",
-    "how": "planned",
-    "pass": true,
-    "why": "correct",
-    "inferences": 0,
-    "cost_usd": 0.0,
-    "seconds": 5.8,
+    "seconds": 9.1,
     "free": true
   },
   {
@@ -4657,6 +4644,19 @@
     "n": 85,
     "tier": "T7",
     "shape": "report-how-many-items-are-posted-in-total-for-member-member-no-5a95cb60",
+    "how": "planned",
+    "pass": true,
+    "why": "correct",
+    "inferences": 0,
+    "cost_usd": 0.0,
+    "seconds": 5.5,
+    "free": true
+  },
+  {
+    "arm": "D",
+    "n": 84,
+    "tier": "T7",
+    "shape": "report-the-amount-of-the-second-posted-item-for-member-member-no-0745ed45",
     "how": "planned",
     "pass": true,
     "why": "correct",
@@ -4675,20 +4675,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 5.1,
-    "free": true
-  },
-  {
-    "arm": "D",
-    "n": 88,
-    "tier": "T7",
-    "shape": "change-the-post-code-for-member-member-no-to-post-code-and-report-the--9846b45a",
-    "how": "cached",
-    "pass": true,
-    "why": "correct",
-    "inferences": 0,
-    "cost_usd": 0.0,
-    "seconds": 10.0,
+    "seconds": 4.9,
     "free": true
   },
   {
@@ -4701,7 +4688,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 5.2,
+    "seconds": 4.9,
     "free": true
   },
   {
@@ -4797,6 +4784,19 @@
   },
   {
     "arm": "D",
+    "n": 88,
+    "tier": "T7",
+    "shape": "change-the-post-code-for-member-member-no-to-post-code-and-report-the--9846b45a",
+    "how": "cached",
+    "pass": true,
+    "why": "correct",
+    "inferences": 0,
+    "cost_usd": 0.0,
+    "seconds": 9.9,
+    "free": true
+  },
+  {
+    "arm": "D",
     "n": 92,
     "tier": "T3R",
     "shape": "attempt-to-look-up-member-member-no-and-report-exactly-what-the-applic-63382118",
@@ -4805,8 +4805,21 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 5.3,
+    "seconds": 5.2,
     "free": true
+  },
+  {
+    "arm": "D",
+    "n": 73,
+    "tier": "T7",
+    "shape": "look-up-member-member-no-and-report-the-savings-balance-c5e4646e",
+    "how": "failed",
+    "pass": false,
+    "why": "savings empty",
+    "inferences": 0,
+    "cost_usd": 0.0,
+    "seconds": 97.6,
+    "free": false
   },
   {
     "arm": "D",
@@ -4818,20 +4831,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 10.3,
-    "free": true
-  },
-  {
-    "arm": "D",
-    "n": 73,
-    "tier": "T7",
-    "shape": "look-up-member-member-no-and-report-the-savings-balance-c5e4646e",
-    "how": "planned",
-    "pass": true,
-    "why": "correct",
-    "inferences": 0,
-    "cost_usd": 0.0,
-    "seconds": 98.8,
+    "seconds": 9.7,
     "free": true
   },
   {
@@ -4844,7 +4844,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 29.5,
+    "seconds": 95.0,
     "free": true
   },
   {
@@ -4852,13 +4852,13 @@
     "n": 75,
     "tier": "T7",
     "shape": "look-up-member-member-no-and-report-the-savings-balance-c5e4646e",
-    "how": "planned",
-    "pass": true,
-    "why": "correct",
+    "how": "failed",
+    "pass": false,
+    "why": "savings empty",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 98.3,
-    "free": true
+    "seconds": 99.6,
+    "free": false
   },
   {
     "arm": "D",
@@ -4870,7 +4870,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 7.6,
+    "seconds": 7.7,
     "free": true
   },
   {
@@ -4883,7 +4883,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 7.6,
+    "seconds": 7.4,
     "free": true
   },
   {
@@ -4896,7 +4896,7 @@
     "why": "correct",
     "inferences": 0,
     "cost_usd": 0.0,
-    "seconds": 7.6,
+    "seconds": 7.2,
     "free": true
   }
 ]
