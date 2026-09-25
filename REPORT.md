@@ -94,9 +94,10 @@ the part a reviewer should push on, and the honest defence is that it is
 measured: it answers 45 unseen tasks and is wrong on none of them, because every
 way it could be wrong is a refusal instead.
 
-**What was cut from the path.** Earlier iterations built a repair loop, a judge,
-a knowledge store, an orchestrator and a live dashboard. They work, and none of
-them is in the measured path. §7.
+**What was cut.** Earlier iterations built a repair loop, a judge, a proposer,
+an orchestrator and a live dashboard — about 1,800 lines. They worked, and none
+of them is in this repository: what is here is the path the numbers describe.
+§7.
 
 ---
 
@@ -335,13 +336,15 @@ a compensating action the system does not have.
 
 **Cut, and why.**
 
-- *A self-improving loop* — a judge scoring failures, a proposer diagnosing them,
-  a repair cycle rewriting capabilities and measuring whether the change helped.
-  It works and it is in the repository (`repair.py`, `judge.py`, `propose.py`,
-  `orchestrator.py`, `dashboard.py`). It is not in the measured path, because the
-  brief's problem is not "improve the flow", it is "do the work reliably and
-  cheaply", and the loop made the system harder to reason about without moving
-  that number.
+- *A self-improving loop* — a judge scoring failures, a proposer diagnosing
+  them, a repair cycle rewriting capabilities and measuring whether the change
+  helped, an orchestrator running it until a capability replayed perfectly, and
+  a live dashboard. About 1,800 lines, and it worked: one recovery still in use
+  here, the wait on a held record, was learned by that loop rather than by the
+  survey. It is not in this repository. The brief's problem is not "improve the
+  flow", it is "do the work reliably and cheaply", and the loop made the system
+  harder to reason about without moving that number — so it was cut rather than
+  left lying around for a reader to wonder about.
 - *A second tenant* (§4), and *desktop* — the seam is designed and neither is
   built.
 - *Screenshot-and-coordinates targeting* — the accessibility tree carried this

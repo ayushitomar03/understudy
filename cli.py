@@ -1,7 +1,8 @@
 """Understudy command line.
 
-    python cli.py discover "look up account 12345 and read its balance"
-    python cli.py dashboard
+    python cli.py discover "look up member 40021 and read the savings balance"
+    python cli.py catalog
+    python cli.py invoke meridian.members.read_balances --arg member_no=40055
 """
 
 from __future__ import annotations
@@ -12,15 +13,11 @@ import json
 import sys
 from pathlib import Path
 
-from understudy.dashboard import serve
 from understudy.policy import Policy, for_app
 from understudy.artifact.schema import Capability, Overlay
 from understudy.evidence import EventLog
 from understudy.loop.runner import discover
 from understudy.catalog import Catalog, publish
-from understudy.judge import judge
-from understudy.repair import repair
-from understudy.orchestrator import orchestrate
 from understudy.replay import Replayer
 from understudy.surface.web import WebSurface
 
@@ -59,23 +56,8 @@ def main() -> int:
     r.add_argument("--allow-irreversible", action="store_true")
     r.add_argument("--mode", default="unattended", choices=["unattended", "attended"])
     r.add_argument("--credential", action="append", default=[], metavar="NAME=VALUE")
-    r.add_argument("--judge", action="store_true", help="score the run against the rubric")
     r.add_argument("--tenant", metavar="NAME=BASE_URL",
                    help="run this capability against a different instance of the same product")
-
-    o = sub.add_parser("orchestrate", help="keep attempting a goal until it replays perfectly")
-    o.add_argument("goal")
-    o.add_argument("--id", required=True)
-    o.add_argument("--base-url", default=BASE_URL)
-    o.add_argument("--param", action="append", default=[], metavar="NAME=VALUE")
-    o.add_argument("--credential", action="append", default=[], metavar="NAME=VALUE")
-    o.add_argument("--expect", action="append", default=[], metavar="OUTPUT=VALUE",
-                   help="the correct value for an output; makes wrong answers score lower")
-    o.add_argument("--min-attempts", type=int, default=5)
-    o.add_argument("--max-attempts", type=int, default=8)
-    o.add_argument("--max-turns", type=int, default=30)
-    o.add_argument("--samples", type=int, default=1,
-                   help="replays per attempt; >1 measures reliability on a flaky app")
 
     pub = sub.add_parser("publish", help="put a discovered capability into the catalog")
     pub.add_argument("capability")
@@ -84,13 +66,6 @@ def main() -> int:
 
     sub.add_parser("catalog", help="what an agent can call")
 
-    rep = sub.add_parser("repair", help="run it; if it fails, diagnose, change, and retry")
-    rep.add_argument("capability")
-    rep.add_argument("--param", action="append", default=[], metavar="NAME=VALUE")
-    rep.add_argument("--credential", action="append", default=[], metavar="NAME=VALUE")
-    rep.add_argument("--samples", type=int, default=5, help="replays per measurement")
-    rep.add_argument("--rounds", type=int, default=4)
-
     inv = sub.add_parser("invoke", help="call a capability by name, as an agent would")
     inv.add_argument("name")
     inv.add_argument("--arg", action="append", default=[], metavar="NAME=VALUE")
@@ -98,37 +73,7 @@ def main() -> int:
     inv.add_argument("--with-human", action="store_true",
                      help="a person is present, so irreversible capabilities may run")
 
-    s = sub.add_parser("dashboard", help="watch a run live")
-    s.add_argument("run_id", nargs="?")
-    s.add_argument("--port", type=int, default=8765)
-
     args = parser.parse_args()
-
-    if args.command == "dashboard":
-        serve(args.run_id, port=args.port)
-        return 0
-
-    if args.command == "orchestrate":
-        def show(state, record):
-            right = "" if record.outputs_correct is None else (
-                " outputs ok" if record.outputs_correct else " WRONG OUTPUT")
-            mark = "PROMOTED" if record.promoted else record.note
-            rate = f"{(record.replay_score or 0)*100:.0f}% reliable"
-            print(f"  attempt {record.n}: {record.turns:>2} turns, {rate}, "
-                  f"{record.steps or '-'} steps,{right} score {record.score:.2f}  [{mark}]",
-                  flush=True)
-
-        print(f"goal: {args.goal}\nrunning at least {args.min_attempts} attempts\n", flush=True)
-        state = asyncio.run(orchestrate(
-            goal=args.goal, capability_id=args.id, base_url=args.base_url,
-            params=dict(p.split("=", 1) for p in args.param),
-            credentials=dict(c.split("=", 1) for c in args.credential) or CREDENTIALS,
-            expect=dict(e.split("=", 1) for e in args.expect),
-            min_attempts=args.min_attempts, max_attempts=args.max_attempts,
-            max_turns=args.max_turns, samples=args.samples, on_update=show))
-        print(f"\n{state.table()}\n\nchampion: {state.champion_path} "
-              f"(score {state.champion_score:.2f})")
-        return 0 if state.champion_score > 0 else 1
 
     if args.command == "publish":
         cap = Capability.load(Path(args.capability).read_text())
@@ -136,29 +81,6 @@ def main() -> int:
         state = "approved — agents may call it" if args.approve else "draft — not callable yet"
         print(f"published {cap.id} v{cap.version} -> {path}  ({state})")
         return 0
-
-    if args.command == "repair":
-        cap = Capability.load(Path(args.capability).read_text())
-        fixed, record = asyncio.run(repair(
-            cap,
-            dict(p.split("=", 1) for p in args.param),
-            dict(c.split("=", 1) for c in args.credential) or CREDENTIALS,
-            samples=args.samples, rounds=args.rounds,
-            on_round=lambda r, after: print(
-                f"\n  ROUND {r.n}  ·  v{r.version} measured {r.passed}/{r.of} = {r.reliability:.0%}"
-                f"\n    diagnosis : {r.cause} — {r.statement}"
-                f"\n    change    : {r.change}"
-                f"\n    result    : {r.reliability:.0%} -> {after:.0%}  "
-                f"{'KEPT' if r.kept else 'rolled back'}", flush=True)))
-        print(f"\n{record.table()}")
-        out = Path(args.capability)
-        if fixed.version > cap.version:
-            out = out.with_name(f"{fixed.id}.v{fixed.version}.json")
-            out.write_text(fixed.model_dump_json(indent=2))
-            print(f"\nrepaired to v{fixed.version} -> {out}")
-        if record.escalated:
-            print(f"\nneeds a person: {record.escalated}")
-        return 0 if record.final_reliability >= 0.9 else 1
 
     if args.command == "catalog":
         print(Catalog().describe())
@@ -189,9 +111,6 @@ def main() -> int:
         finally:
             surface.close()
         print(f"\n{result.summary()}\n\nevidence: {log.dir}")
-        if args.judge:
-            verdict = asyncio.run(judge(cap, result, params, log=log))
-            print(f"\njudged by {verdict.judged_by}\n{verdict.table()}")
         return 0 if result.ok else 1
 
     parameters = dict(p.split("=", 1) for p in args.param)
