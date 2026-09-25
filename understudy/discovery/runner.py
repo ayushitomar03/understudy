@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import asyncio
 import re
+import time
 from datetime import datetime, timezone
 from typing import Any
 
@@ -51,6 +52,9 @@ from .tools import build_target, describe_change, make_tools, render_result
 
 MAX_TURNS = 40
 ESCALATION_TIMEOUT_S = 600
+# Wall-clock limit for one discovery, not counting time a human holds the session.
+# The slowest successful discovery in the benchmark took about eight minutes.
+DISCOVERY_TIMEOUT_S = 900
 OPERATOR_URL = "http://localhost:8765/operator"
 
 # Values that are obviously not parameter names. The field used to be called
@@ -150,6 +154,9 @@ class RunContext:
         self._pending_id = "capability"
         self._pending_model = "unknown"
         self.escalated: dict | None = None
+        self.human_seconds = 0.0   # time a person held the session; not the run's to spend
+        self.stuck_since = 0       # ledger index to judge "stuck" from; moves after a handoff
+        self.stopped = ""          # why the run stopped; once set, no further actions run
         self.summary = ""
         self.success_text = ""
 
@@ -372,7 +379,17 @@ class RunContext:
         return render_result(verdict="observed", url=obs.url, candidates=obs.candidates,
                              extra=f"{note}\n\n{self._page_for_model(obs)}")
 
+    def _refuse_if_stopped(self) -> dict | None:
+        # The model's stream does not end the moment the run decides to stop, and
+        # without this it could keep clicking in a session nobody is watching.
+        if self.stopped:
+            return render_result(verdict="blocked", url=self._last_url,
+                                 error=f"this run has stopped: {self.stopped}. Do not act further.")
+        return None
+
     async def do_navigate(self, url: str, reason: str) -> dict:
+        if refused := self._refuse_if_stopped():
+            return refused
         self.turn += 1
         full = url if url.startswith("http") else f"{self.base_url}/{url.lstrip('/')}"
 
@@ -514,6 +531,8 @@ class RunContext:
 
     async def _interact(self, action: str, args: dict, fn, *, param: str = "", literal: str = "",
                         secret: str | None = None) -> dict:
+        if refused := self._refuse_if_stopped():
+            return refused
         self.turn += 1
 
         if repeat := self.ledger.already_failed(action, {k: v for k, v in args.items()
@@ -863,8 +882,10 @@ class RunContext:
         self.log.emit("control_taken", holder="human")
 
         print(f"\n  ⏸  waiting for a human — {OPERATOR_URL}\n     {needed}", flush=True)
+        handed_over = time.monotonic()
         control = await asyncio.get_running_loop().run_in_executor(
             None, self.lease.wait_for_decision, ESCALATION_TIMEOUT_S)
+        self.human_seconds += time.monotonic() - handed_over
 
         actions = []
         try:
@@ -888,6 +909,7 @@ class RunContext:
         # the model decide what is left, rather than resuming from a remembered
         # step index.
         self.escalated = None
+        self.stuck_since = len(self.ledger.attempts)
         summary = ", ".join(f"{a.get('action')} {a.get('on')}" for a in actions[:8]) or "nothing recorded"
         return render_result(
             verdict="resumed", url=after.url, candidates=after.candidates,
@@ -1002,6 +1024,18 @@ class RunContext:
             )
 
 
+def stopping_condition(ledger: Ledger, *, since: int, elapsed_s: float,
+                       timeout_s: float) -> str | None:
+    """Why discovery should stop and ask a person, or None to carry on.
+
+    Running out of model responses is checked separately, where they are counted.
+    """
+    if elapsed_s >= timeout_s:
+        return f"discovery ran for {elapsed_s:.0f}s without finishing (limit {timeout_s:.0f}s)"
+    stuck, why = ledger.is_stuck(since=since)
+    return why if stuck else None
+
+
 async def discover(*, goal: str, base_url: str, capability_id: str,
                    stated_goal: str | None = None,
                    parameters: dict[str, str] | None = None,
@@ -1013,7 +1047,8 @@ async def discover(*, goal: str, base_url: str, capability_id: str,
                    knowledge=None,
                    headless: bool = True, model: str = "claude-sonnet-5",
                    max_turns: int = MAX_TURNS,
-                   max_inferences: int = 40) -> tuple[Capability | None, EventLog]:
+                   max_inferences: int = 40,
+                   timeout_s: float = DISCOVERY_TIMEOUT_S) -> tuple[Capability | None, EventLog]:
     """Run one autonomous discovery. The model drives; this returns what it built."""
     log = EventLog("discovery", goal)
     surface = SurfaceThread(headless=headless)
@@ -1109,6 +1144,7 @@ async def discover(*, goal: str, base_url: str, capability_id: str,
             )
 
     capability: Capability | None = None
+    started = time.monotonic()
     try:
         async with ClaudeSDKClient(options=options) as client:
             await client.query(prompt)
@@ -1124,8 +1160,20 @@ async def discover(*, goal: str, base_url: str, capability_id: str,
                             "needed": "a person should look at what it is stuck on, or the "
                                       "budget should be raised deliberately",
                             "turn": ctx.turn}
+                        ctx.stopped = ctx.escalated["why"]
                         log.emit("budget_exhausted", limit=ctx.budget.limit,
                                  turns=ctx.turn, url=ctx._last_url)
+                        closing = True
+                    if not (ctx.finished or ctx.escalated) and (why := stopping_condition(
+                            ctx.ledger, since=ctx.stuck_since,
+                            elapsed_s=time.monotonic() - started - ctx.human_seconds,
+                            timeout_s=timeout_s)):
+                        ctx.escalated = {
+                            "why": why,
+                            "needed": "a person should look at what it is stuck on",
+                            "turn": ctx.turn}
+                        ctx.stopped = why
+                        log.emit("stopped", why=why, turns=ctx.turn, url=ctx._last_url)
                         closing = True
                     for block in message.content:
                         if isinstance(block, TextBlock) and block.text.strip():

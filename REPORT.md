@@ -263,11 +263,12 @@ demonstrated** — the honest gap in this section.
 ## 5. Escalation & handoff
 
 **Detecting stuck.** Three conditions raise an intervention: discovery hits a
-stopping condition (budget, no progress, a loop), replay meets something it
-cannot recover from, or a step is classified irreversible and no person has
-authorised it. The third is the common one and it is a *policy* decision rather
-than a failure — the system is working correctly when it refuses to post a
-transfer unattended.
+stopping condition (out of model responses, past its time limit, four
+attempts in a row that changed nothing, or bouncing between the same screens),
+replay meets something it cannot recover from, or a step is classified
+irreversible and no person has authorised it. The third is the common one and
+it is a *policy* decision rather than a failure — the system is working
+correctly when it refuses to post a transfer unattended.
 
 **Routing with enough to act on.** The request carries the capability and goal,
 the step it stopped on, the live URL, a screenshot, an operator address, and why

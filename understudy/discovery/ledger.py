@@ -118,6 +118,40 @@ class Ledger(BaseModel):
                 return a
         return None
 
+    # -- stuck detection ---------------------------------------------------
+
+    def stalled_for(self, since: int = 0) -> int:
+        """Consecutive most-recent attempts that changed nothing."""
+        n = 0
+        for a in reversed(self.attempts[since:]):
+            if a.verdict in NON_ADVANCING:
+                n += 1
+            else:
+                break
+        return n
+
+    def looping(self, since: int = 0, window: int = 6) -> bool:
+        """True when the page keeps returning to states already visited — the
+        agent is walking a cycle of screens rather than making progress.
+
+        Only attempts that changed the page count. Reading five values off one
+        screen leaves the page where it was, and that is progress, not a cycle."""
+        moved = [a.digest_after for a in self.attempts[since:]
+                 if a.digest_after and a.digest_after != a.digest_before]
+        recent = moved[-window:]
+        if len(recent) < window:
+            return False
+        return len(set(recent)) <= 2
+
+    def is_stuck(self, since: int = 0, patience: int = 4) -> tuple[bool, str]:
+        """Whether discovery has hit a dead end. `since` skips attempts made
+        before a human last handed control back, which describe a page the
+        human has since changed."""
+        if (n := self.stalled_for(since)) >= patience:
+            return True, f"{n} attempts in a row changed nothing on the page"
+        if self.looping(since):
+            return True, "the page keeps returning to screens already seen"
+        return False, ""
 
 def _args(args: dict) -> str:
     keep = {k: v for k, v in args.items() if k != "reason"}
