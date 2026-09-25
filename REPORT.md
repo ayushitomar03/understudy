@@ -340,7 +340,7 @@ a compensating action the system does not have.
 
 ---
 
-## 7. Cuts, and what I would build next
+## 7. Cuts
 
 **Cut, and why.**
 
