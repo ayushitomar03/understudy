@@ -3,31 +3,46 @@
 Automation for back-office banking software that has no API — the kind you can
 only drive through the screens, the way an operator does.
 
-An LLM works a task out once. What it did is written down as a **capability**: a
-typed, reviewable recipe an AI agent can call with arguments. After that the task
-runs from the recipe with no model in the loop — seconds instead of minutes,
-nothing instead of cents.
+**The problem.** Banks run old back-office systems with no API. The only way to
+automate them is to click through the screens. You can have an AI model do that,
+but it is slow (about 2 minutes a task), it costs money every time, and it can
+make a different mistake each time it runs.
 
-Before any of that, the LLM reads the whole application once and writes down a
-**map**: the screens, the controls, the fields, the tables, and what each of the
-application's messages means. The map is what lets the system do tasks nobody
-ever demonstrated.
+**The idea.** Let the AI do the work once, write down what worked, and then stop
+using the AI.
 
-**Measured on 100 tasks across eight difficulty tiers, and on 74 more the system
-had never seen:**
+1. **Map the app once.** The AI walks through the whole application one time and
+   writes down a **map**: every screen, button, field and table, and what each
+   error message means (for example, "record in use" means wait and try again).
+2. **Learn a task once.** The first time someone asks for a task, the AI does it
+   on the real screens. The steps that worked are saved as a **capability**: a
+   plain recipe with inputs (like a member number) and outputs (like a balance).
+3. **Replay without the AI.** After that, the task runs straight from the recipe
+   in a real browser with no AI involved. It takes about 7 seconds and costs
+   nothing. The map also lets the system build recipes for tasks nobody has shown
+   it yet.
+4. **Stop when unsure.** If the replay hits something it does not recognise, it
+   stops and hands the task back to the AI or a person instead of guessing.
+
+**How it did.** Tested on 100 tasks at eight difficulty levels, plus 74 tasks the
+system had never seen. Every answer is checked by code against the data the app
+actually holds, with no AI grading:
 
 | | tasks answered | model calls | cost | per task |
 |---|---|---|---|---|
-| a model every time | 85 / 100 | 3,612 | $33.59 | ~2 min |
-| **no model at all** — recipes and map | **52 / 100** | **0** | **$0.00** | 7 sec |
-| **no model, on 74 unseen tasks** | **57 / 74** | **0** | **$0.00** | 7 sec |
+| AI every time | 85 / 100 | 3,612 | $33.59 | ~2 min |
+| **no AI**, recipes and map | **52 / 100** | **0** | **$0.00** | 7 sec |
+| **no AI**, 74 unseen tasks | **57 / 74** | **0** | **$0.00** | 7 sec |
 
-Those 52 tasks cost about $12 of model time when a model did them. The map that
-makes them free cost $9.72, once.
+"Per task" means each task, run on its own in a real (headless) Chrome browser
+against the live app. The 74 unseen tasks took about 6 minutes in total.
 
-**Across all 174 tasks the free path never gave a wrong answer.** When it cannot
-be certain of the answer it stops and hands the task to the model rather than
-guessing — which is the only reason the cost saving is worth anything to a bank.
+Those 52 tasks cost about $12 when the AI did them. Building the map that makes
+them free cost $9.72, once.
+
+**Across all 174 tasks, the no-AI path never gave a wrong answer.** The tasks it
+missed, it stopped on and handed back. It did not guess. That matters more to a
+bank than the cost saving.
 
 The design write-up is in [REPORT.md](REPORT.md).
 
@@ -110,8 +125,8 @@ PYTHONPATH=. .venv/bin/python tools/check_holdout.py
 
 ## The demo path: discover, then replay
 
-This is the loop the whole system exists for. The first command costs model time;
-the second does not.
+This is the whole idea in two commands. The first one uses the AI; the second
+does not.
 
 ```bash
 # 1. An LLM works out a task it has never seen and records what it did.
@@ -161,7 +176,7 @@ understudy/
   solve.py        the ladder: recipe, then map, then model
   artifact/       the capability schema — the contract an agent calls
   replay/         deterministic execution, recoveries, structured results
-  loop/           the LLM discovery loop and the surveyor
+  discovery/      the AI learns a task, and the mapper surveys the app
   surface/        the browser surface: accessibility tree, locator strategies
   policy.py       allowlist, irreversible actions, what needs a person
   handoff.py      handing the live session to a human, and taking it back

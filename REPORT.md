@@ -1,8 +1,7 @@
 # Understudy — design write-up
 
 An LLM works out a task on a legacy banking screen once. What it did becomes a
-typed capability an AI agent can call. After that the task runs with no model in
-the loop.
+typed capability an AI agent can call. After that the task runs with no model at all.
 
 That is the brief's own through-line, so the interesting question is not whether
 it can be built but **how much of a real workload it actually covers, and what it
