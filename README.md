@@ -47,20 +47,17 @@ them free cost $9.72, once.
 missed, it stopped on and handed back. It did not guess. That matters more to a
 bank than the cost saving.
 
-## Why this is better than the usual options
+## Why this is better than running an AI agent every time
 
-There are two usual ways to automate a screen-only app, and each fails a bank in
-a different way:
-
-| | AI agent every time | Hand-written scripts (RPA) | **Understudy** |
-|---|---|---|---|
-| Who works out the steps | the AI, every run | a person, for every task | the AI, once per task |
-| Speed | ~2 min a task | fast | ~7 sec a task |
-| Cost per run | model calls every time | none | none after the first run |
-| Same steps every run | no, it can choose differently | yes | yes |
-| New task nobody set up | yes | no, someone has to script it | often, from the map (45 of 57 unseen tasks answered) |
-| Knows what an error message means | re-guesses each time | only what someone coded | decided once per app, reused by every task |
-| When unsure | may guess | breaks or carries on blindly | stops and hands over |
+| | AI agent every time | **Understudy** |
+|---|---|---|
+| Who works out the steps | the AI, every run | the AI, once per task |
+| Speed | ~2 min a task | ~7 sec a task |
+| Cost per run | model calls every time | none after the first run |
+| Same steps every run | no, it can choose differently | yes |
+| New task nobody set up | yes | often, from the map (45 of 57 unseen tasks answered) |
+| Knows what an error message means | re-guesses each time | decided once per app, reused by every task |
+| When unsure | may guess | stops and hands over |
 
 Understudy uses the AI for what it is good at (working out something new) and
 plain code for the rest (doing the same thing again, fast and the same way).
