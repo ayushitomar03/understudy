@@ -8,8 +8,10 @@ automate them is to click through the screens. You can have an AI model do that,
 but it is slow (about 2 minutes a task), it costs money every time, and it can
 make a different mistake each time it runs.
 
-**The idea.** Let the AI do the work once, write down what worked, and then stop
-using the AI.
+**The idea.** The AI figures a task out, and plain code repeats it. Working out
+a new task needs judgement, so the AI does that. Doing a known task again doesn't,
+so a saved recipe does it: fast, free, and the same way every time. The AI stays
+on call for new tasks and for anything the recipe isn't sure about.
 
 1. **Map the app once.** The AI walks through the whole application one time and
    writes down a **map**: every screen, button, field and table, and what each
@@ -35,7 +37,8 @@ actually holds, with no AI grading:
 | **no AI**, 74 unseen tasks | **57 / 74** | **0** | **$0.00** | 7 sec |
 
 "Per task" means each task, run on its own in a real (headless) Chrome browser
-against the live app. The 74 unseen tasks took about 6 minutes in total.
+against the live app. The 74 unseen tasks take about 6 minutes run one after
+another, or about 90 seconds with 4 running side by side.
 
 Those 52 tasks cost about $12 when the AI did them. Building the map that makes
 them free cost $9.72, once.
@@ -43,6 +46,55 @@ them free cost $9.72, once.
 **Across all 174 tasks, the no-AI path never gave a wrong answer.** The tasks it
 missed, it stopped on and handed back. It did not guess. That matters more to a
 bank than the cost saving.
+
+## Why this is better than the usual options
+
+There are two usual ways to automate a screen-only app, and each fails a bank in
+a different way:
+
+| | AI agent every time | Hand-written scripts (RPA) | **Understudy** |
+|---|---|---|---|
+| Who works out the steps | the AI, every run | a person, for every task | the AI, once per task |
+| Speed | ~2 min a task | fast | ~7 sec a task |
+| Cost per run | model calls every time | none | none after the first run |
+| Same steps every run | no, it can choose differently | yes | yes |
+| New task nobody set up | yes | no, someone has to script it | often, from the map (45 of 57 unseen tasks answered) |
+| Knows what an error message means | re-guesses each time | only what someone coded | decided once per app, reused by every task |
+| When unsure | may guess | breaks or carries on blindly | stops and hands over |
+
+Understudy uses the AI for what it is good at (working out something new) and
+plain code for the rest (doing the same thing again, fast and the same way).
+
+## Why it works
+
+1. **These apps change slowly.** Bank back-office screens stay the same for
+   years. Steps that worked once keep working, so recording once and replaying
+   many times is safe here, even though it would not be on a website that
+   changes every week.
+2. **Controls are found the way a person finds them.** Legacy apps have no
+   stable IDs. A recipe finds each field by what is on screen, such as "the box
+   after the text *Member No*", and every locator was tested on the real page
+   when it was saved.
+3. **Every step is checked.** After each click, replay confirms it reached the
+   screen it expected. At the end it checks the success condition before
+   returning an answer. A step that did nothing cannot quietly pass as success.
+4. **Error messages are understood once, not guessed every time.** The map
+   records what each message means: *NO MEMBER ON FILE* is a real answer,
+   *MUST BE NUMERIC* means the input was wrong, *RECORD IN USE* means wait and
+   retry, *NOT AUTHORISED* means stop. An AI asked about the same screen twice
+   gave two different answers, so the map decides once and every task uses it.
+5. **Every layer is allowed to say "not sure", and none is allowed to guess.**
+   Understudy tries the free options first: a saved recipe, then a plan built
+   from the map. If either one is unsure, it passes the task to the AI, and the
+   AI can pass it to a person. The worst case costs the same as using the AI
+   every time. The best case costs nothing. That is why the no-AI path answered
+   109 of 174 tasks and got none wrong.
+
+**Limits, stated plainly.** The survey that built the map ran on a quiet copy of
+the app. Of the runtime problems it can handle, the only one it actually saw was
+session expiry. The code for the others (record in use, maintenance notice,
+supervisor approval) is built and covered by tests, but the map has no example
+of them yet. See [REPORT.md §3 and §7](REPORT.md).
 
 The design write-up is in [REPORT.md](REPORT.md).
 
