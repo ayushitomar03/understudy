@@ -286,27 +286,14 @@ that a person is present. A data-changing flow abandoned half-way has no undo.
 
 ## 7. Cuts
 
-**Cut, and why.**
+**Left out**
 
-- **A self-improving loop** (judge, proposer, repair cycle, orchestrator,
-  dashboard; about 1,800 lines). It worked, but did not move the number that
-  matters: the no-model setup scores 52/100 without what it learned and 51/100
-  with it. It made the system harder to reason about, so it was removed.
-- **A second tenant and a desktop surface.** Designed (§4), not built.
-- **Screenshot-and-coordinates targeting.** The accessibility tree covered this
-  app; a second way of seeing would have been breadth over depth.
+- A self-improving loop that rewrote recipes after failures. It did not improve
+  results, so it was removed.
+- Desktop support and a second bank's copy of the app (designed in §4, not built).
 
-**Next, in the order the numbers justify.**
+**Next**
 
-1. **A survey that knows when it is done.** The same command mapped 16 screens
-   one run and 3 the next, and 12 of the 17 unseen-task misses are the map
-   missing a screen or field. Stop only when no mapped control leads somewhere
-   unvisited.
-2. **Finish the handback** (§5) with a real person.
-3. **Treat "nothing found" as an answer.** `NO ITEMS POSTED IN PERIOD.` means zero;
-   two unseen tasks fail on this.
-4. **Test a new recipe by replaying it once** with different inputs, instead of
-   judging it by the shape of its locators.
-
-The system is cheap because it knows what it does not know: with no model, it
-answered 109 of 174 tasks, refused the rest, and was never wrong.
+1. Make the map survey keep going until every screen has been visited. Most
+   unseen-task misses are screens the map never saw.
+2. Show a real person taking over the session and handing it back (§5).
