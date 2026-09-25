@@ -30,37 +30,27 @@ Two things are learned once and reused:
   saved as a typed capability (§2), keyed by the goal with its inputs masked, so
   "member 40021's balance" and "member 40055's balance" share one recipe.
 
-How the parts connect. `solve()` tries a saved recipe, then a plan from the map,
-and only then the AI (the step-by-step flow is drawn in the README):
+How the parts connect:
 
 ```mermaid
 flowchart TD
-    Caller(["<b>AI agent</b> asks for a task"]) --> Solve["<b>solve()</b><br/>recipe → map → AI"]
+    A(["<b>An AI agent asks for a task</b>"]) --> S["<b>solve()</b><br/>picks the cheapest way to do it"]
+    S -- "known task" --> R["<b>Replay</b><br/>runs saved steps · no AI"]
+    S -- "new task" --> D["<b>Discovery</b><br/>the AI works it out"]
+    R --> P["<b>Safety check</b><br/>allowlist · risky actions"]
+    D --> P
+    P --> L[("<b>The legacy app</b>")]
 
-    Solve -- "has a recipe or a plan" --> Replay["<b>Replay</b><br/>runs the steps, no AI"]
-    Solve -- "neither works" --> Disc["<b>Discovery</b><br/>the AI does the task"]
-
-    Map[("<b>Map</b><br/>one per app")] -. "plans + error meanings" .-> Solve
-    Recipes[("<b>Recipes</b><br/>one per task")] -. "saved steps" .-> Solve
-    Disc -. "saves a new recipe" .-> Recipes
-
-    Replay --> Policy["<b>Policy</b><br/>allowlist · risky actions"]
-    Disc --> Policy
-    Policy --> Surface["<b>Surface</b><br/>reads & clicks the screen"]
-    Surface --> App[("<b>Legacy app</b>")]
-
-    Disc -- "stuck or needs approval" --> Human(["<b>Person</b><br/>takes the same session"])
-    Human -- "hands back" --> Disc
-
-    classDef ai fill:#fde8cf,stroke:#d9822b,color:#321;
     classDef free fill:#d9f2e3,stroke:#2e8b57,color:#123;
-    classDef store fill:#e6eefc,stroke:#4a6fb5,color:#123;
+    classDef ai fill:#fde8cf,stroke:#d9822b,color:#321;
     classDef other fill:#f2f2f2,stroke:#777,color:#222;
-    class Disc ai;
-    class Replay free;
-    class Map,Recipes store;
-    class Caller,Solve,Policy,Surface,App,Human other;
+    class R free;
+    class D ai;
+    class A,S,P,L other;
 ```
+
+Replay and discovery both use the map and the saved recipes. Discovery can hand
+the live session to a person (§5).
 
 **The rule: each step may refuse, none may guess.** A refusal just passes the task
 down, so accuracy is set by the model at the bottom and the free steps only decide
