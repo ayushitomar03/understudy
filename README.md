@@ -91,7 +91,7 @@ plain code for the rest (doing the same thing again, fast and the same way).
 the app. Of the runtime problems it can handle, the only one it actually saw was
 session expiry. The code for the others (record in use, maintenance notice,
 supervisor approval) is built and covered by tests, but the map has no example
-of them yet. See [REPORT.md §3 and §7](REPORT.md).
+of them yet. See [REPORT.md §3](REPORT.md).
 
 The design write-up is in [REPORT.md](REPORT.md).
 
@@ -266,4 +266,4 @@ evidence/
 `evidence/runs/` holds 2,178 raw runs and 378MB of screenshots; it is not
 committed. The five runs worth reading are copied into `evidence/demo/`.
 Earlier iterations' results and capabilities for targets this repository does
-not ship are also left out — see REPORT.md §7.
+not ship are also left out.

@@ -281,19 +281,3 @@ trip with a real person has not been demonstrated.
 can still type a wrong but permitted value. Redaction is pattern-based, so an
 unusual PII format could reach a log. Attended mode trusts the caller's claim
 that a person is present. A data-changing flow abandoned half-way has no undo.
-
----
-
-## 7. Cuts
-
-**Left out**
-
-- A self-improving loop that rewrote recipes after failures. It did not improve
-  results, so it was removed.
-- Desktop support and a second bank's copy of the app (designed in §4, not built).
-
-**Next**
-
-1. Make the map survey keep going until every screen has been visited. Most
-   unseen-task misses are screens the map never saw.
-2. Show a real person taking over the session and handing it back (§5).
