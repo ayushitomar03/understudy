@@ -43,24 +43,32 @@ typed recipe (§2). It is filed under the *shape* of the goal, with argument
 values masked out, so "member 40021's balance" and "member 40055's balance" are
 one entry asked twice.
 
-**The ladder** — `solve()` tries the cheapest thing first:
+**The ladder** — `solve()` tries the free options first and uses the model
+only when they cannot answer:
 
 ```
-a recipe for this shape ──▶ replay ──▶ clean? ──▶ done, nothing spent
-        │                      │
-    none yet                 failed, recipe dropped
-        └──────────┬───────────┘
-                   ▼
-   a plan built from the map ──▶ replay ──▶ clean? ──▶ done, nothing spent
-                   │                          │
-               refused                      failed
-                   └────────────┬─────────────┘
-                                ▼
-                   the model, holding the map
+                         a task comes in
                                 │
                                 ▼
-                   recorded, and free from then on
+ 1. Saved recipe for this kind of task? ── yes ─▶ replay ─▶ worked? ── yes ─▶ answer, $0
+                                │                             │
+                          no    │◀──────────── no ────────────┘
+                                ▼
+ 2. Can the map build a plan?  ─────────── yes ─▶ replay ─▶ worked? ── yes ─▶ answer, $0
+                                │                             │
+                          no    │◀──────────── no ────────────┘
+                                ▼
+ 3. The model does the task, with the map to help ──────────────────────────▶ answer, paid
+                                │
+                                ▼
+    its steps are saved as a recipe (if they will work for other inputs),
+    so next time step 1 answers it for $0
 ```
+
+A recipe that fails in step 1 is thrown away so step 3 can record a better
+one. When no model is allowed (the benchmark's no-model setup, arm D), step 3
+does not run: the task stops and is handed back with the reason, and the
+failing recipe is kept.
 
 **The rule that makes this safe: each rung may refuse, but none may lie.** The
 model sits underneath as the floor, so the success rate is whatever the model
