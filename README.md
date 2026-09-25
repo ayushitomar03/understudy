@@ -197,23 +197,39 @@ PYTHONPATH=. .venv/bin/python tools/map_app.py --app http://localhost:8090   # ~
 PYTHONPATH=. .venv/bin/python tools/map_tables.py                            # free, 30 sec
 ```
 
-## Comparing the arms yourself
+## Reproducing the benchmark
 
-The four arms differ only in what the system is allowed to remember:
+The benchmark runs the same 100 tasks four ways, to measure what each part of
+the system adds. The code and results files call each way an "arm" (A–D).
 
-| arm | map | recipes | model |
+| | What it is allowed to use | The question it answers | Result |
 |---|---|---|---|
-| A | – | – | every task |
-| B | yes | – | every task |
-| C | yes | yes | only when the free path declines |
-| D | yes | yes | **never** |
+| **A** | the AI on every task, nothing else | How well does an AI agent do on its own? This is the baseline. | 85/100, $33.59 |
+| **B** | the AI on every task, plus the map | Does the map help the AI? | 87/100, $29.28 |
+| **C** | starts with nothing saved. Tries a saved recipe first, uses the AI if there isn't one, and saves every new success | Does learning as it goes cut the cost without losing accuracy? | 84/100, $25.84, 21 tasks answered with no AI |
+| **D** | no AI at all. Only the recipes C saved, plus plans built from the map | What can the system do once it has seen the app, with no AI? | 52/100, $0, no wrong answers |
+
+How to read it:
+
+- **A vs B:** giving the AI the map makes it cheaper (3,104 model calls instead of
+  3,612) and no less accurate.
+- **A vs C:** learning as it goes costs 23% less for about the same accuracy.
+- **D:** the no-AI path on its own. It answers half the tasks for free and stops
+  on the rest instead of guessing. The unseen-task result in the table at the
+  top (57/74) is D run on 74 tasks that no recipe was made from.
+
+To run it yourself:
 
 ```bash
-PYTHONPATH=. .venv/bin/python tools/arms.py --arms A,B,C,D --workers 4   # ~$74, ~3 hours
-PYTHONPATH=. .venv/bin/python tools/arms.py --pilot 12 --arms A,B,C      # ~$9, 20 min
+# All four setups on all 100 tasks (~$74, ~3 hours)
+PYTHONPATH=. .venv/bin/python tools/arms.py --arms A,B,C,D --workers 4
+
+# A smaller trial: 12 tasks, the three setups that use the AI (~$9, ~20 min)
+PYTHONPATH=. .venv/bin/python tools/arms.py --pilot 12 --arms A,B,C
 ```
 
-Results land in `evidence/arms.json` and `evidence/arms-holdout.json`.
+Results are written to `evidence/arms.json` (the 100 tasks) and
+`evidence/arms-holdout.json` (the 74 unseen tasks).
 
 ## What is where
 
