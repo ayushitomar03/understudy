@@ -30,37 +30,37 @@ Two things are learned once and reused:
   saved as a typed capability (§2), keyed by the goal with its inputs masked, so
   "member 40021's balance" and "member 40055's balance" share one recipe.
 
-Every task goes through three steps. The first two cost nothing. The AI is only
-used when both of them can't answer:
+How the parts connect. `solve()` tries a saved recipe, then a plan from the map,
+and only then the AI (the step-by-step flow is drawn in the README):
 
 ```mermaid
 flowchart TD
-    A(["<b>A task comes in</b> · e.g. savings balance for member 40055"])
+    Caller(["<b>AI agent</b> asks for a task"]) --> Solve["<b>solve()</b><br/>recipe → map → AI"]
 
-    A --> B["<b>Step 1</b> · Done this kind of task before?"]
-    B -- "Yes: replay the saved recipe" --> F1(["<b>Answer</b> · no AI · free · ~7 sec"])
-    B -- "No, or the replay failed" --> C
+    Solve -- "has a recipe or a plan" --> Replay["<b>Replay</b><br/>runs the steps, no AI"]
+    Solve -- "neither works" --> Disc["<b>Discovery</b><br/>the AI does the task"]
 
-    C["<b>Step 2</b> · Can the app's map work out the steps?"]
-    C -- "Yes: replay the plan" --> F2(["<b>Answer</b> · no AI · free · ~7 sec"])
-    C -- "No, or the replay failed" --> D
+    Map[("<b>Map</b><br/>one per app")] -. "plans + error meanings" .-> Solve
+    Recipes[("<b>Recipes</b><br/>one per task")] -. "saved steps" .-> Solve
+    Disc -. "saves a new recipe" .-> Recipes
 
-    D["<b>Step 3</b> · The AI does the task on the real screens"]
-    D --> P(["<b>Answer</b> · AI · paid · ~2 min"])
-    D -. "saves its steps as a recipe, so next time Step 1 answers it" .-> B
+    Replay --> Policy["<b>Policy</b><br/>allowlist · risky actions"]
+    Disc --> Policy
+    Policy --> Surface["<b>Surface</b><br/>reads & clicks the screen"]
+    Surface --> App[("<b>Legacy app</b>")]
 
+    Disc -- "stuck or needs approval" --> Human(["<b>Person</b><br/>takes the same session"])
+    Human -- "hands back" --> Disc
+
+    classDef ai fill:#fde8cf,stroke:#d9822b,color:#321;
     classDef free fill:#d9f2e3,stroke:#2e8b57,color:#123;
-    classDef paid fill:#fde8cf,stroke:#d9822b,color:#321;
-    classDef step fill:#e6eefc,stroke:#4a6fb5,color:#123;
-    classDef start fill:#f2f2f2,stroke:#777,color:#222;
-    class F1,F2 free;
-    class D,P paid;
-    class B,C step;
-    class A start;
+    classDef store fill:#e6eefc,stroke:#4a6fb5,color:#123;
+    classDef other fill:#f2f2f2,stroke:#777,color:#222;
+    class Disc ai;
+    class Replay free;
+    class Map,Recipes store;
+    class Caller,Solve,Policy,Surface,App,Human other;
 ```
-
-A recipe is only saved if it will also work for other inputs (§2). This is
-`solve()` in `understudy/solve.py`.
 
 **The rule: each step may refuse, none may guess.** A refusal just passes the task
 down, so accuracy is set by the model at the bottom and the free steps only decide
