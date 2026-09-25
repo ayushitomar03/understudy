@@ -30,26 +30,37 @@ Two things are learned once and reused:
   saved as a typed capability (§2), keyed by the goal with its inputs masked, so
   "member 40021's balance" and "member 40055's balance" share one recipe.
 
-`solve()` tries the free options first:
+Every task goes through three steps. The first two cost nothing. The AI is only
+used when both of them can't answer:
 
+```mermaid
+flowchart TD
+    A(["<b>A task comes in</b> · e.g. savings balance for member 40055"])
+
+    A --> B["<b>Step 1</b> · Done this kind of task before?"]
+    B -- "Yes: replay the saved recipe" --> F1(["<b>Answer</b> · no AI · free · ~7 sec"])
+    B -- "No, or the replay failed" --> C
+
+    C["<b>Step 2</b> · Can the app's map work out the steps?"]
+    C -- "Yes: replay the plan" --> F2(["<b>Answer</b> · no AI · free · ~7 sec"])
+    C -- "No, or the replay failed" --> D
+
+    D["<b>Step 3</b> · The AI does the task on the real screens"]
+    D --> P(["<b>Answer</b> · AI · paid · ~2 min"])
+    D -. "saves its steps as a recipe, so next time Step 1 answers it" .-> B
+
+    classDef free fill:#d9f2e3,stroke:#2e8b57,color:#123;
+    classDef paid fill:#fde8cf,stroke:#d9822b,color:#321;
+    classDef step fill:#e6eefc,stroke:#4a6fb5,color:#123;
+    classDef start fill:#f2f2f2,stroke:#777,color:#222;
+    class F1,F2 free;
+    class D,P paid;
+    class B,C step;
+    class A start;
 ```
-                         a task comes in
-                                │
-                                ▼
- 1. Saved recipe for this kind of task? ── yes ─▶ replay ─▶ worked? ── yes ─▶ answer, $0
-                                │                             │
-                          no    │◀──────────── no ────────────┘
-                                ▼
- 2. Can the map build a plan?  ─────────── yes ─▶ replay ─▶ worked? ── yes ─▶ answer, $0
-                                │                             │
-                          no    │◀──────────── no ────────────┘
-                                ▼
- 3. The model does the task, with the map to help ──────────────────────────▶ answer, paid
-                                │
-                                ▼
-    its steps are saved as a recipe (if they will work for other inputs),
-    so next time step 1 answers it for $0
-```
+
+A recipe is only saved if it will also work for other inputs (§2). This is
+`solve()` in `understudy/solve.py`.
 
 **The rule: each step may refuse, none may guess.** A refusal just passes the task
 down, so accuracy is set by the model at the bottom and the free steps only decide
@@ -176,21 +187,45 @@ the locator that broke, never as a wrong answer.
 
 ## 4. Heterogeneity & multi-tenant
 
-**Other surfaces.** Everything above the `Surface` interface (`observe, navigate,
-click, type, select, read, resolve`) works on the accessibility tree, which
-desktop automation layers also expose. A desktop app needs a new `Surface`, not a
-new replayer. Three of the four locator types are surface-neutral; CSS is not.
+The brief asks two things here. Will this work on apps that aren't modern
+websites? And can hundreds of banks running the same product share one recipe,
+instead of each recording their own?
 
-**Tenants on the same product.** A recipe is tied to the *product*, not the URL,
-and the URL is swapped in at replay. This was learned from a bug: when recipes
-were keyed by URL, every replay on a second instance was blocked at step one, and
-the no-model score was 23. Keying by product raised it to 43, and is the same
-change that lets one recipe serve many tenants.
+**Other kinds of apps.** The system never reads HTML. It works from the
+accessibility tree, the list of buttons, fields and labels that screen readers
+use, and desktop apps expose the same kind of list through the operating system.
+Only the bottom layer, which looks at the screen and clicks, is tied to the
+browser:
 
-**Branding and version differences** would be handled by a per-tenant overlay: the
-shared recipe plus a small set of changed anchors, with an unmatched anchor
-causing a refusal, not a wrong answer. **Designed, not demonstrated:** no second
-tenant was set up.
+```
+   recipes · map · replay · safety rules     ← the same for every kind of app
+  ────────────────────────────────────────
+   Surface: observe · click · type · read    ← the only part that changes
+  ────────────────────────────────────────
+   browser (built)      │   desktop app (not built)
+```
+
+A desktop app needs a new `Surface`, and existing recipes carry over, except
+steps that used a CSS selector (the last-resort locator), which only exists in a
+browser. The target app is already the hard web case: frames, tables nested four
+deep, inputs with no labels, image buttons.
+
+**Many banks on the same product.** A recipe is tied to the *product*, not to one
+bank's URL, and each bank's URL is swapped in at replay. This came from a bug:
+when recipes were tied to a URL, the safety rules blocked every replay on a second
+copy of the app at its first step, and the no-model score was 23/100. Tying
+recipes to the product raised it to 43.
+
+Where one bank's copy differs (other wording, a newer version), a per-bank
+**overlay** stores only the difference: its URL, and replacements for the few
+locators that don't match. The shared recipe is untouched. If a locator doesn't
+match and there's no overlay for it, replay stops with `control_not_found`
+instead of returning a wrong answer.
+
+**Built vs. shown.** The `Overlay` type is built and tested, and
+`cli.py replay --tenant name=url` applies one. No second, differently branded
+copy of the app was set up, so replacing locators for another bank has not been
+demonstrated.
 
 ---
 
