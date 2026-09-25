@@ -14,15 +14,18 @@ from __future__ import annotations
 
 import re
 import subprocess
+import sys
 import time
 import urllib.request
 from dataclasses import dataclass, field
+from pathlib import Path
 
 from understudy.policy import for_app
 
 APP = "http://localhost:8090"
 CREDENTIALS = {"uid": "tlr01", "pwd": "vault"}
 BASE_PORT = 8100
+APP_SOURCE = Path(__file__).resolve().parent.parent / "targets" / "meridian" / "app.py"
 
 
 @dataclass
@@ -98,7 +101,10 @@ def start_apps(n: int) -> list[str]:
     procs, urls = [], []
     for i in range(n):
         port = BASE_PORT + i
-        subprocess.Popen([".venv/bin/python", "targets/meridian/app.py", str(port)],
+        # The interpreter running the harness, not a hardcoded path: a reviewer
+        # whose virtualenv lives anywhere else got FileNotFoundError on the first
+        # command the README tells them to run.
+        subprocess.Popen([sys.executable, str(APP_SOURCE), str(port)],
                          stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         urls.append(f"http://localhost:{port}")
     for url in urls:                          # wait for each to answer
